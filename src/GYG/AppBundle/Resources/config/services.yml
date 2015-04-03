@@ -1,0 +1,4 @@
+services:
+#    gyg_app.example:
+#        class: GYG\AppBundle\Example
+#        arguments: [@service_id, "plain_value", %parameter%]
