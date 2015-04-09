@@ -11,14 +11,14 @@ gulp.task('sass', function() {
 });
 
 gulp.task('reload', function() {
-    return gulp.src(['app/**', 'src/**', '!app/cache/**', '!app/cache/logs/**'])
+    return gulp.src(['src/**'])
         .pipe(livereload());
 });
 
 gulp.task('watch', function() {
     livereload.listen();
     gulp.watch(['web/sass/*.scss', 'web/css/*.css'], ['sass']);
-    gulp.watch(['app/**', 'src/**', '!app/cache/**', '!app/cache/logs/**'], ['reload']);
+    gulp.watch(['src/**'], ['reload']);
 });
 
 gulp.task('default', ['sass', 'reload', 'watch']);
