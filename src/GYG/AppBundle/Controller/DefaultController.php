@@ -10,4 +10,10 @@ class DefaultController extends Controller
     {
         return $this->render('GYGAppBundle:Default:index.html.twig', array('name' => $name));
     }
+
+    public function adminAction()
+    {
+        return $this->render('GYGAppBundle:Default:admin.html.twig', array());
+    }
+
 }

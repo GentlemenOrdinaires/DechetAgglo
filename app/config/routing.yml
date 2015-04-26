@@ -1,3 +1,10 @@
+gyg_user:
+    resource: "@GYGUserBundle/Resources/config/routing.yml"
+    prefix:   /
+
 gyg_app:
     resource: "@GYGAppBundle/Resources/config/routing.yml"
     prefix:   /
+
+fos_user:
+    resource: "@FOSUserBundle/Resources/config/routing/all.xml"
