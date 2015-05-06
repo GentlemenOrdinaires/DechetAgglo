@@ -1,3 +1,11 @@
 gyg_app_homepage:
     path:     /hello/{name}
     defaults: { _controller: GYGAppBundle:Default:index }
+
+gyg_app_api_test:
+    path:   /api/test
+    defaults:  { _controller: GYGAppBundle:Api:test }
+
+gyg_app_api_location:
+    path:   /api/trajet/{location}
+    defaults:  { _controller: GYGAppBundle:Api:getLocation }
