@@ -13,7 +13,10 @@ class PointApportType extends AbstractType
     {
         $builder
             ->add('infos','textarea',[
-                'label' => 'Informations'
+                'label' => 'Informations',
+                'attr' => [
+                    'class' => 'ckeditor'
+                ]
             ])
             ->add('photo','file',[
                 'label' => 'Photo',
