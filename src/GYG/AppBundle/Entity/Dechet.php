@@ -16,6 +16,7 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\MappedSuperclass
  */
 abstract class Dechet {
+
     /**
      *
      * @var integer @ORM\Column(name="id", type="integer", nullable=false)

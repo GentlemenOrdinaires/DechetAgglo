@@ -6,3 +6,10 @@ gyg_app_adminpage:
     path:     /admin
     defaults: { _controller: GYGAppBundle:Default:admin }
 
+gyg_app_add_point_apport_aerien:
+  path: /add_point_apport_aerien
+  defaults: { _controller: GYGAppBundle:PointApportAerien:add }
+
+gyg_app_add_point_apport_enterre:
+  path: /add_point_apport_enterre
+  defaults: { _controller: GYGAppBundle:PointApportEnterre:add }
