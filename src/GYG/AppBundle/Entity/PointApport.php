@@ -13,9 +13,17 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * Class PointApport
  * @package GYG\AppBundle\Entity
- * @ORM\MappedSuperclass
+ * @ORM\Table(name="point_apport")
+ * @ORM\Entity()
+ * @ORM\InheritanceType("SINGLE_TABLE")
+ * @ORM\DiscriminatorColumn(name="discriminator", type="string")
+ * @ORM\DiscriminatorMap({"aerien" = "GYG\AppBundle\Entity\PointApport\Aerien",
+ * "enterre" = "GYG\AppBundle\Entity\PointApport\Enterre",
+ * "dechet-soin" = "GYG\AppBundle\Entity\PointApport\DechetSoin",
+ * "textile" = "GYG\AppBundle\Entity\PointApport\Textile"})
  */
-abstract class PointApport extends Mapable{
+abstract class PointApport extends Mapable
+{
 
     /**
      * @var String  @ORM\Column(name="infos", type="string", length=255, nullable=true)
