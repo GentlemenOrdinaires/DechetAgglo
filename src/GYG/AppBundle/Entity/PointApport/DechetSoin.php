@@ -14,9 +14,10 @@ use GYG\AppBundle\Entity\PointApport;
 /**
  * Class DechetSoin
  * @package GYG\AppBundle\Entity
- * @ORM\Table(name="point_apport_dechet_soin")
  * @ORM\Entity()
  */
-class DechetSoin extends PointApport{
+class DechetSoin extends PointApport
+{
+    const DISCRIMINATOR = 'dechet-soin';
 
 } 

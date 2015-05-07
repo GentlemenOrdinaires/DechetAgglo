@@ -14,14 +14,14 @@ use GYG\AppBundle\Entity\Dechet;
 /**
  * Class Verre
  * @package GYG\AppBundle\Entity\Dechet
- * @ORM\Table(name="dechet_verre")
  * @ORM\Entity()
  */
 class Verre extends Dechet{
+    const DISCRIMINATOR = 'verre';
 
     function __construct()
     {
         $this->setCouleur('green');
         $this->setLibelle('Verre');
     }
-} 
+}

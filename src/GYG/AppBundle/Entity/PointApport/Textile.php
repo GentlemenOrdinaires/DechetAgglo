@@ -14,9 +14,9 @@ use GYG\AppBundle\Entity\PointApport;
 /**
  * Class Textile
  * @package GYG\AppBundle\Entity
- * @ORM\Table(name="point_apport_textile")
  * @ORM\Entity()
  */
-class Textile extends PointApport{
-
+class Textile extends PointApport
+{
+    const DISCRIMINATOR = 'textile';
 } 

@@ -14,10 +14,10 @@ use GYG\AppBundle\Entity\Dechet;
 /**
  * Class PapierCarton
  * @package GYG\AppBundle\Entity\Dechet
- * @ORM\Table(name="dechet_papier_carton")
  * @ORM\Entity()
  */
 class PapierCarton extends Dechet {
+    const DISCRIMINATOR = 'papier-carton';
 
     function __construct()
     {

@@ -13,15 +13,26 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * Class Dechet
  * @package GYG\AppBundle\Entity
- * @ORM\MappedSuperclass
+ * @ORM\Table(name="dechet")
+ * @ORM\Entity()
+ * @ORM\InheritanceType("SINGLE_TABLE")
+ * @ORM\DiscriminatorColumn(name="discriminator", type="string")
+ * @ORM\DiscriminatorMap({"menager" = "GYG\AppBundle\Entity\Dechet\Menager",
+ * "metallique" = "GYG\AppBundle\Entity\Dechet\Metallique",
+ * "papier-carton" = "GYG\AppBundle\Entity\Dechet\PapierCarton",
+ * "plastique" = "GYG\AppBundle\Entity\Dechet\Plastique",
+ * "verre" = "GYG\AppBundle\Entity\Dechet\Verre"})
+ *
  */
-abstract class Dechet {
 
+abstract class Dechet
+{
     /**
      *
      * @var integer @ORM\Column(name="id", type="integer", nullable=false)
-     *      @ORM\Id
-     *      @ORM\GeneratedValue(strategy="IDENTITY")
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="IDENTITY")
+     *
      */
     protected $id;
 
