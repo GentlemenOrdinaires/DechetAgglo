@@ -17,6 +17,28 @@ class PointApportEnterreController extends Controller
         $form = $this->createForm(new PointApportType(), $pointApportEnterre);
 
         if ($form->handleRequest($request)->isValid()) {
+            $dechets = [];
+            foreach($_POST['gyg_appbundle_pointapport']['dechets'] as $key => $value){
+                switch ($value){
+                    case 'menager':
+                        $dechets[] = new Menager();
+                        break;
+                    case 'metallique':
+                        $dechets[] = new Metallique();
+                        break;
+                    case 'papierCarton':
+                        $dechets[] = new PapierCarton();
+                        break;
+                    case 'plastique':
+                        $dechets[] = new Plastique();
+                        break;
+                    case 'verre':
+                        $dechets[] = new Verre();
+                        break;
+                }
+            }
+            $pointApportAerien->setDechets($dechets);
+
             $em = $this->getDoctrine()->getManager();
             $em->persist($pointApportEnterre);
             $em->flush();

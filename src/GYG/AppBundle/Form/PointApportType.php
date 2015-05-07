@@ -33,7 +33,7 @@ class PointApportType extends AbstractType
                         'metallique' => 'Déchets métalliques',
                         'papierCarton' => 'Papiers/Cartons',
                         'plastique' => 'Plastiques',
-                        'vere' => 'Verre',
+                        'verre' => 'Verre',
                     ],
                     'empty_value' => 'Choisissez un type de déchets',
                     'empty_data' => null

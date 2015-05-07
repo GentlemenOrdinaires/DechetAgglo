@@ -2,6 +2,11 @@
 
 namespace GYG\AppBundle\Controller;
 
+use GYG\AppBundle\Entity\Dechet\Menager;
+use GYG\AppBundle\Entity\Dechet\Metallique;
+use GYG\AppBundle\Entity\Dechet\PapierCarton;
+use GYG\AppBundle\Entity\Dechet\Plastique;
+use GYG\AppBundle\Entity\Dechet\Verre;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
@@ -17,6 +22,28 @@ class PointApportAerienController extends Controller
         $form = $this->createForm(new PointApportType(), $pointApportAerien);
 
         if ($form->handleRequest($request)->isValid()) {
+            $dechets = [];
+            foreach($_POST['gyg_appbundle_pointapport']['dechets'] as $key => $value){
+                switch ($value){
+                    case 'menager':
+                        $dechets[] = new Menager();
+                        break;
+                    case 'metallique':
+                        $dechets[] = new Metallique();
+                        break;
+                    case 'papierCarton':
+                        $dechets[] = new PapierCarton();
+                        break;
+                    case 'plastique':
+                        $dechets[] = new Plastique();
+                        break;
+                    case 'verre':
+                        $dechets[] = new Verre();
+                        break;
+                }
+            }
+            $pointApportAerien->setDechets($dechets);
+
             $em = $this->getDoctrine()->getManager();
             $em->persist($pointApportAerien);
             $em->flush();

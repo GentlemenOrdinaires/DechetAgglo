@@ -19,4 +19,9 @@ use GYG\AppBundle\Entity\Dechet;
  */
 class Verre extends Dechet{
 
+    function __construct()
+    {
+        $this->setCouleur('green');
+        $this->setLibelle('Verre');
+    }
 } 

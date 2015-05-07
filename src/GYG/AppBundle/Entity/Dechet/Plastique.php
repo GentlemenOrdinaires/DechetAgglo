@@ -19,4 +19,9 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Plastique extends Dechet{
 
+    function __construct()
+    {
+        $this->setCouleur('blue');
+        $this->setLibelle('Plastique');
+    }
 } 
