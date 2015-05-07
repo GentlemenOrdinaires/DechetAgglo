@@ -14,9 +14,9 @@ use GYG\AppBundle\Entity\Dechet;
 /**
  * Class Metallique
  * @package GYG\AppBundle\Entity\Dechet
- * @ORM\Table(name="dechet_metallique")
  * @ORM\Entity()
  */
 class Metallique extends Dechet{
 
+    const DISCRIMINATOR = 'metallique';
 } 

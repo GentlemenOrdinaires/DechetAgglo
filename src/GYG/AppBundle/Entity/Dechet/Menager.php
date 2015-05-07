@@ -14,9 +14,9 @@ use GYG\AppBundle\Entity\Dechet;
 /**
  * Class Menager
  * @package GYG\HAppBundle\Entity\Dechet
- * @ORM\Table(name="dechet_menager")
  * @ORM\Entity()
  */
 class Menager extends Dechet{
 
+    const DISCRIMINATOR = 'menager';
 } 

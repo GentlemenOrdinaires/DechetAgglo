@@ -15,10 +15,12 @@ use GYG\AppBundle\Entity\PointApport;
 /**
  * Class Enterre
  * @package GYG\AppBundle\Entity
- * @ORM\Table(name="point_apport_enterre")
  * @ORM\Entity()
  */
-class Enterre extends PointApport{
+class Enterre extends PointApport
+{
+
+    const DISCRIMINATOR = 'enterre';
 
     /**
      * @var ArrayCollection @ORM\OneToMany(
@@ -39,14 +41,16 @@ class Enterre extends PointApport{
     /**
      * @param Dechet $dechet
      */
-    public function addDechet(Dechet $dechet){
+    public function addDechet(Dechet $dechet)
+    {
         $this->dechets->add($dechet);
     }
 
     /**
      * @param Dechet $dechet
      */
-    public function removeDechet(Dechet $dechet){
+    public function removeDechet(Dechet $dechet)
+    {
         $this->dechets->remove($dechet);
     }
 

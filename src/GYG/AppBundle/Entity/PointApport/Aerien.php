@@ -15,10 +15,12 @@ use GYG\AppBundle\Entity\PointApport;
 /**
  * Class Aerien
  * @package GYG\AppBundle\Entity
- * @ORM\Table(name="point_apport_aerien")
  * @ORM\Entity()
  */
-class Aerien extends PointApport{
+class Aerien extends PointApport
+{
+
+    const DISCRIMINATOR = 'aerien';
 
     /**
      * @var ArrayCollection @ORM\OneToMany(
@@ -28,7 +30,8 @@ class Aerien extends PointApport{
      */
     protected $dechets;
 
-    public function __construct(){
+    public function __construct()
+    {
         $this->dechets = new ArrayCollection();
     }
 
@@ -43,14 +46,16 @@ class Aerien extends PointApport{
     /**
      * @param Dechet $dechet
      */
-    public function addDechet(Dechet $dechet){
+    public function addDechet(Dechet $dechet)
+    {
         $this->dechets->add($dechet);
     }
 
     /**
      * @param Dechet $dechet
      */
-    public function removeDechet(Dechet $dechet){
+    public function removeDechet(Dechet $dechet)
+    {
         $this->dechets->remove($dechet);
     }
 
