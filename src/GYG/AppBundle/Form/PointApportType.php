@@ -9,21 +9,32 @@ use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 class PointApportType extends AbstractType
 {
 
+    /**
+     * @param FormBuilderInterface $builder
+     * @param array $options
+     */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
+
         $builder
+            ->add('type','choice',[
+                'choices' => [
+                    'aerien' => 'Point d\'apport aerien',
+                    'enterre' => 'Point d\'apport enterre'
+                ],
+                'empty_value' => 'Choisissez un type de point d\'apport',
+                'empty_data' => null,
+                'label' => 'Type de point d\'apport'
+            ])
             ->add('infos','textarea',[
                 'label' => 'Informations',
                 'attr' => [
                     'class' => 'ckeditor'
                 ]
             ])
-            ->add('photo','file',[
+            ->add('filePhoto','file',[
                 'label' => 'Photo',
                 'required' => false
-            ])
-            ->add('logo','file',[
-                'label' => 'Logo'
             ])
             ->add('dechets','collection',[
                 'type' => 'choice',
@@ -51,10 +62,9 @@ class PointApportType extends AbstractType
      */
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
-        $resolver->setDefaults([
-            'data_class' => 'GYG\AppBundle\Entity\PointApport'
-        ]);
     }
+
+
 
     /**
      * @return string

@@ -6,8 +6,6 @@
  * Time: 15:08
  */
 
-namespace GYG\AppBundle\Entity\PointApport;
-
 use Doctrine\ORM\Mapping as ORM;
 use GYG\AppBundle\Entity\PointApport;
 
@@ -16,8 +14,10 @@ use GYG\AppBundle\Entity\PointApport;
  * @package GYG\AppBundle\Entity
  * @ORM\Entity()
  */
-class DechetSoin extends PointApport
+class DechetSoin
 {
-    const DISCRIMINATOR = 'dechet-soin';
-
+    /**
+     * @var String  @ORM\Column(name="infos", type="string", length=255, nullable=true)
+     */
+    protected $infos;
 } 

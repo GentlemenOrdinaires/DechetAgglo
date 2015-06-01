@@ -1,0 +1,9 @@
+{% extends '::base.html.twig' %}
+
+{% block body %}
+
+{% for pointApport in pointApports %}
+    <li>{{ pointApport.infos }}</li>
+{% endfor %}
+
+{% endblock %}

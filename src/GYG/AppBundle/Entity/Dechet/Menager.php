@@ -19,8 +19,9 @@ use GYG\AppBundle\Entity\Dechet;
 class Menager extends Dechet{
     const DISCRIMINATOR = 'menager';
 
-    function __construct()
+    function __construct($pointApport)
     {
+        parent::__construct($pointApport);
         $this->setCouleur('black');
         $this->setLibelle('Déchets ménagers');
     }

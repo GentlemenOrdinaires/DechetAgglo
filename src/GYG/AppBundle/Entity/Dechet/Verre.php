@@ -19,8 +19,9 @@ use GYG\AppBundle\Entity\Dechet;
 class Verre extends Dechet{
     const DISCRIMINATOR = 'verre';
 
-    function __construct()
+    function __construct($pointApport)
     {
+        parent::__construct($pointApport);
         $this->setCouleur('green');
         $this->setLibelle('Verre');
     }

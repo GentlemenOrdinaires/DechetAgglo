@@ -4,14 +4,16 @@
 
 <h1>Formulaire Point d'Apport</h1>
 
-<div class="fomulaire">
-    {{ form(form) }}
+<div class="formulaire">
+    <form action="{{ path('gyg_app_add_point_apport') }}" method="post" {{ form_enctype(form) }}>
+        {{ form_widget(form) }}
+    </form>
 </div>
 
 {% endblock %}
 
 {% block javascripts %}
-{# Voici le script en question : #}
+
 <script type="text/javascript">
     $(document).ready(function() {
         // On récupère la balise <div> en question qui contient l'attribut « data-prototype » qui nous intéresse.
@@ -31,11 +33,11 @@
         // On définit un compteur unique pour nommer les champs qu'on va ajouter dynamiquement
         var index = $container.find(':input').length;
 
-        // On ajoute un premier champ automatiquement s'il n'en existe pas déjà un (cas d'une nouvelle annonce par exemple).
+        // On ajoute un premier champ automatiquement s'il n'en existe pas déjà un.
         if (index == 0) {
             addDechet($container);
         } else {
-            // Pour chaque catégorie déjà existante, on ajoute un lien de suppression
+            // Pour chaque dechet déjà existant, on ajoute un lien de suppression
             $container.children('div').each(function() {
                 addDeleteLink($(this));
             });
@@ -46,8 +48,8 @@
             // Dans le contenu de l'attribut « data-prototype », on remplace :
             // - le texte "__name__label__" qu'il contient par le label du champ
             // - le texte "__name__" qu'il contient par le numéro du champ
-            var $prototype = $($container.attr('data-prototype').replace(/__name__label__/g, 'Déchet n°' + (index+1))
-                    .replace(/__name__/g, index));
+            var $prototype = $($container.attr('data-prototype').replace(/__name__label__/g, '')
+                    .replace(/__name__/g, ''));
 
             // On ajoute au prototype un lien pour pouvoir supprimer la catégorie
             addDeleteLink($prototype);
@@ -59,8 +61,9 @@
             index++;
         }
 
-        // La fonction qui ajoute un lien de suppression d'une catégorie
+        // La fonction qui ajoute un lien de suppression d'un dechet
         function addDeleteLink($prototype) {
+            if(index == 0) return;
             // Création du lien
             $deleteLink = $('<a href="#" class="btn btn-danger">Supprimer</a>');
 

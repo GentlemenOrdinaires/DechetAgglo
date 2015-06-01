@@ -25,7 +25,7 @@ class Enterre extends PointApport
     /**
      * @var ArrayCollection @ORM\OneToMany(
      *      targetEntity="GYG\AppBundle\Entity\Dechet",
-     *      mappedBy="id",
+     *      mappedBy="pointApport",
      *      cascade={"all"})
      */
     protected $dechets;

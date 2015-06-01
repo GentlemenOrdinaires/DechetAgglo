@@ -47,10 +47,21 @@ abstract class Dechet
     protected $libelle;
 
     /**
+     * @ORM\ManyToOne(targetEntity="GYG\AppBundle\Entity\PointApport", inversedBy="dechets",cascade={"all"})
+     * @ORM\JoinColumn(name="point_apport_id", referencedColumnName="id", onDelete="CASCADE")
+     */
+    protected $pointApport;
+
+    /**
      * @TODO
      * @var
      */
     protected $photo;
+
+    function __construct($pointApport)
+    {
+        $this->pointApport = $pointApport;
+    }
 
     /**
      * @return int
@@ -90,6 +101,49 @@ abstract class Dechet
     public function setLibelle($libelle)
     {
         $this->libelle = $libelle;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getPointApport()
+    {
+        return $this->pointApport;
+    }
+
+    /**
+     * @param mixed $pointApport
+     */
+    public function setPointApport($pointApport)
+    {
+        $this->pointApport = $pointApport;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getPhoto()
+    {
+        return $this->photo;
+    }
+
+    /**
+     * @param mixed $photo
+     */
+    public function setPhoto($photo)
+    {
+        $this->photo = $photo;
+    }
+
+
+
+    /**
+     * Override toString() method to return the name of the group
+     * @return string name
+     */
+    public function __toString()
+    {
+        return $this->libelle;
     }
 
 } 
