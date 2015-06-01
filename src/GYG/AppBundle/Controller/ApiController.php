@@ -24,7 +24,7 @@ class ApiController extends Controller
 
     public function getPointApportByLocation(Request $request){
 
-        if($request->query->get('latitude') && $request->query->get('longitude');){
+        if($request->query->get('latitude') && $request->query->get('longitude')){
 
         }
     }
