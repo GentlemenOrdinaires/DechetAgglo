@@ -33,6 +33,11 @@ abstract class Mapable {
     protected $localisation;
 
     /**
+     * @var Point
+     */
+    protected $point;
+
+    /**
      * @return int
      */
     public function getId()

@@ -12,11 +12,4 @@ use Doctrine\ORM\EntityRepository;
 
 class PointApportRepository extends EntityRepository{
 
-    public function findByLocation(Location $location){
-        $qb = $this->getEntityManager()->createQueryBuilder();
-        $qb->select('pa');
-        $qb->from('GYGAppBundle/Entity/PointApport');
-
-
-    }
 }

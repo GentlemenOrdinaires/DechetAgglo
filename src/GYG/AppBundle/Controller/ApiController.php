@@ -9,6 +9,7 @@ namespace GYG\AppBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpFoundation\Request;
 
 class ApiController extends Controller
 {
@@ -21,4 +22,10 @@ class ApiController extends Controller
         return new JsonResponse($data);
     }
 
+    public function getPointApportByLocation(Request $request){
+
+        if($request->query->get('latitude') && $request->query->get('longitude');){
+
+        }
+    }
 }

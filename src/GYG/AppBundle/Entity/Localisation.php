@@ -9,17 +9,17 @@
 namespace GYG\AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use GYG\AppBundle\ValueObject\Point;
 
 /**
  * Class Localisation
  * @package GYG\AppBundle\Entity
  * @ORM\Table(name="localisation")
- * @ORM\Entity(repositoryClass="Like\Repository\LikeRepository")
+ * @ORM\Entity()
  *
  */
 class Localisation
 {
-
     /**
      *
      * @var integer @ORM\Column(name="id", type="integer", nullable=false)
@@ -28,21 +28,22 @@ class Localisation
      */
     protected $id;
 
+    /**
+     * @Column(type="point")
+     *
+     * @var Point
+     */
+    protected $point;
 
     /**
-     * @var String @ORM\Column(name="latitude", type="string", length=255, nullable=false)
+     * @var string @Column(type="string")
      */
-    protected $latitude;
+    protected $address;
 
-    /**
-     * @var String @ORM\Column(name="longitude", type="string", length=255, nullable=false)
-     */
-    protected $longitude;
-
-    function __construct($latitude, $longitude)
+    public function __construct(Point $point, $address)
     {
-        $this->latitude = $latitude;
-        $this->longitude = $longitude;
+        $this->address = $address;
+        $this->point($point);
     }
 
     /**
@@ -54,38 +55,35 @@ class Localisation
     }
 
     /**
-     * @return String
+     * @return mixed
      */
-    public function getLatitude()
+    public function getPoint()
     {
-        return $this->latitude;
+        return $this->point;
     }
 
     /**
-     * @param String $latitude
-     * @return Localisation $this
+     * @param mixed $point
      */
-    public function setLatitude($latitude)
+    public function setPoint(Point $point)
     {
-        $this->latitude = $latitude;
-        return $this;
+        $this->point = $point;
     }
 
     /**
-     * @return String
+     * @return string
      */
-    public function getLongitude()
+    public function getAddress()
     {
-        return $this->longitude;
+        return $this->address;
     }
 
     /**
-     * @param String $longitude
-     * @return Localisation $this
+     * @param string $address
      */
-    public function setLongitude($longitude)
+    public function setAddress($address)
     {
-        $this->longitude = $longitude;
-        return $this;
+        $this->address = $address;
     }
+
 } 
