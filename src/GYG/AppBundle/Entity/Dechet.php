@@ -24,6 +24,7 @@ use Doctrine\ORM\Mapping as ORM;
  * "verre" = "GYG\AppBundle\Entity\Dechet\Verre"})
  *
  */
+
 abstract class Dechet
 {
     /**

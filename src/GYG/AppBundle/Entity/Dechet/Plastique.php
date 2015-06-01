@@ -16,7 +16,12 @@ use Doctrine\ORM\Mapping as ORM;
  * @package GYG\AppBundle\Entity\Dechet
  * @ORM\Entity()
  */
-class Plastique extends Dechet
-{
+class Plastique extends Dechet{
     const DISCRIMINATOR = 'plastique';
-} 
+
+    function __construct()
+    {
+        $this->setCouleur('blue');
+        $this->setLibelle('Plastique');
+    }
+}

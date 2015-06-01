@@ -17,6 +17,11 @@ use GYG\AppBundle\Entity\Dechet;
  * @ORM\Entity()
  */
 class Menager extends Dechet{
-
     const DISCRIMINATOR = 'menager';
+
+    function __construct()
+    {
+        $this->setCouleur('black');
+        $this->setLibelle('Déchets ménagers');
+    }
 } 

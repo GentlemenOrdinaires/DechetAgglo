@@ -16,7 +16,12 @@ use GYG\AppBundle\Entity\Dechet;
  * @package GYG\AppBundle\Entity\Dechet
  * @ORM\Entity()
  */
-class PapierCarton extends Dechet
-{
+class PapierCarton extends Dechet {
     const DISCRIMINATOR = 'papier-carton';
+
+    function __construct()
+    {
+        $this->setCouleur('brown');
+        $this->setLibelle('Papiers/Cartons');
+    }
 } 
