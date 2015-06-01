@@ -29,14 +29,14 @@ class Localisation
     protected $id;
 
     /**
-     * @Column(type="point")
+     * @ORM\Column(type="point")
      *
      * @var Point
      */
     protected $point;
 
     /**
-     * @var string @Column(type="string")
+     * @var string @ORM\Column(type="string")
      */
     protected $address;
 

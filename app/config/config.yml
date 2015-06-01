@@ -60,6 +60,11 @@ doctrine:
         #   3. Uncomment next line:
         #     path:     "%database_path%"
 
+        types:
+            point: GYG\AppBundle\Type\PointType
+        mapping_types:
+            point: point
+
     orm:
         auto_generate_proxy_classes: "%kernel.debug%"
         auto_mapping: true
