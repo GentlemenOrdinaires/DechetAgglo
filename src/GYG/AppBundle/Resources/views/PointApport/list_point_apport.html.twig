@@ -19,6 +19,7 @@
             var drawingOverlay;
 
             drawingOverlay = DrawOnMap.initialize(startOption, map);
+
             $.ajax({
               url: "{{ path('gyg_app_api_point_apport') }}"
             }).done(function(data) {
@@ -28,6 +29,9 @@
                   }
                 });
             });
+
+            DrawOnMap.geolocation(drawingOverlay);
+
         })();
     </script>
 {% endblock %}
