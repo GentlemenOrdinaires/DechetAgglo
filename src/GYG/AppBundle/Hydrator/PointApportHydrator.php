@@ -10,17 +10,31 @@ namespace GYG\AppBundle\Hydrator;
 
 use Doctrine\ORM\Internal\Hydration\AbstractHydrator;
 use GYG\AppBundle\Entity\PointApport;
+use GYG\AppBundle\Service\GeoJson;
 
-class PointApportHydrator{
+class PointApportHydrator
+{
 
+    /**
+     * @var GeoJson
+     */
+    private $geoJsonService;
+
+    public function __construct(GeoJson $geoJsonService)
+    {
+        $this->geoJsonService = $geoJsonService;
+    }
 
     /**
      * @param PointApport $pointApport
      */
-    public function extract(PointApport $pointApport){
+    public function extract(PointApport $pointApport)
+    {
 
-        $array = [];
-        $array[$pointApport->getLocalisation()->getPoint()->getLatitude()] = $pointApport->getLocalisation()->getPoint()->getLongitude();
+        $array = [
+            'infos' => $pointApport->getInfos(),
+        ];
+        $array['geoJson'] = $this->geoJsonService->parsePointToGeoJson($pointApport->getLocalisation()->getPoint());
 
         return $array;
     }

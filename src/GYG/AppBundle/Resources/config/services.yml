@@ -4,6 +4,6 @@ services:
 #        arguments: [@service_id, "plain_value", %parameter%]
   hydrator_point_apport:
     class:        GYG\AppBundle\Hydrator\PointApportHydrator
-    arguments:    [extract]
+    arguments:    [@service_geo_json]
   service_geo_json:
     class:        GYG\AppBundle\Service\GeoJson
