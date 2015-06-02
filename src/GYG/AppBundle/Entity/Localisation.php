@@ -43,7 +43,7 @@ class Localisation
     public function __construct(Point $point, $address)
     {
         $this->address = $address;
-        $this->point($point);
+        $this->point = $point;
     }
 
     /**
@@ -55,7 +55,7 @@ class Localisation
     }
 
     /**
-     * @return mixed
+     * @return Point
      */
     public function getPoint()
     {
