@@ -14,15 +14,7 @@ class DefaultController extends Controller
     public function adminAction()
     {
 
-        $em = $this->getDoctrine()->getManager();
-        $pointApports = $em->getRepository('GYGAppBundle:PointApport')->findAll();
-
-        if (!$pointApports) {
-            throw $this->createNotFoundException('Point d\'apport non trouvé');
-        }
-
         return $this->render('GYGAppBundle:Admin:admin.html.twig', array(
-            'pointApports' => $pointApports
         ));
     }
 

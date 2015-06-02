@@ -6,10 +6,6 @@ gyg_app_adminpage:
     path:     /admin
     defaults: { _controller: GYGAppBundle:Default:admin }
 
-gyg_app_add_point_apport:
-  path: /admin/add-point-apport
-  defaults: { _controller: GYGAppBundle:PointApport:add }
-
 gyg_app_api_test:
     path:   /api/test
     defaults:  { _controller: GYGAppBundle:Api:test }
@@ -18,8 +14,30 @@ gyg_app_api_location:
     path:   /api/trajet/{location}
     defaults:  { _controller: GYGAppBundle:Api:getLocation }
 
+gyg_app_add_point_apport:
+    path: /admin/add-point-apport
+    defaults: { _controller: GYGAppBundle:PointApport:add }
+
+gyg_app_list_point_apport:
+    path: /admin/list-point-apport
+    defaults: { _controller: GYGAppBundle:PointApport:list }
+
 gyg_app_delete_point_apport:
-  path: /admin/delete-point-apport/{idPointApport}
-  defaults: { _controller: GYGAppBundle:PointApport:delete }
-  requirements:
-          idPointApport:  \d+
+    path: /admin/delete-point-apport/{idPointApport}
+    defaults: { _controller: GYGAppBundle:PointApport:delete }
+    requirements:
+        idPointApport:  \d+
+
+gyg_app_add_decheterie:
+    path: /admin/add-decheterie
+    defaults: { _controller: GYGAppBundle:Decheterie:add }
+
+gyg_app_list_decheterie:
+    path: /admin/list-decheterie
+    defaults: { _controller: GYGAppBundle:Decheterie:list }
+
+gyg_app_delete_decheterie:
+    path: /admin/delete-decheterie/{idDecheterie}
+    defaults: { _controller: GYGAppBundle:Decheterie:delete }
+    requirements:
+        idDecheterie:  \d+

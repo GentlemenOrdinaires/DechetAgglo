@@ -84,10 +84,10 @@ class PointApportController extends Controller
         $pointApports = $em->getRepository('GYGAppBundle:PointApport')->findAll();
 
         if (!$pointApports) {
-            throw $this->createNotFoundException('Point d\'apport non trouvé');
+            throw $this->createNotFoundException('Aucun point d\'apport trouvé');
         }
 
-        return $this->render('GYGAppBundle:Admin:admin.html.twig', array(
+        return $this->render('GYGAppBundle:PointApport:list_point_apport.html.twig', array(
             'pointApports' => $pointApports
         ));
     }
