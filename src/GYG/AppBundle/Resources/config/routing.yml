@@ -6,13 +6,9 @@ gyg_app_adminpage:
     path:     /admin
     defaults: { _controller: GYGAppBundle:Default:admin }
 
-gyg_app_add_point_apport_aerien:
-  path: /add_point_apport_aerien
-  defaults: { _controller: GYGAppBundle:PointApportAerien:add }
-
-gyg_app_add_point_apport_enterre:
-  path: /add_point_apport_enterre
-  defaults: { _controller: GYGAppBundle:PointApportEnterre:add }
+gyg_app_add_point_apport:
+  path: /admin/add-point-apport
+  defaults: { _controller: GYGAppBundle:PointApport:add }
 
 gyg_app_api_test:
     path:   /api/test
@@ -21,3 +17,13 @@ gyg_app_api_test:
 gyg_app_api_point_apport:
     path:   /api/point-apport
     defaults:  { _controller: GYGAppBundle:Api:getPointApport }
+
+gyg_app_api_location:
+    path:   /api/trajet/{location}
+    defaults:  { _controller: GYGAppBundle:Api:getLocation }
+
+gyg_app_delete_point_apport:
+  path: /admin/delete-point-apport/{idPointApport}
+  defaults: { _controller: GYGAppBundle:PointApport:delete }
+  requirements:
+          idPointApport:  \d+

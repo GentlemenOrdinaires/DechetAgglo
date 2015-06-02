@@ -9,6 +9,7 @@
 namespace GYG\AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Class PointApport
@@ -18,9 +19,8 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\InheritanceType("SINGLE_TABLE")
  * @ORM\DiscriminatorColumn(name="discriminator", type="string")
  * @ORM\DiscriminatorMap({"aerien" = "GYG\AppBundle\Entity\PointApport\Aerien",
- * "enterre" = "GYG\AppBundle\Entity\PointApport\Enterre",
- * "dechet-soin" = "GYG\AppBundle\Entity\PointApport\DechetSoin",
- * "textile" = "GYG\AppBundle\Entity\PointApport\Textile"})
+ * "enterre" = "GYG\AppBundle\Entity\PointApport\Enterre"})
+ * @ORM\HasLifecycleCallbacks
  */
 abstract class PointApport extends Mapable
 {
@@ -31,16 +31,40 @@ abstract class PointApport extends Mapable
     protected $infos;
 
     /**
-     * @TODO
-     * @var
+     * @var String  @ORM\Column(name="photo", type="string", length=255, nullable=true)
      */
     protected $photo;
 
     /**
-     * @TODO
-     * @var
+     * @var String  @ORM\Column(name="logo", type="string", length=255, nullable=true)
      */
     protected $logo;
+
+    /**
+     * @Assert\Image(maxSize="5M")
+     */
+    protected $fileLogo;
+
+    /**
+     * @Assert\Image(maxSize="5M")
+     */
+    protected $filePhoto;
+
+    /**
+     * @return mixed
+     */
+    public function getFilePhoto()
+    {
+        return $this->filePhoto;
+    }
+
+    /**
+     * @param mixed $filePhoto
+     */
+    public function setFilePhoto($filePhoto)
+    {
+        $this->filePhoto = $filePhoto;
+    }
 
     /**
      * @return String
@@ -88,6 +112,75 @@ abstract class PointApport extends Mapable
     public function setLogo($logo)
     {
         $this->logo = $logo;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getFileLogo()
+    {
+        return $this->fileLogo;
+    }
+
+    /**
+     * @param mixed $fileLogo
+     */
+    public function setFileLogo($fileLogo)
+    {
+        $this->fileLogo = $fileLogo;
+    }
+
+    /**
+     * @ORM\PostUpdate()
+     * @ORM\PostPersist()
+     */
+    public function upload(){
+        // if no files
+        if($this->filePhoto == null) return;
+
+        $this->filePhoto->move(
+            $this->getUploadRootDir(),
+            $this->photo
+        );
+        $this->filePhoto = null;
+    }
+
+    /**
+     * @ORM\PreUpdate()
+     * @ORM\PrePersist()
+     */
+    public function preUpload(){
+        if($this->filePhoto == null) return;
+
+        // generate a unique name
+        $filename = sha1(uniqid(mt_rand(), true));
+        $this->photo = $filename.'.'.$this->filePhoto->guessExtension();
+    }
+
+    /**
+    * @ORM\PreRemove()
+    */
+    public function removeUpload()
+    {
+        if ($file = $this->getAbsolutePath()) {
+            unlink($file);
+        }
+    }
+
+    public function getUploadRootDir() {
+        return __DIR__.'../../../../../web/'.$this->getUploadDir();
+    }
+
+    public function getUploadDir() {
+        return 'uploads/pointapport';
+    }
+
+    public function getAbsolutePath() {
+        return null === $this->photo ? null : $this->getUploadRootDir().'/'.$this->photo;
+    }
+
+    public function getWebPath() {
+        return null === $this->photo ? null : $this->getUploadDir().'/'.$this->photo;
     }
 
 

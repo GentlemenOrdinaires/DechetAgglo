@@ -48,17 +48,6 @@ class ApiController extends Controller
             if ($result instanceof PointApport) {
                 return new JsonResponse($this->get('hydrator_point_apport')->extract($result));
             }
-
-        } else {
-            $entities = $this->getDoctrine()->getManager()->getRepository('GYG\AppBundle\PointApport')->findAll();
-
-            $entitiesArray = [];
-            foreach ($entities as $entity) {
-                if ($entity instanceof PointApport) {
-                    $entitiesArray[] = $this->get('hydrator_point_apport')->extract($entity);
-                }
-            }
-            return new JsonResponse($entitiesArray);
         }
     }
 }

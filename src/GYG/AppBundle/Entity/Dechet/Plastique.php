@@ -19,8 +19,9 @@ use Doctrine\ORM\Mapping as ORM;
 class Plastique extends Dechet{
     const DISCRIMINATOR = 'plastique';
 
-    function __construct()
+    function __construct($pointApport)
     {
+        parent::__construct($pointApport);
         $this->setCouleur('blue');
         $this->setLibelle('Plastique');
     }
