@@ -10,6 +10,10 @@ gyg_app_add_point_apport:
   path: /admin/add-point-apport
   defaults: { _controller: GYGAppBundle:PointApport:add }
 
+gyg_app_list_point_apport:
+  path: /
+  defaults: { _controller: GYGAppBundle:PointApport:list }
+
 gyg_app_api_test:
     path:   /api/test
     defaults:  { _controller: GYGAppBundle:Api:test }
@@ -17,10 +21,6 @@ gyg_app_api_test:
 gyg_app_api_point_apport:
     path:   /api/point-apport
     defaults:  { _controller: GYGAppBundle:Api:getPointApport }
-
-gyg_app_api_location:
-    path:   /api/trajet/{location}
-    defaults:  { _controller: GYGAppBundle:Api:getLocation }
 
 gyg_app_delete_point_apport:
   path: /admin/delete-point-apport/{idPointApport}
