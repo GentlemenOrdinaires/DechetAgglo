@@ -14,9 +14,8 @@ gyg_app_api_location:
     path:   /api/trajet/{location}
     defaults:  { _controller: GYGAppBundle:Api:getLocation }
 
-gyg_app_add_point_apport:
-    path: /admin/add-point-apport
-    defaults: { _controller: GYGAppBundle:PointApport:add }
+
+
 
 gyg_app_list_point_apport:
     path: /admin/list-point-apport
@@ -28,9 +27,15 @@ gyg_app_delete_point_apport:
     requirements:
         idPointApport:  \d+
 
-gyg_app_add_decheterie:
-    path: /admin/add-decheterie
-    defaults: { _controller: GYGAppBundle:Decheterie:add }
+gyg_app_edit_point_apport:
+    path: /admin/edit-point-apport/{idPointApport}
+    defaults: { _controller: GYGAppBundle:PointApport:edit, idPointApport: 0 }
+    requirements:
+        idPointApport:  \d+
+
+
+
+
 
 gyg_app_list_decheterie:
     path: /admin/list-decheterie
@@ -39,5 +44,11 @@ gyg_app_list_decheterie:
 gyg_app_delete_decheterie:
     path: /admin/delete-decheterie/{idDecheterie}
     defaults: { _controller: GYGAppBundle:Decheterie:delete }
+    requirements:
+        idDecheterie:  \d+
+
+gyg_app_edit_decheterie:
+    path: /admin/edit-decheterie/{idDecheterie}
+    defaults: { _controller: GYGAppBundle:Decheterie:edit, idDecheterie: 0 }
     requirements:
         idDecheterie:  \d+
