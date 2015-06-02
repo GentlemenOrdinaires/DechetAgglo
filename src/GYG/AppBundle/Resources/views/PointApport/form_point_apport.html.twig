@@ -1,26 +1,49 @@
-{% extends '::base.html.twig' %}
+{% extends 'GYGAppBundle::_partials/map.html.twig' %}
 
+{% block stylesheets %}
+    {{ parent() }}
+{% endblock %}
 
 {% block javascripts_header %}
+    {{ parent() }}
     <script src="{{ asset('bundles/gygapp/js/ckeditor/ckeditor.js') }}" type="text/javascript"></script>
-    <script src="{{ asset('bundles/gygapp/js/ol-debug.js') }}" type="text/javascript"></script>
-    <script src="{{ asset('bundles/gygapp/js/map.js') }}" type="text/javascript"></script>
 {% endblock %}
 
 {% block body %}
-<h1>Formulaire Point d'Apport</h1>
+    {{ parent() }}
 
-<div class="formulaire">
-    <form action="{{ path('gyg_app_add_point_apport') }}" method="post" {{ form_enctype(form) }}>
-        {{ form_widget(form) }}
-    </form>
-</div>
-<div id="map"></div>
+    <h2>Formulaire Point d'Apport</h2>
+
+    <div class="formulaire">
+        <form action="{{ path('gyg_app_add_point_apport') }}" method="post" {{ form_enctype(form) }}>
+            {{ form_widget(form) }}
+        </form>
+    </div>
 {% endblock %}
 
 
 {% block javascripts %}
-    <script src="{{ asset('bundles/gygapp/js/map_config.js') }}" type="text/javascript"></script>
+    <script type="text/javascript">
+        (function() {
+            var startOption = {
+                initLat: 581647.9745650819,
+                initLong: 5813280.860704543,
+                initZoom: 17,
+                editable: true,
+                drawType: DrawOnMap.drawingOptions.polygon,
+                singleDrawMode: true
+            };
+            var map;
+            var drawingOverlay;
+
+            drawingOverlay = DrawOnMap.initialize(startOption, map);
+
+            $('#btn-map-confirm').on('click', function(){
+                $('#gyg_appbundle_pointapport_geojson').val(DrawOnMap.getData(drawingOverlay));
+            });
+        })();
+    </script>
+
     <script type="text/javascript">
     $(document).ready(function() {
         // On récupère la balise <div> en question qui contient l'attribut « data-prototype » qui nous intéresse.

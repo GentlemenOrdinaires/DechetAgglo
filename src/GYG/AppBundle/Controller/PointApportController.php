@@ -47,7 +47,6 @@ class PointApportController extends Controller
             $pointApport->setDechets($dechets);
             $pointApport->setInfos($request->request->get('gyg_appbundle_pointapport')['infos']);
             $pointApport->setFilePhoto($request->files->get('gyg_appbundle_pointapport')['filePhoto']);
-
             $em = $this->getDoctrine()->getManager();
             $em->persist($pointApport);
             $em->flush();
