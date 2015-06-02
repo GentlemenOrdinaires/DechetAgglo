@@ -9,9 +9,19 @@ namespace GYG\AppBundle\Hydrator;
 
 
 use GYG\AppBundle\Entity\Trajet;
+use GYG\AppBundle\Service\GeoJson;
 
 class TrajetHydrator
 {
+    /**
+     * @var GeoJson
+     */
+    private $geoJsonService;
+
+    public function __construct(GeoJson $geoJsonService)
+    {
+        $this->geoJsonService = $geoJsonService;
+    }
 
     /**
      * @param Trajet $trajet
@@ -27,7 +37,8 @@ class TrajetHydrator
 
         ];
         foreach ($trajet->getLocalisations() as $localisation) {
-            $array['localisations'][$localisation->getPoint()->getLatitude()] = $localisation->getPoint()->getLongitude();
+            $array['geoJson'] = $this->geoJsonService->parsePointToGeoJson($pointApport->getLocalisation()->getPoint());
+
         }
 
         return $array;
