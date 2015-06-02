@@ -168,7 +168,7 @@ abstract class PointApport extends Mapable
     }
 
     public function getUploadRootDir() {
-        return __DIR__.'../../../../web/'.$this->getUploadDir();
+        return __DIR__.'../../../../../web/'.$this->getUploadDir();
     }
 
     public function getUploadDir() {

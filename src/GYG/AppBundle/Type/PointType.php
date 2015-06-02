@@ -1,14 +1,10 @@
 <?php
-/**
- * Created by Guillaume Prost <hello@guillaumeprost.me>.
- * Date: 01/06/2015
- * Time: 10:28
- */
 
 namespace GYG\AppBundle\Type;
 
 use Doctrine\DBAL\Types\Type;
 use Doctrine\DBAL\Platforms\AbstractPlatform;
+use GYG\AppBundle\ValueObject\Point;
 
 
 class PointType extends Type
@@ -46,7 +42,7 @@ class PointType extends Type
         return true;
     }
 
-    public function convertToPHPValueSQL($sqlExpr, AbstractPlatform $platform)
+    public function convertToPHPValueSQL($sqlExpr, $platform)
     {
         return sprintf('AsText(%s)', $sqlExpr);
     }
