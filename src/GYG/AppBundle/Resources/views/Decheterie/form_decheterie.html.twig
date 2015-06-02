@@ -5,7 +5,7 @@
     <h1>Formulaire Décheterie</h1>
 
     <div class="formulaire">
-        <form action="{{ path('gyg_app_add_decheterie') }}" method="post" {{ form_enctype(form) }}>
+        <form action="{{ path('gyg_app_edit_decheterie', {'idDecheterie': decheterie.id}) }}" method="post" {{ form_enctype(form) }}>
             {{ form_widget(form) }}
         </form>
     </div>

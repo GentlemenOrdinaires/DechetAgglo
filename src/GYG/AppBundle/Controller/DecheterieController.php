@@ -26,7 +26,8 @@ class DecheterieController extends Controller
         }
 
         return $this->render('GYGAppBundle:Decheterie:form_decheterie.html.twig', array(
-            'form' => $form->createView()
+            'form' => $form->createView(),
+            'decheterie' => $decheterie
         ));
     }
 
@@ -59,4 +60,36 @@ class DecheterieController extends Controller
             'decheteries' => $decheteries
         ));
     }
+
+    public function editAction($idDecheterie, Request $request)
+    {
+        if($idDecheterie == 0){
+           return $this->addAction($request);
+        }else{
+
+            $em = $this->getDoctrine()->getManager();
+            $decheterie = $em->getRepository('GYGAppBundle:Decheterie')->find($idDecheterie);
+
+            if (!$decheterie) {
+                throw $this->createNotFoundException(
+                    'Aucune décheterie trouvée pour cet id : ' . $idDecheterie
+                );
+            }
+
+            $form = $this->createForm(new DecheterieType(), $decheterie);
+
+            if ($request->isMethod('POST') && $form->handleRequest($request)->isValid()) {
+
+                $em->flush();
+
+                return $this->redirect($this->generateUrl('gyg_app_adminpage'));
+            }
+
+            return $this->render('GYGAppBundle:Decheterie:form_decheterie.html.twig', array(
+                'form' => $form->createView(),
+                'decheterie' => $decheterie
+            ));
+        }
+    }
+
 }

@@ -23,6 +23,6 @@ class Metallique extends Dechet{
     {
         parent::__construct($pointApport);
         $this->setCouleur('grey');
-        $this->setLibelle('Déchets métalliuqes');
+        $this->setLibelle('Déchets métalliques');
     }
 }
