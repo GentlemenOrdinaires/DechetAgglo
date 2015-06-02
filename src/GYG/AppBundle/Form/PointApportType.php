@@ -52,6 +52,9 @@ class PointApportType extends AbstractType
                 'allow_add' => true,
                 'allow_delete' => true
             ])
+            ->add('geojson', 'hidden', [
+                'mapped' => false
+            ])
             ->add('save','submit',[
                 'label' => 'Sauvegarder'
             ]);

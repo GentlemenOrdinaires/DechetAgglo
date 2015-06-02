@@ -130,6 +130,8 @@ abstract class PointApport extends Mapable
         $this->fileLogo = $fileLogo;
     }
 
+
+
     /**
      * @ORM\PostUpdate()
      * @ORM\PostPersist()

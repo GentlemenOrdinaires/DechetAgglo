@@ -7,6 +7,7 @@ use GYG\AppBundle\Entity\Dechet\Metallique;
 use GYG\AppBundle\Entity\Dechet\PapierCarton;
 use GYG\AppBundle\Entity\Dechet\Plastique;
 use GYG\AppBundle\Entity\Dechet\Verre;
+use GYG\AppBundle\Entity\Localisation;
 use GYG\AppBundle\Entity\PointApport;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use GYG\AppBundle\Form\PointApportType;
@@ -48,6 +49,11 @@ class PointApportController extends Controller
             $pointApport->setInfos($request->request->get('gyg_appbundle_pointapport')['infos']);
             $pointApport->setFilePhoto($request->files->get('gyg_appbundle_pointapport')['filePhoto']);
 
+            $parseFromJsonService = $this->get('service_geo_json');
+            $point = $parseFromJsonService->parseToPoint($request->request->get('gyg_appbundle_pointapport')['geojson']);
+
+            $pointApport->setLocalisation(new Localisation($point, ''));
+
             $em = $this->getDoctrine()->getManager();
             $em->persist($pointApport);
             $em->flush();
@@ -80,16 +86,7 @@ class PointApportController extends Controller
     }
 
     public function listAction(){
-        $em = $this->getDoctrine()->getManager();
-        $pointApports = $em->getRepository('GYGAppBundle:PointApport')->findAll();
-
-        if (!$pointApports) {
-            throw $this->createNotFoundException('Point d\'apport non trouvé');
-        }
-
-        return $this->render('GYGAppBundle:Admin:admin.html.twig', array(
-            'pointApports' => $pointApports
-        ));
+        return $this->render('GYGAppBundle:PointApport:list_point_apport.html.twig');
     }
 
 }

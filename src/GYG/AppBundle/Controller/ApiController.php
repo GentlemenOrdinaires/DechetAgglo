@@ -53,7 +53,6 @@ class ApiController extends Controller
             }
         } else {
             $entities = $this->getDoctrine()->getManager()->getRepository('GYG\AppBundle\Entity\PointApport')->findAll();
-
             $entitiesArray = [];
             foreach ($entities as $entity) {
                 if ($entity instanceof PointApport) {

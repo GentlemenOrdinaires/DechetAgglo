@@ -1,9 +1,37 @@
-{% extends '::base.html.twig' %}
+{% extends 'GYGAppBundle::_partials/map.html.twig' %}
 
 {% block body %}
+    {{ parent() }}
+{% endblock %}
 
-{% for pointApport in pointApports %}
-    <li>{{ pointApport.infos }}</li>
-{% endfor %}
+{% block javascripts %}
+        <script type="text/javascript">
+        (function() {
+            var startOption = {
+                initLat: 581647.9745650819,
+                initLong: 5813280.860704543,
+                initZoom: 17,
+                editable: false,
+                drawType: DrawOnMap.drawingOptions.point,
+                singleDrawMode: false
+            };
+            var map;
+            var drawingOverlay;
 
+            drawingOverlay = DrawOnMap.initialize(startOption, map);
+
+            $.ajax({
+              url: "{{ path('gyg_app_api_point_apport') }}"
+            }).done(function(data) {
+              data.forEach(function(item, index, array) {
+                  if(item.geoJson) {
+                      DrawOnMap.setData(drawingOverlay, JSON.stringify(item.geoJson));
+                  }
+                });
+            });
+
+            DrawOnMap.geolocation(drawingOverlay);
+
+        })();
+    </script>
 {% endblock %}

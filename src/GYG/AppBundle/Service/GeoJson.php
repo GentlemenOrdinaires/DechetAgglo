@@ -21,7 +21,7 @@ class GeoJson
 
         $arrayGeoJson = [
             'type' => 'FeatureCollection',
-            'features' => [
+            'features' => [[
                 'type' => 'Feature',
                 'geometry' => [
                     'type' => 'Point',
@@ -31,9 +31,9 @@ class GeoJson
                     ],
                     'properties' => null
                 ]
-            ]
+            ]]
         ];
-        return$arrayGeoJson;
+        return $arrayGeoJson;
     }
 
     /**
@@ -58,14 +58,14 @@ class GeoJson
 
         $arrayGeoJson = [
             'type' => 'FeatureCollection',
-            'features' => [
+            'features' => [[
                 'type' => 'Feature',
                 'geometry' => [
                     'type' => 'Polygon',
                     'coordinates' => $coordinatesArray,
                     'properties' => null
                 ]
-            ]
+            ]]
         ];
         $arrayGeoJson['Polygon'];
         return $arrayGeoJson;
@@ -85,11 +85,11 @@ class GeoJson
         }
 
         if (isset($geoJsonArray['features'][0]['geometry']['type']) && $geoJsonArray['features'][0]['geometry']['type'] == 'Point') {
-            return new Point($geoJsonArray['features'][0]['geometry']['coordinates'][0], $geoJsonArray['features'][0]['geometry']['coordinates'][1]);
-        } elseif (isset($geoJsonArray['features'][0]['geometry']['type']) && $geoJsonArray['features']['geometry']['type'] == 'Polygon') {
+            return new Point($geoJsonArray['features'][0]['geometry']['coordinates'][1], $geoJsonArray['features'][0]['geometry']['coordinates'][0]);
+        } elseif (isset($geoJsonArray['features'][0]['geometry']['type']) && $geoJsonArray['features'][0]['geometry']['type'] == 'Polygon') {
             $pointArray = [];
-            foreach ($geoJsonArray['features'][0]['geometry']['type']['coordinates'] as $coordinates) {
-                $pointArray[] = new Point($geoJsonArray['features'][0]['geometry']['coordinates'][0], $geoJsonArray['features'][0]['geometry']['coordinates'][1]);
+            foreach ($geoJsonArray['features'][0]['geometry']['coordinates'][0] as $coordinates) {
+                $pointArray[] = new Point($coordinates[1], $coordinates[0]);
             }
 
             return $pointArray;
