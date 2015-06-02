@@ -9,7 +9,7 @@ class Point
      * @param float $latitude
      * @param float $longitude
      */
-    public function __construct($longitude, $latitude)
+    public function __construct($latitude, $longitude)
     {
         $this->latitude = $latitude;
         $this->longitude = $longitude;

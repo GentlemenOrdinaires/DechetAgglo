@@ -86,16 +86,7 @@ class PointApportController extends Controller
     }
 
     public function listAction(){
-        $em = $this->getDoctrine()->getManager();
-        $pointApports = $em->getRepository('GYGAppBundle:PointApport')->findAll();
-
-        if (!$pointApports) {
-            throw $this->createNotFoundException('Point d\'apport non trouvé');
-        }
-
-        return $this->render('GYGAppBundle:Admin:admin.html.twig', array(
-            'pointApports' => $pointApports
-        ));
+        return $this->render('GYGAppBundle:PointApport:list_point_apport.html.twig');
     }
 
 }

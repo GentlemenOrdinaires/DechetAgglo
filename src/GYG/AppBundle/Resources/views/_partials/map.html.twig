@@ -5,12 +5,11 @@
 {% endblock %}
 
 {% block javascripts_header %}
-    <script src="{{ asset('bundles/gygapp/js/ol.js') }}" type="text/javascript"></script>
+    <script src="{{ asset('bundles/gygapp/js/ol-debug.js') }}" type="text/javascript"></script>
     <script src="{{ asset('bundles/gygapp/js/map.js') }}" type="text/javascript"></script>
 {% endblock %}
 
 {% block body %}
     <div id="map">
-        <button id="btn-map-confirm">Confirmer la position</button>
     </div>
 {% endblock %}
