@@ -27,7 +27,7 @@ abstract class Mapable {
     protected $id;
 
     /**
-     * @var Localisation @ORM\OneToOne(targetEntity="GYG\AppBundle\Entity\Localisation")
+     * @var Localisation @ORM\OneToOne(targetEntity="GYG\AppBundle\Entity\Localisation", cascade={"persist"})
      * @ORM\JoinColumn(name="localisation_id", referencedColumnName="id")
      */
     protected $localisation;
@@ -56,7 +56,7 @@ abstract class Mapable {
     /**
      * @param Localisation $localisation
      */
-    public function setLocalisation($localisation)
+    public function setLocalisation(Localisation $localisation)
     {
         $this->localisation = $localisation;
     }

@@ -1,6 +1,6 @@
 <?php
 
-namespace  GYG\AppBundle\ValueObject;
+namespace GYG\AppBundle\ValueObject;
 
 class Point
 {
@@ -11,7 +11,7 @@ class Point
      */
     public function __construct($latitude, $longitude)
     {
-        $this->latitude  = $latitude;
+        $this->latitude = $latitude;
         $this->longitude = $longitude;
     }
 

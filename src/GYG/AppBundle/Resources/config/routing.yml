@@ -6,16 +6,17 @@ gyg_app_adminpage:
     path:     /admin
     defaults: { _controller: GYGAppBundle:Default:admin }
 
+gyg_app_list_point_apport:
+  path: /
+  defaults: { _controller: GYGAppBundle:PointApport:list }
+
 gyg_app_api_test:
     path:   /api/test
     defaults:  { _controller: GYGAppBundle:Api:test }
 
-gyg_app_api_location:
-    path:   /api/trajet/{location}
-    defaults:  { _controller: GYGAppBundle:Api:getLocation }
-
-
-
+gyg_app_api_point_apport:
+    path:   /api/point-apport
+    defaults:  { _controller: GYGAppBundle:Api:getPointApport }
 
 gyg_app_list_point_apport:
     path: /admin/list-point-apport
@@ -32,10 +33,6 @@ gyg_app_edit_point_apport:
     defaults: { _controller: GYGAppBundle:PointApport:edit, idPointApport: 0 }
     requirements:
         idPointApport:  \d+
-
-
-
-
 
 gyg_app_list_decheterie:
     path: /admin/list-decheterie
