@@ -55,7 +55,7 @@ class Localisation
     }
 
     /**
-     * @return mixed
+     * @return Point
      */
     public function getPoint()
     {

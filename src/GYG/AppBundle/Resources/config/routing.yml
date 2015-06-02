@@ -18,6 +18,6 @@ gyg_app_api_test:
     path:   /api/test
     defaults:  { _controller: GYGAppBundle:Api:test }
 
-gyg_app_api_location:
-    path:   /api/trajet/{location}
-    defaults:  { _controller: GYGAppBundle:Api:getLocation }
+gyg_app_api_point_apport:
+    path:   /api/point-apport
+    defaults:  { _controller: GYGAppBundle:Api:getPointApport }
