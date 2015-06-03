@@ -21,7 +21,6 @@ class Plastique extends Dechet{
 
     function __construct()
     {
-        $this->setCouleur('blue');
         $this->setLibelle('Plastique');
     }
 }

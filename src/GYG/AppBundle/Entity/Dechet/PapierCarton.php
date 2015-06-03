@@ -21,7 +21,6 @@ class PapierCarton extends Dechet {
 
     function __construct()
     {
-        $this->setCouleur('brown');
         $this->setLibelle('Papiers/Cartons');
     }
 } 

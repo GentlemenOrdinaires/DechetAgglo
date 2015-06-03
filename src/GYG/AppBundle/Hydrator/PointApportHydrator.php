@@ -43,8 +43,8 @@ class PointApportHydrator
                     if ($dechet instanceof Dechet) {
                         $array['dechets'][] = [
                             'id' => $dechet->getId(),
-                            'couleur' => $dechet->getCouleur(),
                             'libelle' => $dechet->getLibelle(),
+                            'type' => $dechet::DISCRIMINATOR
                         ];
                     }
                 }
@@ -56,8 +56,8 @@ class PointApportHydrator
                     if ($dechet instanceof Dechet) {
                         $array['dechets'][] = [
                             'id' => $dechet->getId(),
-                            'couleur' => $dechet->getCouleur(),
                             'libelle' => $dechet->getLibelle(),
+                            'type' => $dechet::DISCRIMINATOR
                         ];
                     }
                 }

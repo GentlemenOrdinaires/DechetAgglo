@@ -37,11 +37,6 @@ abstract class Dechet
     protected $id;
 
     /**
-     * @var String @ORM\Column(name="couleur", type="string", length=255, nullable=true)
-     */
-    protected $couleur;
-
-    /**
      * @var String @ORM\Column(name="libelle", type="string", length=255, nullable=true)
      */
     protected $libelle;
@@ -59,22 +54,6 @@ abstract class Dechet
     public function getId()
     {
         return $this->id;
-    }
-
-    /**
-     * @return String
-     */
-    public function getCouleur()
-    {
-        return $this->couleur;
-    }
-
-    /**
-     * @param String $couleur
-     */
-    public function setCouleur($couleur)
-    {
-        $this->couleur = $couleur;
     }
 
     /**

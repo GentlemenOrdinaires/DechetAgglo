@@ -21,7 +21,6 @@ class Menager extends Dechet{
 
     function __construct()
     {
-        $this->setCouleur('black');
         $this->setLibelle('Déchets ménagers');
     }
 } 
