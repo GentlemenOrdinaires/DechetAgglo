@@ -22,6 +22,6 @@ class Metallique extends Dechet{
     function __construct()
     {
         $this->setCouleur('grey');
-        $this->setLibelle('Déchets métalliuqes');
+        $this->setLibelle('Déchets métalliques');
     }
 }

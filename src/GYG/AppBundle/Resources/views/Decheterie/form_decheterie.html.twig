@@ -1,0 +1,18 @@
+{% extends '::base.html.twig' %}
+
+{% block javascripts_header %}
+    {{ parent() }}
+    <script src="{{ asset('bundles/gygapp/js/ckeditor/ckeditor.js') }}" type="text/javascript"></script>
+{% endblock %}
+
+{% block body %}
+
+    <h2>Formulaire Décheterie</h2>
+
+    <div class="formulaire">
+        <form action="{{ path('gyg_app_edit_decheterie', {'idDecheterie': decheterie.id}) }}" method="post" {{ form_enctype(form) }}>
+            {{ form_widget(form) }}
+        </form>
+    </div>
+
+{% endblock %}

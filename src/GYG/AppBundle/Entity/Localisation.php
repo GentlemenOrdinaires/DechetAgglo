@@ -30,7 +30,6 @@ class Localisation
 
     /**
      * @ORM\Column(type="point")
-     *
      * @var Point
      */
     protected $point;

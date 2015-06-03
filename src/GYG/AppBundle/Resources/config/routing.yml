@@ -6,10 +6,6 @@ gyg_app_adminpage:
     path:     /admin
     defaults: { _controller: GYGAppBundle:Default:admin }
 
-gyg_app_add_point_apport:
-  path: /admin/add-point-apport
-  defaults: { _controller: GYGAppBundle:PointApport:add }
-
 gyg_app_list_point_apport:
   path: /
   defaults: { _controller: GYGAppBundle:PointApport:list }
@@ -26,8 +22,66 @@ gyg_app_api_trajet:
     path:   /api/trajet
     defaults:  { _controller: GYGAppBundle:Api:getTrajet }
 
+gyg_app_list_point_apport:
+    path: /admin/list-point-apport
+    defaults: { _controller: GYGAppBundle:PointApport:list }
+
 gyg_app_delete_point_apport:
-  path: /admin/delete-point-apport/{idPointApport}
-  defaults: { _controller: GYGAppBundle:PointApport:delete }
-  requirements:
-          idPointApport:  \d+
+    path: /admin/delete-point-apport/{idPointApport}
+    defaults: { _controller: GYGAppBundle:PointApport:delete }
+    requirements:
+        idPointApport:  \d+
+
+gyg_app_edit_point_apport:
+    path: /admin/edit-point-apport/{idPointApport}
+    defaults: { _controller: GYGAppBundle:PointApport:edit, idPointApport: 0 }
+    requirements:
+        idPointApport:  \d+
+
+gyg_app_list_decheterie:
+    path: /admin/list-decheterie
+    defaults: { _controller: GYGAppBundle:Decheterie:list }
+
+gyg_app_delete_decheterie:
+    path: /admin/delete-decheterie/{idDecheterie}
+    defaults: { _controller: GYGAppBundle:Decheterie:delete }
+    requirements:
+        idDecheterie:  \d+
+
+gyg_app_edit_decheterie:
+    path: /admin/edit-decheterie/{idDecheterie}
+    defaults: { _controller: GYGAppBundle:Decheterie:edit, idDecheterie: 0 }
+    requirements:
+        idDecheterie:  \d+
+     
+gyg_app_list_textile:
+    path: /admin/list-textile
+    defaults: { _controller: GYGAppBundle:Textile:list }
+
+gyg_app_delete_textile:
+    path: /admin/delete-textile/{idTextile}
+    defaults: { _controller: GYGAppBundle:Textile:delete }
+    requirements:
+        idTextile:  \d+
+
+gyg_app_edit_textile:
+    path: /admin/edit-textile/{idTextile}
+    defaults: { _controller: GYGAppBundle:Textile:edit, idTextile: 0 }
+    requirements:
+        idTextile:  \d+
+        
+gyg_app_list_dechet_soin:
+    path: /admin/list-dechet-soin
+    defaults: { _controller: GYGAppBundle:DechetSoin:list }
+
+gyg_app_delete_dechet_soin:
+    path: /admin/delete-dechet-soin/{idDechetSoin}
+    defaults: { _controller: GYGAppBundle:DechetSoin:delete }
+    requirements:
+        idDechetSoin:  \d+
+
+gyg_app_edit_dechet_soin:
+    path: /admin/edit-dechet-soin/{idDechetSoin}
+    defaults: { _controller: GYGAppBundle:DechetSoin:edit, idDechetSoin: 0 }
+    requirements:
+        idDechetSoin:  \d+

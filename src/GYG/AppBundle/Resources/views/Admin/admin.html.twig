@@ -2,5 +2,14 @@
 
 {% block body %}
 
-<h1>ADMINISTRATION</h1>
+<h2>ADMINISTRATION</h2>
+
+{% for label, flashes in app.session.flashbag.all %}
+    {% for flash in flashes %}
+        <div class="alert alert-{{ label }}">
+            {{ flash }}
+        </div>
+    {% endfor %}
+{% endfor %}
+
 {% endblock %}

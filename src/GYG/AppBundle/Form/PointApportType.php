@@ -24,7 +24,8 @@ class PointApportType extends AbstractType
                 ],
                 'empty_value' => 'Choisissez un type de point d\'apport',
                 'empty_data' => null,
-                'label' => 'Type de point d\'apport'
+                'label' => 'Type de point d\'apport',
+                'mapped' => false
             ])
             ->add('infos','textarea',[
                 'label' => 'Informations',
@@ -36,21 +37,16 @@ class PointApportType extends AbstractType
                 'label' => 'Photo',
                 'required' => false
             ])
-            ->add('dechets','collection',[
-                'type' => 'choice',
-                'options' => [
+            ->add('dechets','choice',[
                     'choices' => [
                         'menager' => 'Déchets ménagers',
                         'metallique' => 'Déchets métalliques',
-                        'papierCarton' => 'Papiers/Cartons',
+                        'papier-carton' => 'Papiers/Cartons',
                         'plastique' => 'Plastiques',
                         'verre' => 'Verre',
-                    ],
-                    'empty_value' => 'Choisissez un type de déchets',
-                    'empty_data' => null
-                ],
-                'allow_add' => true,
-                'allow_delete' => true
+                     ],
+                    'multiple' => true,
+                    'expanded' => true
             ])
             ->add('geojson', 'hidden', [
                 'mapped' => false
