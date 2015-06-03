@@ -49,3 +49,35 @@ gyg_app_edit_decheterie:
     defaults: { _controller: GYGAppBundle:Decheterie:edit, idDecheterie: 0 }
     requirements:
         idDecheterie:  \d+
+     
+gyg_app_list_textile:
+    path: /admin/list-textile
+    defaults: { _controller: GYGAppBundle:Textile:list }
+
+gyg_app_delete_textile:
+    path: /admin/delete-textile/{idTextile}
+    defaults: { _controller: GYGAppBundle:Textile:delete }
+    requirements:
+        idTextile:  \d+
+
+gyg_app_edit_textile:
+    path: /admin/edit-textile/{idTextile}
+    defaults: { _controller: GYGAppBundle:Textile:edit, idTextile: 0 }
+    requirements:
+        idTextile:  \d+
+        
+gyg_app_list_dechet_soin:
+    path: /admin/list-dechet-soin
+    defaults: { _controller: GYGAppBundle:DechetSoin:list }
+
+gyg_app_delete_dechet_soin:
+    path: /admin/delete-dechet-soin/{idDechetSoin}
+    defaults: { _controller: GYGAppBundle:DechetSoin:delete }
+    requirements:
+        idDechetSoin:  \d+
+
+gyg_app_edit_dechet_soin:
+    path: /admin/edit-dechet-soin/{idDechetSoin}
+    defaults: { _controller: GYGAppBundle:DechetSoin:edit, idDechetSoin: 0 }
+    requirements:
+        idDechetSoin:  \d+
