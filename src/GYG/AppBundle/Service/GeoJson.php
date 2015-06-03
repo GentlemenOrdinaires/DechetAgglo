@@ -7,6 +7,7 @@
 namespace GYG\AppBundle\Service;
 
 
+use GYG\AppBundle\Entity\Localisation;
 use GYG\AppBundle\Entity\Mapable;
 use GYG\AppBundle\ValueObject\Point;
 
@@ -40,7 +41,7 @@ class GeoJson
      * @param array $mapableArray
      * @return array|bool
      */
-    public function parseArrayToGeoJson(array $pointArray)
+    public function parseArrayToGeoJson($pointArray)
     {
         $coordinatesArray = [];
 
@@ -49,6 +50,11 @@ class GeoJson
                 $coordinatesArray[] = [
                     $point->getLongitude(),
                     $point->getLatitude()
+                ];
+            } elseif ($point instanceof Localisation) {
+                $coordinatesArray[] = [
+                    $point->getPoint()->getLongitude(),
+                    $point->getPoint()->getLatitude()
                 ];
             }
         }
@@ -67,7 +73,6 @@ class GeoJson
                 ]
             ]]
         ];
-        $arrayGeoJson['Polygon'];
         return $arrayGeoJson;
     }
 

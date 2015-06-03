@@ -8,6 +8,7 @@
 
 namespace GYG\AppBundle\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 
@@ -49,6 +50,23 @@ abstract class PointApport extends Mapable
      * @Assert\Image(maxSize="5M")
      */
     protected $filePhoto;
+
+    /**
+     * @var ArrayCollection
+     *
+     * @ORM\ManyToMany(
+     *      targetEntity="GYG\AppBundle\Entity\Dechet",
+     *      cascade={"all"}, inversedBy="dechet", orphanRemoval=true )
+     * @ORM\JoinTable(name="point_apport_dechet",
+     *      joinColumns={@ORM\JoinColumn(name="point_apport_id", referencedColumnName="id")},
+     *      inverseJoinColumns={@ORM\JoinColumn(name="dechet_id", referencedColumnName="id", onDelete="CASCADE")}
+     *      )
+     */
+    protected $dechets;
+
+    public function __construct(){
+        $this->dechets = new ArrayCollection();
+    }
 
     /**
      * @return mixed
@@ -131,14 +149,14 @@ abstract class PointApport extends Mapable
     }
 
 
-
     /**
      * @ORM\PostUpdate()
      * @ORM\PostPersist()
      */
-    public function upload(){
+    public function upload()
+    {
         // if no files
-        if($this->filePhoto == null) return;
+        if ($this->filePhoto == null) return;
 
         $this->filePhoto->move(
             $this->getUploadRootDir(),
@@ -151,17 +169,18 @@ abstract class PointApport extends Mapable
      * @ORM\PreUpdate()
      * @ORM\PrePersist()
      */
-    public function preUpload(){
-        if($this->filePhoto == null) return;
+    public function preUpload()
+    {
+        if ($this->filePhoto == null) return;
 
         // generate a unique name
         $filename = sha1(uniqid(mt_rand(), true));
-        $this->photo = $filename.'.'.$this->filePhoto->guessExtension();
+        $this->photo = $filename . '.' . $this->filePhoto->guessExtension();
     }
 
     /**
-    * @ORM\PreRemove()
-    */
+     * @ORM\PreRemove()
+     */
     public function removeUpload()
     {
         if ($file = $this->getAbsolutePath()) {
@@ -169,22 +188,57 @@ abstract class PointApport extends Mapable
         }
     }
 
-    public function getUploadRootDir() {
-        return __DIR__.'../../../../../web/'.$this->getUploadDir();
+    public function getUploadRootDir()
+    {
+        return __DIR__ . '../../../../../web/' . $this->getUploadDir();
     }
 
-    public function getUploadDir() {
+    public function getUploadDir()
+    {
         return 'uploads/pointapport';
     }
 
-    public function getAbsolutePath() {
-        return null === $this->photo ? null : $this->getUploadRootDir().'/'.$this->photo;
+    public function getAbsolutePath()
+    {
+        return null === $this->photo ? null : $this->getUploadRootDir() . '/' . $this->photo;
     }
 
-    public function getWebPath() {
-        return null === $this->photo ? null : $this->getUploadDir().'/'.$this->photo;
+    public function getWebPath()
+    {
+        return null === $this->photo ? null : $this->getUploadDir() . '/' . $this->photo;
     }
 
 
+    /**
+     * @return ArrayCollection
+     */
+    public function getDechets()
+    {
+        return $this->dechets;
+    }
+
+    /**
+     * @param Dechet $dechet
+     */
+    public function addDechet($dechet)
+    {
+        $this->dechets->add($dechet);
+    }
+
+    /**
+     * @param Dechet $dechet
+     */
+    public function removeDechet($dechet)
+    {
+        $this->dechets->remove($dechet);
+    }
+
+    /**
+     * @param ArrayCollection $dechets
+     */
+    public function setDechets($dechets)
+    {
+        $this->dechets = $dechets;
+    }
 
 } 

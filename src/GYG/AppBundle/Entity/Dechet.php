@@ -37,20 +37,10 @@ abstract class Dechet
     protected $id;
 
     /**
-     * @var String @ORM\Column(name="couleur", type="string", length=255, nullable=true)
-     */
-    protected $couleur;
-
-    /**
      * @var String @ORM\Column(name="libelle", type="string", length=255, nullable=true)
      */
     protected $libelle;
 
-    /**
-     * @ORM\ManyToOne(targetEntity="GYG\AppBundle\Entity\PointApport", inversedBy="dechets",cascade={"all"})
-     * @ORM\JoinColumn(name="point_apport_id", referencedColumnName="id", onDelete="CASCADE")
-     */
-    protected $pointApport;
 
     /**
      * @TODO
@@ -58,33 +48,12 @@ abstract class Dechet
      */
     protected $photo;
 
-    function __construct($pointApport)
-    {
-        $this->pointApport = $pointApport;
-    }
-
     /**
      * @return int
      */
     public function getId()
     {
         return $this->id;
-    }
-
-    /**
-     * @return String
-     */
-    public function getCouleur()
-    {
-        return $this->couleur;
-    }
-
-    /**
-     * @param String $couleur
-     */
-    public function setCouleur($couleur)
-    {
-        $this->couleur = $couleur;
     }
 
     /**

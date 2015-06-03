@@ -9,9 +9,19 @@ namespace GYG\AppBundle\Hydrator;
 
 
 use GYG\AppBundle\Entity\Trajet;
+use GYG\AppBundle\Service\GeoJson;
 
 class TrajetHydrator
 {
+    /**
+     * @var GeoJson
+     */
+    private $geoJsonService;
+
+    public function __construct(GeoJson $geoJsonService)
+    {
+        $this->geoJsonService = $geoJsonService;
+    }
 
     /**
      * @param Trajet $trajet
@@ -19,15 +29,14 @@ class TrajetHydrator
      */
     public function extract(Trajet $trajet)
     {
-
         $array = [
-            'couleur' => $trajet->getCouleur(),
-            'jourCollecte' => $trajet->getJourCollecte(),
-            'jourCollecteSelective' => $trajet->getJourCollecteSelective()
+            'couleur' => $trajet->getCouleur() ? $trajet->getCouleur() : null,
+            'jourCollecte' => $trajet->getJourCollecte() ? $trajet->getJourCollecte() : null,
+            'jourCollecteSelective' => $trajet->getJourCollecteSelective() ? $trajet->getJourCollecteSelective() : null
 
         ];
         foreach ($trajet->getLocalisations() as $localisation) {
-            $array['localisations'][$localisation->getPoint()->getLatitude()] = $localisation->getPoint()->getLongitude();
+            $array['geoJson'][] = $this->geoJsonService->parseArrayToGeoJson($localisation);
         }
 
         return $array;

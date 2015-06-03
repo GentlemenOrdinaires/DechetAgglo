@@ -7,8 +7,10 @@
 
 namespace GYG\AppBundle\Controller;
 
+use GYG\AppBundle\Entity\Dechet\Menager;
 use GYG\AppBundle\Entity\Localisation;
 use GYG\AppBundle\Entity\PointApport;
+use GYG\AppBundle\Entity\Trajet;
 use GYG\AppBundle\ValueObject\Point;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -23,7 +25,6 @@ class ApiController extends Controller
     public function testAction()
     {
         $service = $this->get('service_geo_json');
-
         return new JsonResponse(['test' => 'ok']);
     }
 
@@ -61,4 +62,40 @@ class ApiController extends Controller
             return new JsonResponse($entitiesArray);
         }
     }
+
+    /**
+     * @param Request $request
+     */
+    public function getTrajetAction(Request $request)
+    {
+        if ($request->query->get('latitude') && $request->query->get('longitude')) {
+            $point = new Point($request->query->get('latitude'), $request->query->get('longitude'));
+
+            $entities = $this->getDoctrine()->getManager()->getRepository('GYG\AppBundle\Entity\Trajet')->findByPoint($point);
+
+            $entitiesArray = [];
+            foreach ($entities as $entity) {
+                if ($entity instanceof Trajet) {
+                    $entitiesArray[] = $this->get('hydrator_trajet')->extract($entity);
+                }
+            }
+            return new JsonResponse($entitiesArray);
+        } elseif ($request->query->get('id')) {
+            $result = $this->getDoctrine()->getManager()->getRepository('GYG\AppBundle\Entity\Trajet')->find($request->query->get('id'));
+            if ($result instanceof Trajet) {
+                return new JsonResponse($this->get('hydrator_trajet')->extract($result));
+            }
+        } else {
+            $entities = $this->getDoctrine()->getManager()->getRepository('GYG\AppBundle\Entity\Trajet')->findAll();
+
+            $entitiesArray = [];
+            foreach ($entities as $entity) {
+                if ($entity instanceof Trajet) {
+                    $entitiesArray[] = $this->get('hydrator_trajet')->extract($entity);
+                }
+            }
+            return new JsonResponse($entitiesArray);
+        }
+    }
 }
+

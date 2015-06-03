@@ -9,6 +9,7 @@ namespace GYG\AppBundle\Hydrator;
 
 
 use Doctrine\ORM\Internal\Hydration\AbstractHydrator;
+use GYG\AppBundle\Entity\Dechet;
 use GYG\AppBundle\Entity\Localisation;
 use GYG\AppBundle\Entity\PointApport;
 use GYG\AppBundle\Service\GeoJson;
@@ -31,8 +32,37 @@ class PointApportHydrator
      */
     public function extract(PointApport $pointApport)
     {
-        $array = [];
-        $array ['infos'] = $pointApport->getInfos();
+        $array = [
+            'id' => $pointApport->getId(),
+            'infos' => $pointApport->getInfos() ? $pointApport->getInfos() : null,
+        ];
+        if ($pointApport instanceof PointApport\Aerien) {
+            $array['type'] = PointApport\Aerien::DISCRIMINATOR;
+            if (!$pointApport->getDechets()->isEmpty()) {
+                foreach ($pointApport->getDechets() as $dechet) {
+                    if ($dechet instanceof Dechet) {
+                        $array['dechets'][] = [
+                            'id' => $dechet->getId(),
+                            'libelle' => $dechet->getLibelle(),
+                            'type' => $dechet::DISCRIMINATOR
+                        ];
+                    }
+                }
+            }
+        } elseif ($pointApport instanceof PointApport\Enterre) {
+            $array['type'] = PointApport\Enterre::DISCRIMINATOR;
+            if (!$pointApport->getDechets()->isEmpty()) {
+                foreach ($pointApport->getDechets() as $dechet) {
+                    if ($dechet instanceof Dechet) {
+                        $array['dechets'][] = [
+                            'id' => $dechet->getId(),
+                            'libelle' => $dechet->getLibelle(),
+                            'type' => $dechet::DISCRIMINATOR
+                        ];
+                    }
+                }
+            }
+        }
         $array['geoJson'] = $pointApport->getLocalisation() instanceof Localisation ? $this->geoJsonService->parsePointToGeoJson($pointApport->getLocalisation()->getPoint()) : null;
 
         return $array;

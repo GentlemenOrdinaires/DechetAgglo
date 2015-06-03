@@ -18,6 +18,10 @@ gyg_app_api_point_apport:
     path:   /api/point-apport
     defaults:  { _controller: GYGAppBundle:Api:getPointApport }
 
+gyg_app_api_trajet:
+    path:   /api/trajet
+    defaults:  { _controller: GYGAppBundle:Api:getTrajet }
+
 gyg_app_list_point_apport:
     path: /admin/list-point-apport
     defaults: { _controller: GYGAppBundle:PointApport:list }

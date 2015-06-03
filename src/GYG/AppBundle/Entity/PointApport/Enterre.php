@@ -22,43 +22,4 @@ class Enterre extends PointApport
 
     const DISCRIMINATOR = 'enterre';
 
-    /**
-     * @var ArrayCollection @ORM\OneToMany(
-     *      targetEntity="GYG\AppBundle\Entity\Dechet",
-     *      mappedBy="pointApport",
-     *      cascade={"all"})
-     */
-    protected $dechets;
-
-    /**
-     * @return ArrayCollection
-     */
-    public function getDechets()
-    {
-        return $this->dechets;
-    }
-
-    /**
-     * @param Dechet $dechet
-     */
-    public function addDechet(Dechet $dechet)
-    {
-        $this->dechets->add($dechet);
-    }
-
-    /**
-     * @param Dechet $dechet
-     */
-    public function removeDechet(Dechet $dechet)
-    {
-        $this->dechets->remove($dechet);
-    }
-
-    /**
-     * @param ArrayCollection $dechets
-     */
-    public function setDechets($dechets)
-    {
-        $this->dechets = $dechets;
-    }
 } 
