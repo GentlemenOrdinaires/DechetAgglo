@@ -25,7 +25,7 @@
             }).done(function(data) {
               data.forEach(function(item, index, array) {
                   if(item.geoJson) {
-                      DrawOnMap.setData(drawingOverlay, JSON.stringify(item.geoJson));
+                      DrawOnMap.setData(drawingOverlay, item, 'pointapport');
                   }
                 });
             });
