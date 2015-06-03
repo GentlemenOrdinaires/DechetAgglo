@@ -1,0 +1,44 @@
+{% extends '::base.html.twig' %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" href="{{ asset('bundles/gygapp/js/colorPicker/css/colorpicker.css') }}" />
+{% endblock %}
+
+{% block javascripts_header %}
+    {{ parent() }}
+    <script src="{{ asset('bundles/gygapp/js/ckeditor/ckeditor.js') }}" type="text/javascript"></script>
+    <script src="{{ asset('bundles/gygapp/js/colorPicker/js/colorpicker.js') }}" type="text/javascript"></script>
+{% endblock %}
+
+{% block body %}
+
+    <h2>Formulaire Trajet</h2>
+
+    <div class="formulaire">
+        <form action="{{ path('gyg_app_edit_trajet', {'idTrajet': trajet.id}) }}" method="post" {{ form_enctype(form) }}>
+            {{ form_widget(form) }}
+        </form>
+    </div>
+
+{% endblock %}
+
+{% block javascripts %}
+    <script type="text/javascript">
+        $(document).ready(function(){
+            $('#gyg_appbundle_trajet_couleur').ColorPicker({
+                onSubmit: function(hsb, hex, rgb, el) {
+                    $(el).val(hex);
+                    $(el).ColorPickerHide();
+                },
+                onBeforeShow: function () {
+                    $(this).ColorPickerSetColor(this.value);
+                }
+            })
+            .bind('keyup', function(){
+                $(this).ColorPickerSetColor(this.value);
+            });
+        });
+    </script>
+
+{% endblock %}

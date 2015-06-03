@@ -15,7 +15,7 @@ use Doctrine\ORM\Mapping as ORM;
  * Class Trajet
  * @package GYG\AppBundle\Entity
  * @ORM\Table(name="trajet")
- * @ORM\Entity(repositoryClass="GYG\AppBundle\Repository\TrajetRepository")
+ * @ORM\Entity()
  */
 class Trajet {
 

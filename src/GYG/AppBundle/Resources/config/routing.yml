@@ -81,3 +81,19 @@ gyg_app_edit_dechet_soin:
     defaults: { _controller: GYGAppBundle:DechetSoin:edit, idDechetSoin: 0 }
     requirements:
         idDechetSoin:  \d+
+        
+gyg_app_list_trajet:
+    path: /admin/list-trajet
+    defaults: { _controller: GYGAppBundle:Trajet:list }
+
+gyg_app_delete_trajet:
+    path: /admin/delete-trajet/{idTrajet}
+    defaults: { _controller: GYGAppBundle:Trajet:delete }
+    requirements:
+        idTrajet:  \d+
+
+gyg_app_edit_trajet:
+    path: /admin/edit-trajet/{idTrajet}
+    defaults: { _controller: GYGAppBundle:Trajet:edit, idTrajet: 0 }
+    requirements:
+        idTrajet:  \d+
