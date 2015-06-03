@@ -15,23 +15,28 @@ use Doctrine\ORM\Mapping as ORM;
  * Class Trajet
  * @package GYG\AppBundle\Entity
  * @ORM\Table(name="trajet")
- * @ORM\Entity(repositoryClass="GYG\AppBundle\Repository\TrajetRepository")
+ * @ORM\Entity()
  */
 class Trajet {
 
     /**
      *
-     * @var integer @ORM\Column(name="id", type="integer", nullable=false)
+     * @var integer
+     * @ORM\Column(name="id", type="integer", nullable=false)
      *      @ORM\Id
      *      @ORM\GeneratedValue(strategy="IDENTITY")
      */
     protected $id;
 
     /**
-     * @var ArrayCollection  @ORM\OneToMany(
+     * @var ArrayCollection
+     * @ORM\ManyToMany(
      *      targetEntity="GYG\AppBundle\Entity\Localisation",
-     *      mappedBy="id",
      *      cascade={"all"})
+     * @ORM\JoinTable(name="trajets_localisations",
+     *      joinColumns={@ORM\JoinColumn(name="trajet_id", referencedColumnName="id")},
+     *      inverseJoinColumns={@ORM\JoinColumn(name="localisation_id", referencedColumnName="id", unique=true)}
+     *      )
      */
     protected $localisations;
 
@@ -51,6 +56,7 @@ class Trajet {
      * @var String @ORM\Column(name="jour_collecte_selective", type="string", length=255, nullable=false)
      */
     protected  $jourCollecteSelective;
+
 
     public function __construct(){
         $this->localisations = new ArrayCollection();
@@ -122,9 +128,11 @@ class Trajet {
 
     /**
      * @param Localisation $localisation
+     * @return Trajet $this
      */
     public function addLocalisation(Localisation $localisation){
         $this->localisations->add($localisation);
+        return $this;
     }
 
     /**

@@ -5,5 +5,8 @@ services:
   hydrator_point_apport:
     class:        GYG\AppBundle\Hydrator\PointApportHydrator
     arguments:    [@service_geo_json]
+  hydrator_trajet:
+    class:        GYG\AppBundle\Hydrator\TrajetHydrator
+    arguments:    [@service_geo_json]
   service_geo_json:
     class:        GYG\AppBundle\Service\GeoJson

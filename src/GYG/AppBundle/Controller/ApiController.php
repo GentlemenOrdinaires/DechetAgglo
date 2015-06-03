@@ -42,21 +42,21 @@ class ApiController extends Controller
             $entitiesArray = [];
             foreach ($entities as $entity) {
                 if ($entity instanceof PointApport) {
-                    $entitiesArray[] = $this->get('hydrator_point_apport')->extract($entity);
+                    $entitiesArray[] = $this->get('hydrator_trajet')->extract($entity);
                 }
             }
             return new JsonResponse($entitiesArray);
         } elseif ($request->query->get('id')) {
             $result = $this->getDoctrine()->getManager()->getRepository('GYG\AppBundle\Entity\PointApport')->find($request->query->get('id'));
             if ($result instanceof PointApport) {
-                return new JsonResponse($this->get('hydrator_point_apport')->extract($result));
+                return new JsonResponse($this->get('hydrator_trajet')->extract($result));
             }
         } else {
             $entities = $this->getDoctrine()->getManager()->getRepository('GYG\AppBundle\Entity\PointApport')->findAll();
             $entitiesArray = [];
             foreach ($entities as $entity) {
                 if ($entity instanceof PointApport) {
-                    $entitiesArray[] = $this->get('hydrator_point_apport')->extract($entity);
+                    $entitiesArray[] = $this->get('hydrator_trajet')->extract($entity);
                 }
             }
             return new JsonResponse($entitiesArray);
@@ -76,14 +76,14 @@ class ApiController extends Controller
             $entitiesArray = [];
             foreach ($entities as $entity) {
                 if ($entity instanceof Trajet) {
-                    $entitiesArray[] = $this->get('hydrator_point_apport')->extract($entity);
+                    $entitiesArray[] = $this->get('hydrator_trajet')->extract($entity);
                 }
             }
             return new JsonResponse($entitiesArray);
         } elseif ($request->query->get('id')) {
             $result = $this->getDoctrine()->getManager()->getRepository('GYG\AppBundle\Entity\Trajet')->find($request->query->get('id'));
             if ($result instanceof Trajet) {
-                return new JsonResponse($this->get('hydrator_point_apport')->extract($result));
+                return new JsonResponse($this->get('hydrator_trajet')->extract($result));
             }
         } else {
             $entities = $this->getDoctrine()->getManager()->getRepository('GYG\AppBundle\Entity\Trajet')->findAll();
@@ -91,13 +91,11 @@ class ApiController extends Controller
             $entitiesArray = [];
             foreach ($entities as $entity) {
                 if ($entity instanceof Trajet) {
-                    $entitiesArray[] = $this->get('hydrator_point_apport')->extract($entity);
+                    $entitiesArray[] = $this->get('hydrator_trajet')->extract($entity);
                 }
             }
             return new JsonResponse($entitiesArray);
         }
     }
-
-
 }
 
