@@ -19,9 +19,8 @@ use GYG\AppBundle\Entity\Dechet;
 class Metallique extends Dechet{
     const DISCRIMINATOR = 'metallique';
 
-    function __construct($pointApport)
+    function __construct()
     {
-        parent::__construct($pointApport);
         $this->setCouleur('grey');
         $this->setLibelle('Déchets métalliuqes');
     }

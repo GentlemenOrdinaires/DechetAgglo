@@ -46,22 +46,12 @@ abstract class Dechet
      */
     protected $libelle;
 
-    /**
-     * @ORM\ManyToOne(targetEntity="GYG\AppBundle\Entity\PointApport", inversedBy="dechets",cascade={"all"})
-     * @ORM\JoinColumn(name="point_apport_id", referencedColumnName="id", onDelete="CASCADE")
-     */
-    protected $pointApport;
 
     /**
      * @TODO
      * @var
      */
     protected $photo;
-
-    function __construct($pointApport)
-    {
-        $this->pointApport = $pointApport;
-    }
 
     /**
      * @return int

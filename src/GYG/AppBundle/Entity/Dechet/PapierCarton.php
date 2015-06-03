@@ -19,9 +19,8 @@ use GYG\AppBundle\Entity\Dechet;
 class PapierCarton extends Dechet {
     const DISCRIMINATOR = 'papier-carton';
 
-    function __construct($pointApport)
+    function __construct()
     {
-        parent::__construct($pointApport);
         $this->setCouleur('brown');
         $this->setLibelle('Papiers/Cartons');
     }
