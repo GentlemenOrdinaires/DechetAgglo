@@ -22,7 +22,6 @@ use Doctrine\ORM\Mapping as ORM;
  * "papier-carton" = "GYG\AppBundle\Entity\Dechet\PapierCarton",
  * "plastique" = "GYG\AppBundle\Entity\Dechet\Plastique",
  * "verre" = "GYG\AppBundle\Entity\Dechet\Verre"})
- *
  */
 
 abstract class Dechet

@@ -56,10 +56,10 @@ abstract class PointApport extends Mapable
      *
      * @ORM\ManyToMany(
      *      targetEntity="GYG\AppBundle\Entity\Dechet",
-     *      cascade={"all"}, inversedBy="dechet", orphanRemoval=true )
+     *      cascade={"persist"}, inversedBy="dechet")
      * @ORM\JoinTable(name="point_apport_dechet",
      *      joinColumns={@ORM\JoinColumn(name="point_apport_id", referencedColumnName="id")},
-     *      inverseJoinColumns={@ORM\JoinColumn(name="dechet_id", referencedColumnName="id", onDelete="CASCADE")}
+     *      inverseJoinColumns={@ORM\JoinColumn(name="dechet_id", referencedColumnName="id")}
      *      )
      */
     protected $dechets;

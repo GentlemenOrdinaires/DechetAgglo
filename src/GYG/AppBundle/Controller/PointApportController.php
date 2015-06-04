@@ -2,6 +2,7 @@
 
 namespace GYG\AppBundle\Controller;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use GYG\AppBundle\Entity\Dechet\Menager;
 use GYG\AppBundle\Entity\Dechet\Metallique;
 use GYG\AppBundle\Entity\Dechet\PapierCarton;
@@ -17,6 +18,7 @@ class PointApportController extends Controller
 {
     public function addAction(Request $request)
     {
+        $em = $this->getDoctrine()->getManager();
         $form = $this->createForm(new PointApportType());
 
         if ($request->isMethod('POST') && $form->handleRequest($request)->isValid()) {
@@ -24,28 +26,26 @@ class PointApportController extends Controller
             $className = 'GYG\AppBundle\Entity\PointApport\\'.ucfirst($request->request->get('gyg_appbundle_pointapport')['type']);
             $pointApport = new $className;
 
-            $dechets = [];
             foreach($request->request->get('gyg_appbundle_pointapport')['dechets'] as $key => $value){
-                switch ($value){
+                switch ($value) {
                     case 'menager':
-                        $dechets[] = new Menager($pointApport);
+                        $em->getRepository('GYG\AppBundle\Entity\Dechet\Menager')->findOneBy([]) ? $pointApport->addDechet($em->getRepository('GYG\AppBundle\Entity\Dechet\Menager')->findOneBy([])): $pointApport->addDechet(new Menager());
                         break;
                     case 'metallique':
-                        $dechets[] = new Metallique($pointApport);
+                        $em->getRepository('GYG\AppBundle\Entity\Dechet\Metallique')->findOneBy([]) ? $pointApport->addDechet($em->getRepository('GYG\AppBundle\Entity\Dechet\Metallique')->findOneBy([])): $pointApport->addDechet(new Metallique());
                         break;
                     case 'papier-carton':
-                        $dechets[] = new PapierCarton($pointApport);
+                        $em->getRepository('GYG\AppBundle\Entity\Dechet\PapierCarton')->findOneBy([]) ? $pointApport->addDechet($em->getRepository('GYG\AppBundle\Entity\Dechet\PapierCarton')->findOneBy([])): $pointApport->addDechet(new PapierCarton());
                         break;
                     case 'plastique':
-                        $dechets[] = new Plastique($pointApport);
+                        $em->getRepository('GYG\AppBundle\Entity\Dechet\Plastique')->findOneBy([]) ? $pointApport->addDechet($em->getRepository('GYG\AppBundle\Entity\Dechet\Plastique')->findOneBy([])): $pointApport->addDechet(new Plastique());
                         break;
                     case 'verre':
-                        $dechets[] = new Verre($pointApport);
+                        $em->getRepository('GYG\AppBundle\Entity\Dechet\Verre')->findOneBy([]) ? $pointApport->addDechet($em->getRepository('GYG\AppBundle\Entity\Dechet\Verre')->findOneBy([])): $pointApport->addDechet(new Verre());
                         break;
                 }
             }
 
-            $pointApport->setDechets($dechets);
             $pointApport->setInfos($request->request->get('gyg_appbundle_pointapport')['infos']);
             $pointApport->setFilePhoto($request->files->get('gyg_appbundle_pointapport')['filePhoto']);
 
@@ -118,30 +118,26 @@ class PointApportController extends Controller
                 $query = "UPDATE point_apport SET discriminator = '".$request->request->get('gyg_appbundle_pointapport')['type']."' WHERE id = ".$pointApport->getId();
                 $em->getConnection()->exec( $query );
 
-                $this->removeDechets($pointApport->getId());
-
-                $dechets = [];
                 foreach ($request->request->get('gyg_appbundle_pointapport')['dechets'] as $key => $value) {
                     switch ($value) {
                         case 'menager':
-                            $dechets[] = new Menager($pointApport);
+                            $em->getRepository('GYG\AppBundle\Entity\Dechet\Menager')->findOneBy([]) ? $pointApport->addDechet($em->getRepository('GYG\AppBundle\Entity\Dechet\Menager')->findOneBy([])): $pointApport->addDechet(new Menager());
                             break;
                         case 'metallique':
-                            $dechets[] = new Metallique($pointApport);
+                            $em->getRepository('GYG\AppBundle\Entity\Dechet\Metallique')->findOneBy([]) ? $pointApport->addDechet($em->getRepository('GYG\AppBundle\Entity\Dechet\Metallique')->findOneBy([])): $pointApport->addDechet(new Metallique());
                             break;
                         case 'papier-carton':
-                            $dechets[] = new PapierCarton($pointApport);
+                            $em->getRepository('GYG\AppBundle\Entity\Dechet\PapierCarton')->findOneBy([]) ? $pointApport->addDechet($em->getRepository('GYG\AppBundle\Entity\Dechet\PapierCarton')->findOneBy([])): $pointApport->addDechet(new PapierCarton());
                             break;
                         case 'plastique':
-                            $dechets[] = new Plastique($pointApport);
+                            $em->getRepository('GYG\AppBundle\Entity\Dechet\Plastique')->findOneBy([]) ? $pointApport->addDechet($em->getRepository('GYG\AppBundle\Entity\Dechet\Plastique')->findOneBy([])): $pointApport->addDechet(new Plastique());
                             break;
                         case 'verre':
-                            $dechets[] = new Verre($pointApport);
+                            $em->getRepository('GYG\AppBundle\Entity\Dechet\Verre')->findOneBy([]) ? $pointApport->addDechet($em->getRepository('GYG\AppBundle\Entity\Dechet\Verre')->findOneBy([])): $pointApport->addDechet(new Verre());
                             break;
                     }
                 }
 
-                $pointApport->setDechets($dechets);
                 $pointApport->setInfos($request->request->get('gyg_appbundle_pointapport')['infos']);
                 $pointApport->setFilePhoto($request->files->get('gyg_appbundle_pointapport')['filePhoto']);
 
@@ -157,11 +153,5 @@ class PointApportController extends Controller
             ));
         }
 
-    }
-
-    public function removeDechets($idPointApport){
-        $em = $this->getDoctrine()->getManager();
-        $query = "DELETE FROM dechet WHERE point_apport_id = ".$idPointApport;
-        $em->getConnection()->exec( $query );
     }
 }

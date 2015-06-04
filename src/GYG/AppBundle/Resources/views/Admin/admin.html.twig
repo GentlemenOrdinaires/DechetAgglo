@@ -2,14 +2,24 @@
 
 {% block body %}
 
-<h2>ADMINISTRATION</h2>
-
-{% for label, flashes in app.session.flashbag.all %}
-    {% for flash in flashes %}
-        <div class="alert alert-{{ label }}">
-            {{ flash }}
-        </div>
+    {% for label, flashes in app.session.flashbag.all %}
+        {% for flash in flashes %}
+            <div class="alert alert-{{ label }}">
+                {{ flash }}
+            </div>
+        {% endfor %}
     {% endfor %}
-{% endfor %}
+
+    <div id="wrapper">
+
+        {% include 'GYGAppBundle::_partials/menu_admin.html.twig' with {'user': user } only %}
+
+        <div id="page-wrapper">
+            {% include 'GYGAppBundle::PointApport/list_point_apport.html.twig' %}
+        </div>
+        <!-- /#page-wrapper -->
+
+    </div>
+    <!-- /#wrapper -->
 
 {% endblock %}

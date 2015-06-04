@@ -13,8 +13,9 @@ class DefaultController extends Controller
 
     public function adminAction()
     {
-
+        $user = $this->getUser();
         return $this->render('GYGAppBundle:Admin:admin.html.twig', array(
+            'user' => $user
         ));
     }
 

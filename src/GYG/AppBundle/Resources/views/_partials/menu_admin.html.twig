@@ -1,0 +1,113 @@
+<!-- Sidebar -->
+<nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+    <!-- Brand and toggle get grouped for better mobile display -->
+    <div class="navbar-header">
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="{{ path('gyg_app_adminpage') }}">ADMINISTRATION</a>
+    </div>
+    <!-- Top Menu Items -->
+    <ul class="nav navbar-right top-nav">
+        <li class="dropdown">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user"></i> {{ user.username }} <b class="caret"></b></a>
+            <ul class="dropdown-menu">
+                <li>
+                    <a href="{{ path('fos_user_profile_edit') }}"><i class="fa fa-fw fa-power-off"></i> Edit profile</a>
+                </li>
+                <li class="divider"></li>
+                <li>
+                    <a href="{{ path('fos_user_change_password') }}"><i class="fa fa-fw fa-power-off"></i> Change password</a>
+                </li>
+                <li class="divider"></li>
+                <li>
+                    <a href="{{ path('fos_user_security_logout') }}"><i class="fa fa-fw fa-power-off"></i> Log Out</a>
+                </li>
+            </ul>
+        </li>
+    </ul>
+    <!-- Sidebar Menu Items - These collapse to the responsive navigation menu on small screens -->
+    <div class="collapse navbar-collapse navbar-ex1-collapse">
+        <ul class="nav navbar-nav side-nav">
+            <li class="active">
+                <a href="javascript:;" data-toggle="collapse" data-target="#users_menu"><i class="fa fa-fw fa-dashboard"></i> Utilisateurs</a>
+                <ul id="users_menu" class="collapse">
+                    <li>
+                        <a href="{{ path('fos_user_registration_register') }}">Ajouter</a>
+                    </li>
+                    <li>
+                        <a href="{{ path('gyg_user_list') }}">Lister</a>
+                    </li>
+                </ul>
+            </li>
+            <li>
+                <a href="javascript:;" data-toggle="collapse" data-target="#point_apport_menu"><i class="fa fa-fw fa-arrows-v"></i> Points d'apports <i class="fa fa-fw fa-caret-down"></i></a>
+                <ul id="point_apport_menu" class="collapse">
+                    <li>
+                        <a href="{{ path('gyg_app_edit_point_apport') }}">Ajouter</a>
+                    </li>
+                    <li>
+                        <a href="javascript:;">Afficher</a>
+                    </li>
+                    <li>
+                        <a href="javascript:;">Cacher</a>
+                    </li>
+                </ul>
+            </li>
+            <li>
+                <a href="javascript:" data-toggle="collapse" data-target="#dechetterie_menu" ><i class="fa fa-fw fa-file"></i> Déchetteries </a>
+                <ul id="dechetterie_menu" class="collapse">
+                    <li>
+                        <a href="{{ path('gyg_app_edit_decheterie') }}">Ajouter</a>
+                    </li>
+                    <li>
+                        <a href="javascript:;">Afficher</a>
+                    </li>
+                    <li>
+                        <a href="javascript:;">Cacher</a>
+                    </li>
+                </ul>
+            </li>
+            </li>
+            <li>
+                <a href="javascript:"  data-toggle="collapse" data-target="#soins_menu"><i class="fa fa-fw fa-dashboard"></i> Déchets de soins </a>
+                <ul id="soins_menu" class="collapse">
+                    <li>
+                        <a href="{{ path('gyg_app_edit_dechet_soin') }}">Ajouter</a>
+                    </li>
+                    <li>
+                        <a href="javascript:;">Afficher</a>
+                    </li>
+                    <li>
+                        <a href="javascript:;">Cacher</a>
+                    </li>
+                </ul>
+            </li>
+            </li>
+            <li>
+                <a href="ijavascript:" data-toggle="collapse" data-target="#textile_menu"><i class="fa fa-fw fa-dashboard"></i> Points d'apports textile </a>
+                <ul id="textile_menu" class="collapse">
+                    <li>
+                        <a href="{{ path('gyg_app_edit_textile') }}">Ajouter</a>
+                    </li>
+                    <li>
+                        <a href="javascript:;">Afficher</a>
+                    </li>
+                    <li>
+                        <a href="javascript:;">Cacher</a>
+                    </li>
+                </ul>
+            </li>
+            <li>
+                <a href="/"><i class="fa fa-fw fa-dashboard"></i> Informations </a>
+            </li>
+
+        </ul>
+    </div>
+    <!-- /.navbar-collapse -->
+</nav>
+
+<!-- /#sidebar-wrapper -->
