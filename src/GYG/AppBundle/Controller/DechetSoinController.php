@@ -6,6 +6,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use GYG\AppBundle\Entity\DechetSoin;
 use GYG\AppBundle\Form\DechetSoinType;
+use GYG\AppBundle\Entity\Localisation;
 
 class DechetSoinController extends Controller
 {
@@ -15,6 +16,10 @@ class DechetSoinController extends Controller
         $form = $this->createForm(new DechetSoinType(), $dechetSoin);
 
         if ($request->isMethod('POST') && $form->handleRequest($request)->isValid()) {
+
+            $parseFromJsonService = $this->get('service_geo_json');
+            $point = $parseFromJsonService->parseToPoint($request->request->get('gyg_appbundle_dechetsoin')['geojson']);
+            $dechetSoin->setLocalisation(new Localisation($point));
 
             $em = $this->getDoctrine()->getManager();
             $em->persist($dechetSoin);
@@ -46,19 +51,6 @@ class DechetSoinController extends Controller
         $request->getSession()->getFlashBag()->add('notice', 'Point d\'apport de déchets de soins bien supprimé.');
 
         return $this->redirect($this->generateUrl('gyg_app_adminpage', array()));
-    }
-
-    public function listAction(){
-        $em = $this->getDoctrine()->getManager();
-        $dechetSoins = $em->getRepository('GYGAppBundle:DechetSoin')->findAll();
-
-        if (!$dechetSoins) {
-            throw $this->createNotFoundException('Aucun point d\'apport de déchets de soins trouvé');
-        }
-
-        return $this->render('GYGAppBundle:DechetSoin:list_dechet_soin.html.twig', array(
-            'dechet_soins' => $dechetSoins
-        ));
     }
 
     public function editAction($idDechetSoin, Request $request)

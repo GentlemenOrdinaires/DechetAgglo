@@ -7,6 +7,7 @@
 namespace GYG\AppBundle\Service;
 
 
+use Doctrine\Common\Collections\ArrayCollection;
 use GYG\AppBundle\Entity\Localisation;
 use GYG\AppBundle\Entity\Mapable;
 use GYG\AppBundle\ValueObject\Point;
@@ -68,7 +69,7 @@ class GeoJson
                 'type' => 'Feature',
                 'geometry' => [
                     'type' => 'Polygon',
-                    'coordinates' => $coordinatesArray,
+                    'coordinates' => [$coordinatesArray],
                     'properties' => null
                 ]
             ]]
@@ -88,15 +89,13 @@ class GeoJson
         if ($geoJsonArray === false) {
             return false;
         }
-
         if (isset($geoJsonArray['features'][0]['geometry']['type']) && $geoJsonArray['features'][0]['geometry']['type'] == 'Point') {
             return new Point($geoJsonArray['features'][0]['geometry']['coordinates'][1], $geoJsonArray['features'][0]['geometry']['coordinates'][0]);
         } elseif (isset($geoJsonArray['features'][0]['geometry']['type']) && $geoJsonArray['features'][0]['geometry']['type'] == 'Polygon') {
-            $pointArray = [];
+            $pointArray = new ArrayCollection();
             foreach ($geoJsonArray['features'][0]['geometry']['coordinates'][0] as $coordinates) {
-                $pointArray[] = new Point($coordinates[1], $coordinates[0]);
+                $pointArray[] = new Localisation(new Point($coordinates[1], $coordinates[0]));
             }
-
             return $pointArray;
         } else {
             return false;

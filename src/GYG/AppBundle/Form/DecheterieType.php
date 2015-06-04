@@ -20,16 +20,19 @@ class DecheterieType extends AbstractType
                 'attr' => [
                     'class' => 'ckeditor'
                     ]
-                ])
+            ])
             ->add('infos','textarea',[
                 'label' => 'Informations',
                 'attr' => [
                     'class' => 'ckeditor'
                     ]
-                ])
+            ])
             ->add('filePhoto','file',[
                 'label' => 'Photo',
                 'required' => false
+            ])
+            ->add('geojson', 'hidden', [
+            'mapped' => false
             ])
             ->add('save','submit',[
                 'label' => 'Sauvegarder'

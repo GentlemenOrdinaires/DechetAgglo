@@ -39,7 +39,7 @@ class Localisation
      */
     protected $address;
 
-    public function __construct(Point $point, $address)
+    public function __construct(Point $point, $address = '')
     {
         $this->address = $address;
         $this->point = $point;

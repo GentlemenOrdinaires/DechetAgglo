@@ -35,9 +35,7 @@ class TrajetHydrator
             'jourCollecteSelective' => $trajet->getJourCollecteSelective() ? $trajet->getJourCollecteSelective() : null
 
         ];
-        foreach ($trajet->getLocalisations() as $localisation) {
-            $array['geoJson'][] = $this->geoJsonService->parseArrayToGeoJson($localisation);
-        }
+        $array['geoJson'] = $this->geoJsonService->parseArrayToGeoJson($trajet->getLocalisations());
 
         return $array;
     }
