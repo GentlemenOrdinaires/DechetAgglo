@@ -8,5 +8,8 @@ services:
   hydrator_trajet:
     class:        GYG\AppBundle\Hydrator\TrajetHydrator
     arguments:    [@service_geo_json]
+  hydrator_dechet_soin:
+      class:        GYG\AppBundle\Hydrator\DechetSoinHydrator
+      arguments:    [@service_geo_json]
   service_geo_json:
     class:        GYG\AppBundle\Service\GeoJson

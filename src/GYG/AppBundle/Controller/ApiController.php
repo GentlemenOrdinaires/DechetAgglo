@@ -7,8 +7,6 @@
 
 namespace GYG\AppBundle\Controller;
 
-use GYG\AppBundle\Entity\Dechet\Menager;
-use GYG\AppBundle\Entity\Localisation;
 use GYG\AppBundle\Entity\PointApport;
 use GYG\AppBundle\Entity\Trajet;
 use GYG\AppBundle\ValueObject\Point;
@@ -17,7 +15,6 @@ use Proxies\__CG__\GYG\AppBundle\Entity\PointApport\Enterre;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
 
 class ApiController extends Controller
 {
@@ -27,7 +24,6 @@ class ApiController extends Controller
     public function testAction()
     {
         $service = $this->get('service_geo_json');
-
 
         return new JsonResponse(['test' => 'ok']);
     }
@@ -91,10 +87,21 @@ class ApiController extends Controller
         }
     }
 
+    /**
+     * @param Request $request
+     * @return JsonResponse
+     */
     public function getDechetSoin(Request $request){
 
         $entities = $this->getDoctrine()->getManager()->getRepository('GYG\AppBundle\Entity\DechetSoin')->findAll();
 
+        $entitiesArray = [];
+        foreach ($entities as $entity) {
+            if ($entity instanceof PointApport) {
+                $entitiesArray[] = $this->get('hydrator_dechet_soin')->extract($entity);
+            }
+        }
+        return new JsonResponse($entitiesArray);
     }
 
     /**
