@@ -2,7 +2,6 @@
 
 namespace GYG\AppBundle\Controller;
 
-use Doctrine\Common\Collections\ArrayCollection;
 use GYG\AppBundle\Entity\Dechet\Menager;
 use GYG\AppBundle\Entity\Dechet\Metallique;
 use GYG\AppBundle\Entity\Dechet\PapierCarton;
@@ -51,8 +50,7 @@ class PointApportController extends Controller
 
             $parseFromJsonService = $this->get('service_geo_json');
             $point = $parseFromJsonService->parseToPoint($request->request->get('gyg_appbundle_pointapport')['geojson']);
-
-            $pointApport->setLocalisation(new Localisation($point, ''));
+            $pointApport->setLocalisation(new Localisation($point));
 
             $em = $this->getDoctrine()->getManager();
             $em->persist($pointApport);
@@ -85,13 +83,8 @@ class PointApportController extends Controller
         return $this->redirect($this->generateUrl('gyg_app_adminpage', array()));
     }
 
-    public function listAction(){
-        return $this->render('GYGAppBundle:PointApport:list_point_apport.html.twig');
-    }
-
     public function editAction($idPointApport, Request $request)
     {
-
         if($idPointApport == 0){
             return $this->addAction($request);
         }else{
@@ -104,10 +97,8 @@ class PointApportController extends Controller
                 );
             }
 
-            $dechets = [];
-            foreach($pointApport->getDechets() as $key => $value){
-                $dechets[] = $value::DISCRIMINATOR;
-            }
+            $dechets = $this->getDechets($pointApport);
+
             $form = $this->createForm(new PointApportType());
             $form->get('infos')->setData($pointApport->getInfos());
             $form->get('dechets')->setData($dechets);
@@ -153,5 +144,14 @@ class PointApportController extends Controller
             ));
         }
 
+    }
+
+    private function getDechets($pointApport){
+        $dechets = [];
+        foreach($pointApport->getDechets() as $key => $value){
+            $dechets[] = $value::DISCRIMINATOR;
+        }
+
+        return $dechets;
     }
 }

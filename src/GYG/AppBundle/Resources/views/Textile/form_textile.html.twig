@@ -1,4 +1,4 @@
-{% extends '::base.html.twig' %}
+{% extends 'GYGAppBundle::_partials/map.html.twig' %}
 
 {% block javascripts_header %}
     {{ parent() }}
@@ -6,13 +6,36 @@
 {% endblock %}
 
 {% block body %}
-
     <h2>Formulaire Textile</h2>
 
-    <div class="formulaire">
+    {{ parent() }}
+
+    <div class="formulaire" id="edit-textile">
         <form action="{{ path('gyg_app_edit_textile', {'idTextile': textile.id}) }}" method="post" {{ form_enctype(form) }}>
             {{ form_widget(form) }}
         </form>
     </div>
+{% endblock %}
 
+{% block javascripts %}
+    <script type="text/javascript">
+        (function() {
+            var startOption = {
+                initLat: 581647.9745650819,
+                initLong: 5813280.860704543,
+                initZoom: 17,
+                editable: true,
+                drawType: DrawOnMap.drawingOptions.point,
+                singleDrawMode: true
+            };
+            var map;
+            var drawingOverlay;
+
+            drawingOverlay = DrawOnMap.initialize(startOption, map);
+
+            $('#edit-textile form').on('submit', function(){
+                $('#gyg_appbundle_textile_geojson').val(DrawOnMap.getData(drawingOverlay));
+            });
+        })();
+    </script>
 {% endblock %}

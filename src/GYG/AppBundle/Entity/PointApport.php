@@ -16,7 +16,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  * Class PointApport
  * @package GYG\AppBundle\Entity
  * @ORM\Table(name="point_apport")
- * @ORM\Entity()
+ * @ORM\Entity(repositoryClass="GYG\AppBundle\Repository\PointApportRepository")
  * @ORM\InheritanceType("SINGLE_TABLE")
  * @ORM\DiscriminatorColumn(name="discriminator", type="string")
  * @ORM\DiscriminatorMap({"aerien" = "GYG\AppBundle\Entity\PointApport\Aerien",
@@ -35,16 +35,6 @@ abstract class PointApport extends Mapable
      * @var String  @ORM\Column(name="photo", type="string", length=255, nullable=true)
      */
     protected $photo;
-
-    /**
-     * @var String  @ORM\Column(name="logo", type="string", length=255, nullable=true)
-     */
-    protected $logo;
-
-    /**
-     * @Assert\Image(maxSize="5M")
-     */
-    protected $fileLogo;
 
     /**
      * @Assert\Image(maxSize="5M")
@@ -114,38 +104,6 @@ abstract class PointApport extends Mapable
     public function setPhoto($photo)
     {
         $this->photo = $photo;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getLogo()
-    {
-        return $this->logo;
-    }
-
-    /**
-     * @param mixed $logo
-     */
-    public function setLogo($logo)
-    {
-        $this->logo = $logo;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getFileLogo()
-    {
-        return $this->fileLogo;
-    }
-
-    /**
-     * @param mixed $fileLogo
-     */
-    public function setFileLogo($fileLogo)
-    {
-        $this->fileLogo = $fileLogo;
     }
 
 
