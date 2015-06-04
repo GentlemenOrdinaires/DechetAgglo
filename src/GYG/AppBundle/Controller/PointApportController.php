@@ -61,8 +61,10 @@ class PointApportController extends Controller
             return $this->redirect($this->generateUrl('gyg_app_adminpage', array()));
         }
 
-        return $this->render('GYGAppBundle:PointApport:form_point_apport.html.twig', array(
-            'form' => $form->createView()
+        return $this->render('GYGAppBundle:_partials:form.html.twig', array(
+            'form' => $form->createView(),
+            'formTitle' => 'AJOUTER UN POINT D\'APPORT',
+            'formAction' => $this->generateUrl('gyg_app_edit_point_apport', array()),
         ));
     }
 
@@ -138,8 +140,10 @@ class PointApportController extends Controller
                 return $this->redirect($this->generateUrl('gyg_app_adminpage'));
             }
 
-            return $this->render('GYGAppBundle:PointApport:form_point_apport.html.twig', array(
+            return $this->render('GYGAppBundle:_partials:form.html.twig', array(
                 'form' => $form->createView(),
+                'formTitle' => 'EDITER UN POINT D\'APPORT',
+                'formAction' => $this->generateUrl('gyg_app_edit_point_apport', array('idPointApport' => $pointApport->getId())),
                 'pointApport' => $pointApport
             ));
         }

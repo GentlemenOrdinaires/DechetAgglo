@@ -1,21 +1,30 @@
 {% extends 'GYGAppBundle::_partials/map.html.twig' %}
 
+{% block stylesheets %}
+    {{ parent() }}
+{% endblock %}
+
 {% block javascripts_header %}
     {{ parent() }}
     <script src="{{ asset('bundles/gygapp/js/ckeditor/ckeditor.js') }}" type="text/javascript"></script>
 {% endblock %}
 
 {% block body %}
-    <h2>Formulaire Déchet Soin</h2>
+    <h2>{{ formTitle }}</h2>
 
-    {{ parent() }}
-
-    <div class="formulaire">
-        <form action="{{ path('gyg_app_edit_dechet_soin', {'idDechetSoin': dechet_soin.id}) }}" method="post" {{ form_enctype(form) }}>
+    <div class="formulaire col-md-6">
+        <form
+                action="{{ formAction }}"
+                method="post"
+                {{ form_enctype(form) }}>
             {{ form_widget(form) }}
         </form>
     </div>
+
+    {{ parent() }}
+
 {% endblock %}
+
 
 {% block javascripts %}
     <script type="text/javascript">
@@ -36,6 +45,8 @@
             $('#edit-textile form').on('submit', function(){
                 $('#gyg_appbundle_textile_geojson').val(DrawOnMap.getData(drawingOverlay));
             });
+
+            $('#map').addClass('col-md-6');
         })();
     </script>
 {% endblock %}

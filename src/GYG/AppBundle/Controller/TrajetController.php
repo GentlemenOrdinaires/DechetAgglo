@@ -28,8 +28,10 @@ class TrajetController extends Controller
             return $this->redirect($this->generateUrl('gyg_app_adminpage', array()));
         }
 
-        return $this->render('GYGAppBundle:Trajet:form_trajet.html.twig', array(
+        return $this->render('GYGAppBundle:_partials:form_polygone.html.twig', array(
             'form' => $form->createView(),
+            'formTitle' => 'AJOUTER UN POINT D\'APPORT TEXTILE',
+            'formAction' => $this->generateUrl('gyg_app_edit_trajet', array()),
             'trajet' => $trajet
         ));
     }
@@ -75,8 +77,10 @@ class TrajetController extends Controller
                 return $this->redirect($this->generateUrl('gyg_app_adminpage'));
             }
 
-            return $this->render('GYGAppBundle:Trajet:form_trajet.html.twig', array(
+            return $this->render('GYGAppBundle:_partials:form_polygone.html.twig', array(
                 'form' => $form->createView(),
+                'formTitle' => 'EDITER UN POINT D\'APPORT TEXTILE',
+                'formAction' => $this->generateUrl('gyg_app_edit_trajet', array( 'idTrajet' => $trajet->getId())),
                 'trajet' => $trajet
             ));
         }

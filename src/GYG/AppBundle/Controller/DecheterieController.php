@@ -30,8 +30,10 @@ class DecheterieController extends Controller
             return $this->redirect($this->generateUrl('gyg_app_adminpage', array()));
         }
 
-        return $this->render('GYGAppBundle:Decheterie:form_decheterie.html.twig', array(
+        return $this->render('GYGAppBundle:_partials:form.html.twig', array(
             'form' => $form->createView(),
+            'formTitle' => 'AJOUTER UNE DECHETTERIE',
+            'formAction' => $this->generateUrl('gyg_app_edit_decheterie', array()),
             'decheterie' => $decheterie
         ));
     }
@@ -77,8 +79,10 @@ class DecheterieController extends Controller
                 return $this->redirect($this->generateUrl('gyg_app_adminpage'));
             }
 
-            return $this->render('GYGAppBundle:Decheterie:form_decheterie.html.twig', array(
+            return $this->render('GYGAppBundle:_partials:form.html.twig', array(
                 'form' => $form->createView(),
+                'formTitle' => 'EDITER UNE DECHETTERIE',
+                'formAction' => $this->generateUrl('gyg_app_edit_decheterie', array('idDecheterie' => $decheterie->getId())),
                 'decheterie' => $decheterie
             ));
         }

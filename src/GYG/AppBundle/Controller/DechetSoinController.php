@@ -30,8 +30,10 @@ class DechetSoinController extends Controller
             return $this->redirect($this->generateUrl('gyg_app_adminpage', array()));
         }
 
-        return $this->render('GYGAppBundle:DechetSoin:form_dechet_soin.html.twig', array(
+        return $this->render('GYGAppBundle:_partials:form.html.twig', array(
             'form' => $form->createView(),
+            'formTitle' => 'AJOUTER UN POINT D\'APPORT DE DECHETS DE SOIN',
+            'formAction' => $this->generateUrl('gyg_app_edit_dechet_soin', array()),
             'dechet_soin' => $dechetSoin
         ));
     }
@@ -79,8 +81,10 @@ class DechetSoinController extends Controller
                 return $this->redirect($this->generateUrl('gyg_app_adminpage'));
             }
 
-            return $this->render('GYGAppBundle:DechetSoin:form_dechet_soin.html.twig', array(
+            return $this->render('GYGAppBundle:_partials:form.html.twig', array(
                 'form' => $form->createView(),
+                'formTitle' => 'EDITER UN POINT D\'APPORT DE DECHETS DE SOIN',
+                'formAction' => $this->generateUrl('gyg_app_edit_dechet_soin', array( 'idDechetSoin' => $dechetSoin->getId())),
                 'dechet_soin' => $dechetSoin
             ));
         }

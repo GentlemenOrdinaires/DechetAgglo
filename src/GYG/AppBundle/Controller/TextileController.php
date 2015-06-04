@@ -29,8 +29,10 @@ class TextileController extends Controller
             return $this->redirect($this->generateUrl('gyg_app_adminpage', array()));
         }
 
-        return $this->render('GYGAppBundle:Textile:form_textile.html.twig', array(
+        return $this->render('GYGAppBundle:_partials:form.html.twig', array(
             'form' => $form->createView(),
+            'formTitle' => 'AJOUTER UN POINT D\'APPORT TEXTILE',
+            'formAction' => $this->generateUrl('gyg_app_edit_point_apport', array()),
             'textile' => $textile
         ));
     }
@@ -76,8 +78,10 @@ class TextileController extends Controller
                 return $this->redirect($this->generateUrl('gyg_app_adminpage'));
             }
 
-            return $this->render('GYGAppBundle:Textile:form_textile.html.twig', array(
+            return $this->render('GYGAppBundle:_partials:form.html.twig', array(
                 'form' => $form->createView(),
+                'formTitle' => 'EDITER UN POINT D\'APPORT TEXTILE',
+                'formAction' => $this->generateUrl('gyg_app_edit_point_apport', array('idTextile' => $textile->getId())),
                 'textile' => $textile
             ));
         }
