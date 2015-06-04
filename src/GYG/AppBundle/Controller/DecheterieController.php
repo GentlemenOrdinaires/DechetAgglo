@@ -6,6 +6,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use GYG\AppBundle\Entity\Decheterie;
 use GYG\AppBundle\Form\DecheterieType;
+use GYG\AppBundle\Entity\Localisation;
 
 class DecheterieController extends Controller
 {
@@ -15,6 +16,10 @@ class DecheterieController extends Controller
         $form = $this->createForm(new DecheterieType(), $decheterie);
 
         if ($request->isMethod('POST') && $form->handleRequest($request)->isValid()) {
+
+            $parseFromJsonService = $this->get('service_geo_json');
+            $point = $parseFromJsonService->parseToPoint($request->request->get('gyg_appbundle_decheterie')['geojson']);
+            $decheterie->setLocalisation(new Localisation($point));
 
             $em = $this->getDoctrine()->getManager();
             $em->persist($decheterie);
@@ -46,19 +51,6 @@ class DecheterieController extends Controller
         $request->getSession()->getFlashBag()->add('notice', 'Décheterie bien supprimée.');
 
         return $this->redirect($this->generateUrl('gyg_app_adminpage', array()));
-    }
-
-    public function listAction(){
-        $em = $this->getDoctrine()->getManager();
-        $decheteries = $em->getRepository('GYGAppBundle:Decheterie')->findAll();
-
-        if (!$decheteries) {
-            throw $this->createNotFoundException('Aucune décheterie trouvée');
-        }
-
-        return $this->render('GYGAppBundle:Decheterie:list_decheterie.html.twig', array(
-            'decheteries' => $decheteries
-        ));
     }
 
     public function editAction($idDecheterie, Request $request)

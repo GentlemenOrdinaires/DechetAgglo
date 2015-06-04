@@ -38,6 +38,9 @@ class TrajetType extends AbstractType{
                     'class' => 'ckeditor'
                 ]
             ])
+            ->add('geojson', 'hidden', [
+                'mapped' => false
+            ])
             ->add('save','submit',[
                 'label' => 'Sauvegarder'
             ]);

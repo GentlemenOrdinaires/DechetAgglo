@@ -15,6 +15,9 @@ class TrajetController extends Controller
         $form = $this->createForm(new TrajetType(), $trajet);
 
         if ($request->isMethod('POST') && $form->handleRequest($request)->isValid()) {
+            $parseFromJsonService = $this->get('service_geo_json');
+            $localisations = $parseFromJsonService->parseToPoint($request->request->get('gyg_appbundle_trajet')['geojson']);
+            $trajet->setLocalisations($localisations);
 
             $em = $this->getDoctrine()->getManager();
             $em->persist($trajet);
@@ -46,19 +49,6 @@ class TrajetController extends Controller
         $request->getSession()->getFlashBag()->add('notice', 'Trajet bien supprimé.');
 
         return $this->redirect($this->generateUrl('gyg_app_adminpage', array()));
-    }
-
-    public function listAction(){
-        $em = $this->getDoctrine()->getManager();
-        $trajets = $em->getRepository('GYGAppBundle:Trajet')->findAll();
-
-        if (!$trajets) {
-            throw $this->createNotFoundException('Aucun trajet trouvé');
-        }
-
-        return $this->render('GYGAppBundle:Trajet:list_trajet.html.twig', array(
-            'trajets' => $trajets
-        ));
     }
 
     public function editAction($idTrajet, Request $request)

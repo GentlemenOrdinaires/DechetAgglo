@@ -6,6 +6,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use GYG\AppBundle\Entity\Textile;
 use GYG\AppBundle\Form\TextileType;
+use GYG\AppBundle\Entity\Localisation;
 
 class TextileController extends Controller
 {
@@ -15,6 +16,9 @@ class TextileController extends Controller
         $form = $this->createForm(new TextileType(), $textile);
 
         if ($request->isMethod('POST') && $form->handleRequest($request)->isValid()) {
+            $parseFromJsonService = $this->get('service_geo_json');
+            $point = $parseFromJsonService->parseToPoint($request->request->get('gyg_appbundle_textile')['geojson']);
+            $textile->setLocalisation(new Localisation($point));
 
             $em = $this->getDoctrine()->getManager();
             $em->persist($textile);
@@ -46,19 +50,6 @@ class TextileController extends Controller
         $request->getSession()->getFlashBag()->add('notice', 'Point d\'apport textile bien supprimé.');
 
         return $this->redirect($this->generateUrl('gyg_app_adminpage', array()));
-    }
-
-    public function listAction(){
-        $em = $this->getDoctrine()->getManager();
-        $textiles = $em->getRepository('GYGAppBundle:Textile')->findAll();
-
-        if (!$textiles) {
-            throw $this->createNotFoundException('Aucun point d\'apport textile trouvé');
-        }
-
-        return $this->render('GYGAppBundle:Textile:list_textile.html.twig', array(
-            'textiles' => $textiles
-        ));
     }
 
     public function editAction($idTextile, Request $request)

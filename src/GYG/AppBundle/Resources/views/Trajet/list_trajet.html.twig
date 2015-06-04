@@ -1,9 +1,0 @@
-{% extends '::base.html.twig' %}
-
-{% block body %}
-
-    {% for trajet in trajets %}
-        <li>{{ trajet.jourCollecte }} / {{ trajet.jourCollecteSelective }} / {{ trajet.couleur }}</li>
-    {% endfor %}
-
-{% endblock %}

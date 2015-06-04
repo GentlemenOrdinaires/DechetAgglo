@@ -1,4 +1,4 @@
-{% extends '::base.html.twig' %}
+{% extends 'GYGAppBundle::_partials/map.html.twig' %}
 
 {% block stylesheets %}
     {{ parent() }}
@@ -12,8 +12,10 @@
 {% endblock %}
 
 {% block body %}
-
     <h2>Formulaire Trajet</h2>
+
+    {{ parent() }}
+    <button id="btn-map-confirm">Confirmer le trajet</button>
 
     <div class="formulaire">
         <form action="{{ path('gyg_app_edit_trajet', {'idTrajet': trajet.id}) }}" method="post" {{ form_enctype(form) }}>
@@ -24,6 +26,26 @@
 {% endblock %}
 
 {% block javascripts %}
+    <script type="text/javascript">
+        (function() {
+            var startOption = {
+                initLat: 581647.9745650819,
+                initLong: 5813280.860704543,
+                initZoom: 17,
+                editable: true,
+                drawType: DrawOnMap.drawingOptions.polygon,
+                singleDrawMode: true
+            };
+            var map;
+            var drawingOverlay;
+
+            drawingOverlay = DrawOnMap.initialize(startOption, map);
+
+            $('#btn-map-confirm').on('click', function(){
+                $('#gyg_appbundle_trajet_geojson').val(DrawOnMap.getData(drawingOverlay));
+            });
+        })();
+    </script>
     <script type="text/javascript">
         $(document).ready(function(){
             $('#gyg_appbundle_trajet_couleur').ColorPicker({

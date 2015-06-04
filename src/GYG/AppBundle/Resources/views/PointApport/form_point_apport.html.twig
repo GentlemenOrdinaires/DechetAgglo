@@ -10,10 +10,9 @@
 {% endblock %}
 
 {% block body %}
-    {{ parent() }}
-    <button id="btn-map-confirm">Confirmer la position</button>
-
     <h2>Formulaire Point d'Apport</h2>
+
+    {{ parent() }}
 
     <div class="formulaire">
         <form   {% if pointApport is defined %} action="{{ path('gyg_app_edit_point_apport', {'idPointApport': pointApport.id}) }}"
@@ -43,10 +42,9 @@
 
             drawingOverlay = DrawOnMap.initialize(startOption, map);
 
-            $('#btn-map-confirm').on('click', function(){
-                $('#gyg_appbundle_pointapport_geojson').val(DrawOnMap.getData(drawingOverlay));
+            $('#edit-textile form').on('submit', function(){
+                $('#gyg_appbundle_textile_geojson').val(DrawOnMap.getData(drawingOverlay));
             });
         })();
     </script>
-
 {% endblock %}

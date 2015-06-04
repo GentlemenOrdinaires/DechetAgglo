@@ -31,6 +31,9 @@ class DechetSoinType extends AbstractType{
                 'label' => 'Photo',
                 'required' => false
             ])
+            ->add('geojson', 'hidden', [
+                'mapped' => false
+            ])
             ->add('save','submit',[
                 'label' => 'Sauvegarder'
             ]);
