@@ -16,7 +16,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  * Class PointApport
  * @package GYG\AppBundle\Entity
  * @ORM\Table(name="point_apport")
- * @ORM\Entity()
+ * @ORM\Entity(repositoryClass="GYG\AppBundle\Repository\PointApportRepository")
  * @ORM\InheritanceType("SINGLE_TABLE")
  * @ORM\DiscriminatorColumn(name="discriminator", type="string")
  * @ORM\DiscriminatorMap({"aerien" = "GYG\AppBundle\Entity\PointApport\Aerien",

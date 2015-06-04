@@ -5,11 +5,13 @@
  * Time: 12:01
  */
 
-namespace AppBundle\Repository;
-
+namespace GYG\AppBundle\Repository;
 
 use Doctrine\ORM\EntityRepository;
+use GYG\AppBundle\Entity\Dechet;
+use GYG\AppBundle\Entity\PointApport;
 use GYG\AppBundle\ValueObject\Point;
+use Proxies\__CG__\GYG\AppBundle\Entity\Trajet;
 
 class PointApportRepository extends EntityRepository
 {
@@ -21,8 +23,28 @@ class PointApportRepository extends EntityRepository
     {
         $queryBuilder = $this->getEntityManager()->createQueryBuilder();
         $queryBuilder->select('pa');
-        $queryBuilder->from('GYG\AppBundle\Entity\PointApport','pa');
+        $queryBuilder->from('GYG\AppBundle\Entity\PointApport', 'pa');
         //TODO filtre par location
         $queryBuilder->getQuery()->execute();
+    }
+
+    /**
+     * @param $type
+     */
+    public function findByDechetType($type)
+    {
+        $entities = $this->findAll();
+        $array = [];
+        foreach ($entities as $pointApport) {
+            if ($pointApport instanceof PointApport) {
+                foreach ($pointApport->getDechets() as $dechet) {
+                    if ($dechet instanceof Dechet && $dechet::DISCRIMINATOR == $type) {
+                        $array[] = $pointApport;
+                        continue;
+                    }
+                }
+            }
+        }
+        return $array;
     }
 }
