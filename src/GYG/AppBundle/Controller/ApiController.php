@@ -7,9 +7,12 @@
 
 namespace GYG\AppBundle\Controller;
 
+use GYG\AppBundle\Entity\DechetSoin;
 use GYG\AppBundle\Entity\PointApport;
+use GYG\AppBundle\Entity\Textile;
 use GYG\AppBundle\Entity\Trajet;
 use GYG\AppBundle\ValueObject\Point;
+use Proxies\__CG__\GYG\AppBundle\Entity\Decheterie;
 use Proxies\__CG__\GYG\AppBundle\Entity\PointApport\Aerien;
 use Proxies\__CG__\GYG\AppBundle\Entity\PointApport\Enterre;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -85,23 +88,79 @@ class ApiController extends Controller
             }
             return new JsonResponse($entitiesArray);
         }
+        return new JsonResponse([]);
     }
 
     /**
      * @param Request $request
      * @return JsonResponse
      */
-    public function getDechetSoin(Request $request){
-
-        $entities = $this->getDoctrine()->getManager()->getRepository('GYG\AppBundle\Entity\DechetSoin')->findAll();
-
-        $entitiesArray = [];
-        foreach ($entities as $entity) {
-            if ($entity instanceof PointApport) {
-                $entitiesArray[] = $this->get('hydrator_dechet_soin')->extract($entity);
+    public function getDechetSoin(Request $request)
+    {
+        if ($request->query->get('id')) {
+            $entity = $this->getDoctrine()->getManager()->getRepository('GYG\AppBundle\Entity\DechetSoin')->find($request->query->get('id'));
+            if ($entity instanceof DechetSoin) {
+                return new JsonResponse($this->get('hydrator_dechet_soin')->extract($entity));
             }
+        } else {
+            $entities = $this->getDoctrine()->getManager()->getRepository('GYG\AppBundle\Entity\DechetSoin')->findAll();
+
+            $entitiesArray = [];
+            foreach ($entities as $entity) {
+                if ($entity instanceof DechetSoin) {
+                    $entitiesArray[] = $this->get('hydrator_dechet_soin')->extract($entity);
+                }
+            }
+            return new JsonResponse($entitiesArray);
         }
-        return new JsonResponse($entitiesArray);
+        return new JsonResponse([]);
+    }
+
+    /**
+     * @param Request $request
+     * @return JsonResponse
+     */
+    public function getDecheterie(Request $request)
+    {
+        if ($request->query->get('id')) {
+            $entity = $this->getDoctrine()->getManager()->getRepository('GYG\AppBundle\Entity\Decheterie')->find($request->query->get('id'));
+            if($entity instanceof Decheterie){
+                return new JsonResponse($this->get('hydrator_decheterie')->extract($entity));
+            }
+        } else {
+            $entities = $this->getDoctrine()->getManager()->getRepository('GYG\AppBundle\Entity\Decheterie')->findAll();
+            $entitiesArray = [];
+            foreach ($entities as $entity) {
+                if ($entity instanceof Decheterie) {
+                    $entitiesArray[] = $this->get('hydrator_decheterie')->extract($entity);
+                }
+            }
+            return new JsonResponse($entitiesArray);
+        }
+        return new JsonResponse([]);
+    }
+
+    /**
+     * @param Request $request
+     * @return JsonResponse
+     */
+    public function getTextile(Request $request){
+        if ($request->query->get('id')) {
+            $entity = $this->getDoctrine()->getManager()->getRepository('GYG\AppBundle\Entity\Textile')->find($request->query->get('id'));
+            if ($entity instanceof Textile) {
+                return new JsonResponse($this->get('hydrator_trajet')->extract($entity));
+            }
+        } else {
+            $entities = $this->getDoctrine()->getManager()->getRepository('GYG\AppBundle\Entity\Textile')->findAll();
+            $entitiesArray = [];
+            foreach ($entities as $entity) {
+                if ($entity instanceof Textile) {
+                    $entitiesArray[] = $this->get('hydrator_trajet')->extract($entity);
+                }
+            }
+            return new JsonResponse($entitiesArray);
+        }
+        return new JsonResponse([]);
     }
 
     /**
