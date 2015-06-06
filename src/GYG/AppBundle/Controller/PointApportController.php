@@ -12,6 +12,8 @@ use GYG\AppBundle\Entity\PointApport;
 use GYG\AppBundle\Form\PointApportType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Form\FormError;
+
 
 class PointApportController extends Controller
 {
@@ -22,44 +24,49 @@ class PointApportController extends Controller
         $user = $this->getUser();
 
         if ($request->isMethod('POST') && $form->handleRequest($request)->isValid()) {
+            $geojson = $request->request->get('gyg_appbundle_pointapport')['geojson'];
+            $dechets = isset($request->request->get('gyg_appbundle_pointapport')['dechets']) ? $request->request->get('gyg_appbundle_pointapport')['dechets'] : [];
+            if(!isset($geojson) || empty($geojson)) $form->addError(new FormError('Veuillez indiquez une position sur la carte'));
+            else if(!isset($dechets) || empty($dechets)) $form->addError(new FormError('Veuillez selectionnez au moins un type de dechet'));
+            else {
+                $className = 'GYG\AppBundle\Entity\PointApport\\' . ucfirst($request->request->get('gyg_appbundle_pointapport')['type']);
+                $pointApport = new $className;
 
-            $className = 'GYG\AppBundle\Entity\PointApport\\'.ucfirst($request->request->get('gyg_appbundle_pointapport')['type']);
-            $pointApport = new $className;
-
-            foreach($request->request->get('gyg_appbundle_pointapport')['dechets'] as $key => $value){
-                switch ($value) {
-                    case 'menager':
-                        $em->getRepository('GYG\AppBundle\Entity\Dechet\Menager')->findOneBy([]) ? $pointApport->addDechet($em->getRepository('GYG\AppBundle\Entity\Dechet\Menager')->findOneBy([])): $pointApport->addDechet(new Menager());
-                        break;
-                    case 'metallique':
-                        $em->getRepository('GYG\AppBundle\Entity\Dechet\Metallique')->findOneBy([]) ? $pointApport->addDechet($em->getRepository('GYG\AppBundle\Entity\Dechet\Metallique')->findOneBy([])): $pointApport->addDechet(new Metallique());
-                        break;
-                    case 'papier-carton':
-                        $em->getRepository('GYG\AppBundle\Entity\Dechet\PapierCarton')->findOneBy([]) ? $pointApport->addDechet($em->getRepository('GYG\AppBundle\Entity\Dechet\PapierCarton')->findOneBy([])): $pointApport->addDechet(new PapierCarton());
-                        break;
-                    case 'plastique':
-                        $em->getRepository('GYG\AppBundle\Entity\Dechet\Plastique')->findOneBy([]) ? $pointApport->addDechet($em->getRepository('GYG\AppBundle\Entity\Dechet\Plastique')->findOneBy([])): $pointApport->addDechet(new Plastique());
-                        break;
-                    case 'verre':
-                        $em->getRepository('GYG\AppBundle\Entity\Dechet\Verre')->findOneBy([]) ? $pointApport->addDechet($em->getRepository('GYG\AppBundle\Entity\Dechet\Verre')->findOneBy([])): $pointApport->addDechet(new Verre());
-                        break;
+                foreach ($dechets as $key => $value) {
+                    switch ($value) {
+                        case 'menager':
+                            $em->getRepository('GYG\AppBundle\Entity\Dechet\Menager')->findOneBy([]) ? $pointApport->addDechet($em->getRepository('GYG\AppBundle\Entity\Dechet\Menager')->findOneBy([])) : $pointApport->addDechet(new Menager());
+                            break;
+                        case 'metallique':
+                            $em->getRepository('GYG\AppBundle\Entity\Dechet\Metallique')->findOneBy([]) ? $pointApport->addDechet($em->getRepository('GYG\AppBundle\Entity\Dechet\Metallique')->findOneBy([])) : $pointApport->addDechet(new Metallique());
+                            break;
+                        case 'papier-carton':
+                            $em->getRepository('GYG\AppBundle\Entity\Dechet\PapierCarton')->findOneBy([]) ? $pointApport->addDechet($em->getRepository('GYG\AppBundle\Entity\Dechet\PapierCarton')->findOneBy([])) : $pointApport->addDechet(new PapierCarton());
+                            break;
+                        case 'plastique':
+                            $em->getRepository('GYG\AppBundle\Entity\Dechet\Plastique')->findOneBy([]) ? $pointApport->addDechet($em->getRepository('GYG\AppBundle\Entity\Dechet\Plastique')->findOneBy([])) : $pointApport->addDechet(new Plastique());
+                            break;
+                        case 'verre':
+                            $em->getRepository('GYG\AppBundle\Entity\Dechet\Verre')->findOneBy([]) ? $pointApport->addDechet($em->getRepository('GYG\AppBundle\Entity\Dechet\Verre')->findOneBy([])) : $pointApport->addDechet(new Verre());
+                            break;
+                    }
                 }
+
+                $pointApport->setInfos($request->request->get('gyg_appbundle_pointapport')['infos']);
+                $pointApport->setFilePhoto($request->files->get('gyg_appbundle_pointapport')['filePhoto']);
+
+                $parseFromJsonService = $this->get('service_geo_json');
+                $point = $parseFromJsonService->parseToPoint($geojson);
+                $pointApport->setLocalisation(new Localisation($point));
+
+                $em = $this->getDoctrine()->getManager();
+                $em->persist($pointApport);
+                $em->flush();
+
+                $request->getSession()->getFlashBag()->add('notice', 'Point d\'apport bien enregistré.');
+
+                return $this->redirect($this->generateUrl('gyg_app_adminpage', array()));
             }
-
-            $pointApport->setInfos($request->request->get('gyg_appbundle_pointapport')['infos']);
-            $pointApport->setFilePhoto($request->files->get('gyg_appbundle_pointapport')['filePhoto']);
-
-            $parseFromJsonService = $this->get('service_geo_json');
-            $point = $parseFromJsonService->parseToPoint($request->request->get('gyg_appbundle_pointapport')['geojson']);
-            $pointApport->setLocalisation(new Localisation($point));
-
-            $em = $this->getDoctrine()->getManager();
-            $em->persist($pointApport);
-            $em->flush();
-
-            $request->getSession()->getFlashBag()->add('notice', 'Point d\'apport bien enregistré.');
-
-            return $this->redirect($this->generateUrl('gyg_app_adminpage', array()));
         }
 
         return $this->render('GYGAppBundle:_partials:form.html.twig', array(
@@ -134,13 +141,16 @@ class PointApportController extends Controller
                     }
                 }
 
-                $pointApport->setInfos($request->request->get('gyg_appbundle_pointapport')['infos']);
-                $pointApport->setFilePhoto($request->files->get('gyg_appbundle_pointapport')['filePhoto']);
+                if(empty($pointApport)) $form->addError(new FormError('Veuillez selectionnez au moins un type de dechet'));
+                else {
+                    $pointApport->setInfos($request->request->get('gyg_appbundle_pointapport')['infos']);
+                    $pointApport->setFilePhoto($request->files->get('gyg_appbundle_pointapport')['filePhoto']);
 
-                $em->persist($pointApport);
-                $em->flush();
+                    $em->persist($pointApport->getDechets());
+                    $em->flush();
 
-                return $this->redirect($this->generateUrl('gyg_app_adminpage'));
+                    return $this->redirect($this->generateUrl('gyg_app_adminpage'));
+                }
             }
 
             return $this->render('GYGAppBundle:_partials:form.html.twig', array(

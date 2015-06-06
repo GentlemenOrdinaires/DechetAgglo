@@ -7,6 +7,8 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use GYG\AppBundle\Entity\DechetSoin;
 use GYG\AppBundle\Form\DechetSoinType;
 use GYG\AppBundle\Entity\Localisation;
+use Symfony\Component\Form\FormError;
+
 
 class DechetSoinController extends Controller
 {
@@ -17,18 +19,21 @@ class DechetSoinController extends Controller
         $user = $this->getUser();
 
         if ($request->isMethod('POST') && $form->handleRequest($request)->isValid()) {
+            $geojson = $request->request->get('gyg_appbundle_dechetsoin')['geojson'];
+            if(!isset($geojson) || empty($geojson)) $form->addError(new FormError('Veuillez indiquez une position sur la carte'));
+            else {
+                $parseFromJsonService = $this->get('service_geo_json');
+                $point = $parseFromJsonService->parseToPoint($geojson);
+                $dechetSoin->setLocalisation(new Localisation($point));
 
-            $parseFromJsonService = $this->get('service_geo_json');
-            $point = $parseFromJsonService->parseToPoint($request->request->get('gyg_appbundle_dechetsoin')['geojson']);
-            $dechetSoin->setLocalisation(new Localisation($point));
+                $em = $this->getDoctrine()->getManager();
+                $em->persist($dechetSoin);
+                $em->flush();
 
-            $em = $this->getDoctrine()->getManager();
-            $em->persist($dechetSoin);
-            $em->flush();
+                $request->getSession()->getFlashBag()->add('notice', 'Point d\'apport de déchets de soins bien enregistré.');
 
-            $request->getSession()->getFlashBag()->add('notice', 'Point d\'apport de déchets de soins bien enregistré.');
-
-            return $this->redirect($this->generateUrl('gyg_app_adminpage', array()));
+                return $this->redirect($this->generateUrl('gyg_app_adminpage', array()));
+            }
         }
 
         return $this->render('GYGAppBundle:_partials:form.html.twig', array(

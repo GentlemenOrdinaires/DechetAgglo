@@ -32,7 +32,10 @@ class DechetSoinType extends AbstractType{
                 'required' => false
             ])
             ->add('geojson', 'hidden', [
-                'mapped' => false
+                'mapped' => false,
+                'attr' => [
+                    'class' => 'geojson-value'
+                ]
             ])
             ->add('save','submit',[
                 'label' => 'Sauvegarder',
@@ -57,6 +60,6 @@ class DechetSoinType extends AbstractType{
      */
     public function getName()
     {
-        return 'gyg_appbundle_dechet_soin';
+        return 'gyg_appbundle_dechetsoin';
     }
 }

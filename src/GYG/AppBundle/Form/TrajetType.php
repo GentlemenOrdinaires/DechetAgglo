@@ -39,7 +39,10 @@ class TrajetType extends AbstractType{
                 ]
             ])
             ->add('geojson', 'hidden', [
-                'mapped' => false
+                'mapped' => false,
+                'attr' => [
+                    'class' => 'geojson-value'
+                ]
             ])
             ->add('save','submit',[
                 'label' => 'Sauvegarder',
