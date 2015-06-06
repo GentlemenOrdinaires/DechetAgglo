@@ -10,19 +10,18 @@
 {% endblock %}
 
 {% block body %}
+    {{ include('GYGAppBundle::_partials/menu_admin.html.twig') }}
     <h2>{{ formTitle }}</h2>
-
-    <div class="formulaire col-md-6">
-        <form
-                action="{{ formAction }}"
-                method="post"
-                {{ form_enctype(form) }}>
-            {{ form_widget(form) }}
-        </form>
+    <div class="admin-form">
+        {{ parent() }}
+        <div class="row">
+            <div class="col-md-8 col-centered">
+                <form action="{{ formAction }}" method="post"{{ form_enctype(form) }}>
+                    {{ form_widget(form) }}
+                </form>
+            </div>
+        </div>
     </div>
-
-    {{ parent() }}
-
 {% endblock %}
 
 

@@ -8,12 +8,19 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
         </button>
-        <a class="navbar-brand" href="{{ path('gyg_app_adminpage') }}">ADMINISTRATION</a>
+        <a class="navbar-brand" href="{{ path('gyg_app_adminpage') }}">BourgAgglo</a>
     </div>
     <!-- Top Menu Items -->
+    <ul class="nav navbar-left top-nav">
+        <li><h3>Panneau d'administration</h3></li>
+    </ul>
     <ul class="nav navbar-right top-nav">
         <li class="dropdown">
-            <a href="javascript:;" class="dropdown-toggle" data-toggle="user_profile"><i class="fa fa-user"></i> {{ user.username }} <b class="caret"></b></a>
+            <a href="javascript:;" class="dropdown-toggle" data-toggle="user_profile">
+                <i class="fa fa-user"></i>
+                {{ user.username }}
+                <i class="fa fa-caret-square-o-down"></i>
+            </a>
             <ul id="#user_profile" class="dropdown-menu">
                 <li>
                     <a href="{{ path('fos_user_profile_edit') }}"><i class="fa fa-fw fa-power-off"></i> Edit profile</a>
@@ -32,86 +39,131 @@
     <!-- Sidebar Menu Items - These collapse to the responsive navigation menu on small screens -->
     <div class="collapse navbar-collapse navbar-ex1-collapse">
         <ul class="nav navbar-nav side-nav">
-            <li class="active">
-                <a href="javascript:;" data-toggle="collapse" data-target="#users_menu"><i class="fa fa-fw fa-dashboard"></i> Utilisateurs</a>
+            <li>
+                <a href="javascript:;" data-toggle="collapse" data-target="#users_menu">
+                    <i class="fa fa-users"></i>
+                    Utilisateurs
+                    <i class="fa fa-caret-down"></i>
+                </a>
                 <ul id="users_menu" class="collapse">
                     <li>
-                        <a href="{{ path('fos_user_registration_register') }}">Ajouter</a>
+                        <a href="{{ path('fos_user_registration_register') }}">
+                            <i class="fa fa-user-plus"></i>
+                            Ajouter
+                        </a>
                     </li>
                     <li>
-                        <a href="{{ path('gyg_user_list') }}">Lister</a>
+                        <a href="{{ path('gyg_user_list') }}">
+                            <i class="fa fa-th-list"></i>
+                            Lister
+                        </a>
                     </li>
                 </ul>
             </li>
             <li>
-                <a href="javascript:;" data-toggle="collapse" data-target="#point_apport_menu"><i class="fa fa-fw fa-arrows-v"></i> Points d'apports <i class="fa fa-fw fa-caret-down"></i></a>
+                <a href="javascript:;" data-toggle="collapse" data-target="#point_apport_menu">
+                    <i class="fa fa-trash-o"></i>
+                    Points d'apports
+                    <i class="fa fa-caret-down"></i>
+                </a>
                 <ul id="point_apport_menu" class="collapse">
                     <li>
-                        <a href="{{ path('gyg_app_edit_point_apport') }}">Ajouter</a>
+                        <a href="{{ path('gyg_app_edit_point_apport') }}">
+                            <i class="fa fa-plus-circle"></i>
+                            Ajouter
+                        </a>
                     </li>
                     <li>
-                        <a href="javascript:;">Afficher</a>
-                    </li>
-                    <li>
-                        <a href="javascript:;">Cacher</a>
+                        <a href="javascript:;">
+                            <i class="fa fa-map-marker"></i>
+                            Afficher
+                        </a>
                     </li>
                 </ul>
             </li>
             <li>
-                <a href="javascript:" data-toggle="collapse" data-target="#dechetterie_menu" ><i class="fa fa-fw fa-file"></i> Déchetteries </a>
+                <a href="javascript:" data-toggle="collapse" data-target="#dechetterie_menu" >
+                    <i class="fa fa-recycle"></i>
+                    Déchetteries
+                    <i class="fa fa-caret-down"></i>
+                </a>
                 <ul id="dechetterie_menu" class="collapse">
                     <li>
-                        <a href="{{ path('gyg_app_edit_decheterie') }}">Ajouter</a>
+                        <a href="{{ path('gyg_app_edit_decheterie') }}">
+                            <i class="fa fa-plus-circle"></i>
+                            Ajouter
+                        </a>
                     </li>
                     <li>
-                        <a href="javascript:;">Afficher</a>
-                    </li>
-                    <li>
-                        <a href="javascript:;">Cacher</a>
+                        <a href="javascript:;">
+                            <i class="fa fa-map-marker"></i>
+                            Afficher
+                        </a>
                     </li>
                 </ul>
             </li>
             </li>
             <li>
-                <a href="javascript:"  data-toggle="collapse" data-target="#soins_menu"><i class="fa fa-fw fa-dashboard"></i> Déchets de soins </a>
+                <a href="javascript:"  data-toggle="collapse" data-target="#soins_menu">
+                    <i class="fa fa-heartbeat"></i>
+                    Déchets de soins
+                    <i class="fa fa-caret-down"></i>
+                </a>
                 <ul id="soins_menu" class="collapse">
                     <li>
-                        <a href="{{ path('gyg_app_edit_dechet_soin') }}">Ajouter</a>
+                        <a href="{{ path('gyg_app_edit_dechet_soin') }}">
+                            <i class="fa fa-plus-circle"></i>
+                            Ajouter
+                        </a>
                     </li>
                     <li>
-                        <a href="javascript:;">Afficher</a>
-                    </li>
-                    <li>
-                        <a href="javascript:;">Cacher</a>
+                        <a href="javascript:;">
+                            <i class="fa fa-map-marker"></i>
+                            Afficher
+                        </a>
                     </li>
                 </ul>
             </li>
             </li>
             <li>
-                <a href="ijavascript:" data-toggle="collapse" data-target="#textile_menu"><i class="fa fa-fw fa-dashboard"></i> Points d'apports textile </a>
+                <a href="ijavascript:" data-toggle="collapse" data-target="#textile_menu">
+                    <i class="fa fa-suitcase"></i>
+                    Textile
+                    <i class="fa fa-caret-down"></i>
+                </a>
                 <ul id="textile_menu" class="collapse">
                     <li>
-                        <a href="{{ path('gyg_app_edit_textile') }}">Ajouter</a>
+                        <a href="{{ path('gyg_app_edit_textile') }}">
+                            <i class="fa fa-plus-circle"></i>
+                            Ajouter
+                        </a>
                     </li>
                     <li>
-                        <a href="javascript:;">Afficher</a>
-                    </li>
-                    <li>
-                        <a href="javascript:;">Cacher</a>
+                        <a href="javascript:;">
+                            <i class="fa fa-map-marker"></i>
+                            Afficher
+                        </a>
                     </li>
                 </ul>
             </li>
             <li>
-                <a href="javascript:;" data-toggle="collapse" data-target="#trajet_menu"><i class="fa fa-fw fa-arrows-v"></i> Trajet <i class="fa fa-fw fa-caret-down"></i></a>
+                <a href="javascript:;" data-toggle="collapse" data-target="#trajet_menu">
+                    <i class="fa fa-truck"></i>
+                    Trajet
+                    <i class="fa fa-caret-down"></i>
+                </a>
                 <ul id="trajet_menu" class="collapse">
                     <li>
-                        <a href="{{ path('gyg_app_edit_trajet') }}">Ajouter</a>
+                        <a href="{{ path('gyg_app_edit_trajet') }}">
+                            <i class="fa fa-plus-circle"></i>
+                            Ajouter
+                        </a>
                     </li>
                     <li>
-                        <a href="javascript:;">Afficher</a>
-                    </li>
-                    <li>
-                        <a href="javascript:;">Cacher</a>
+                        <a href="javascript:;">
+                            <i class="fa fa-map-marker"></i>
+                            Afficher
+                        </a>
                     </li>
                 </ul>
             </li>
@@ -123,5 +175,4 @@
     </div>
     <!-- /.navbar-collapse -->
 </nav>
-
 <!-- /#sidebar-wrapper -->

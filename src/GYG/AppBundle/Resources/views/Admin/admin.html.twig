@@ -1,7 +1,7 @@
-{% extends '::base.html.twig' %}
+{% extends 'GYGAppBundle::_partials/map.html.twig' %}
 
 {% block body %}
-
+    {% include 'GYGAppBundle::_partials/menu_admin.html.twig' %}
     {% for label, flashes in app.session.flashbag.all %}
         {% for flash in flashes %}
             <div class="alert alert-{{ label }}">
@@ -9,17 +9,45 @@
             </div>
         {% endfor %}
     {% endfor %}
+    {{ parent() }}
+{% endblock %}
 
-    <div id="wrapper">
+{% block javascripts %}
+    <script type="text/javascript">
+        (function() {
+            var startOption = {
+                initLat: 581647.9745650819,
+                initLong: 5813280.860704543,
+                initZoom: 17,
+                editable: false
+            };
+            var map;
+            var drawingOverlay;
 
-        {% include 'GYGAppBundle::_partials/menu_admin.html.twig' with {'user': user } only %}
+            drawingOverlay = DrawOnMap.initialize(startOption, map);
 
-        <div id="page-wrapper">
-            {% include 'GYGAppBundle::Default/index.html.twig' %}
-        </div>
-        <!-- /#page-wrapper -->
+            $.ajax({
+                url: "{{ path('gyg_app_api_point_apport') }}"
+            }).done(function(data) {
+                data.forEach(function(item, index, array) {
+                    if(item.geoJson) {
+                        DrawOnMap.setData(drawingOverlay, item, 'pointapport');
+                    }
+                });
+            });
 
-    </div>
-    <!-- /#wrapper -->
+            $.ajax({
+                url: "{{ path('gyg_app_api_trajet') }}"
+            }).done(function(data) {
+                data.forEach(function(item, index, array) {
+                    if(item.geoJson) {
+                        DrawOnMap.setData(drawingOverlay, item, 'trajet');
+                    }
+                });
+            });
 
+            DrawOnMap.geolocation(drawingOverlay);
+
+        })();
+    </script>
 {% endblock %}

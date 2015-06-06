@@ -14,6 +14,7 @@ class DecheterieController extends Controller
     {
         $decheterie = new Decheterie();
         $form = $this->createForm(new DecheterieType(), $decheterie);
+        $user = $this->getUser();
 
         if ($request->isMethod('POST') && $form->handleRequest($request)->isValid()) {
 
@@ -34,7 +35,8 @@ class DecheterieController extends Controller
             'form' => $form->createView(),
             'formTitle' => 'AJOUTER UNE DECHETTERIE',
             'formAction' => $this->generateUrl('gyg_app_edit_decheterie', array()),
-            'decheterie' => $decheterie
+            'decheterie' => $decheterie,
+            'user' => $user
         ));
     }
 
