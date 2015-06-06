@@ -10,19 +10,18 @@
 {% endblock %}
 
 {% block body %}
-    <h2>{{ formTitle }}</h2>
-
-    <div class="formulaire col-md-6">
-        <form
-                action="{{ formAction }}"
-                method="post"
-                {{ form_enctype(form) }}>
-            {{ form_widget(form) }}
-        </form>
+    {{ include('GYGAppBundle::_partials/menu_admin.html.twig') }}
+    <div class="admin-form">
+        <h2>{{ formTitle }}</h2>
+        {{ parent() }}
+        <div class="row">
+            <div class="col-md-10< col-centered">
+                <form class="form" action="{{ formAction }}" method="post"{{ form_enctype(form) }}>
+                    {{ form_widget(form) }}
+                </form>
+            </div>
+        </div>
     </div>
-
-    {{ parent() }}
-
 {% endblock %}
 
 
@@ -45,8 +44,6 @@
             $('#edit-textile form').on('submit', function(){
                 $('#gyg_appbundle_textile_geojson').val(DrawOnMap.getData(drawingOverlay));
             });
-
-            $('#map').addClass('col-md-6');
         })();
     </script>
 {% endblock %}

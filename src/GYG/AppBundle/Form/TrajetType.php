@@ -42,7 +42,10 @@ class TrajetType extends AbstractType{
                 'mapped' => false
             ])
             ->add('save','submit',[
-                'label' => 'Sauvegarder'
+                'label' => 'Sauvegarder',
+                'attr' => [
+                    'class' => 'btn btn-success'
+                ]
             ]);
     }
 

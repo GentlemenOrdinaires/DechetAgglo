@@ -14,6 +14,7 @@ class DecheterieController extends Controller
     {
         $decheterie = new Decheterie();
         $form = $this->createForm(new DecheterieType(), $decheterie);
+        $user = $this->getUser();
 
         if ($request->isMethod('POST') && $form->handleRequest($request)->isValid()) {
 
@@ -32,9 +33,10 @@ class DecheterieController extends Controller
 
         return $this->render('GYGAppBundle:_partials:form.html.twig', array(
             'form' => $form->createView(),
-            'formTitle' => 'AJOUTER UNE DECHETTERIE',
+            'formTitle' => 'Ajouter une dechetterie',
             'formAction' => $this->generateUrl('gyg_app_edit_decheterie', array()),
-            'decheterie' => $decheterie
+            'decheterie' => $decheterie,
+            'user' => $user
         ));
     }
 
@@ -59,14 +61,14 @@ class DecheterieController extends Controller
     {
         if($idDecheterie == 0){
            return $this->addAction($request);
-        }else{
-
+        } else {
+            $user = $this->getUser();
             $em = $this->getDoctrine()->getManager();
             $decheterie = $em->getRepository('GYGAppBundle:Decheterie')->find($idDecheterie);
 
             if (!$decheterie) {
                 throw $this->createNotFoundException(
-                    'Aucune décheterie trouvée pour cet id : ' . $idDecheterie
+                    'Aucune déchetterie trouvée pour cet id : ' . $idDecheterie
                 );
             }
 
@@ -81,9 +83,10 @@ class DecheterieController extends Controller
 
             return $this->render('GYGAppBundle:_partials:form.html.twig', array(
                 'form' => $form->createView(),
-                'formTitle' => 'EDITER UNE DECHETTERIE',
+                'formTitle' => 'Editer une dechetterie',
                 'formAction' => $this->generateUrl('gyg_app_edit_decheterie', array('idDecheterie' => $decheterie->getId())),
-                'decheterie' => $decheterie
+                'decheterie' => $decheterie,
+                'user' => $user
             ));
         }
     }

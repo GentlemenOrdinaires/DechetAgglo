@@ -19,6 +19,7 @@ class PointApportController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
         $form = $this->createForm(new PointApportType());
+        $user = $this->getUser();
 
         if ($request->isMethod('POST') && $form->handleRequest($request)->isValid()) {
 
@@ -63,8 +64,9 @@ class PointApportController extends Controller
 
         return $this->render('GYGAppBundle:_partials:form.html.twig', array(
             'form' => $form->createView(),
-            'formTitle' => 'AJOUTER UN POINT D\'APPORT',
+            'formTitle' => 'Ajouter un point d\'apport',
             'formAction' => $this->generateUrl('gyg_app_edit_point_apport', array()),
+            'user' => $user
         ));
     }
 
@@ -89,7 +91,8 @@ class PointApportController extends Controller
     {
         if($idPointApport == 0){
             return $this->addAction($request);
-        }else{
+        } else {
+            $user = $this->getUser();
             $em = $this->getDoctrine()->getManager();
             $pointApport = $em->getRepository('GYGAppBundle:PointApport')->find($idPointApport);
 
@@ -144,7 +147,8 @@ class PointApportController extends Controller
                 'form' => $form->createView(),
                 'formTitle' => 'EDITER UN POINT D\'APPORT',
                 'formAction' => $this->generateUrl('gyg_app_edit_point_apport', array('idPointApport' => $pointApport->getId())),
-                'pointApport' => $pointApport
+                'pointApport' => $pointApport,
+                'user' => $user
             ));
         }
 

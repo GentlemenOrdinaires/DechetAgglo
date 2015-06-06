@@ -45,6 +45,7 @@ class PointApportType extends AbstractType
                         'plastique' => 'Plastiques',
                         'verre' => 'Verre',
                      ],
+                    'label' => 'Type de dechets',
                     'multiple' => true,
                     'expanded' => true
             ])
@@ -52,7 +53,10 @@ class PointApportType extends AbstractType
                 'mapped' => false
             ])
             ->add('save','submit',[
-                'label' => 'Sauvegarder'
+                'label' => 'Sauvegarder',
+                'attr' => [
+                    'class' => 'btn btn-success'
+                ]
             ]);
     }
 
