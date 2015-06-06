@@ -13,6 +13,7 @@ class TrajetController extends Controller
     {
         $trajet = new Trajet();
         $form = $this->createForm(new TrajetType(), $trajet);
+        $user = $this->getUser();
 
         if ($request->isMethod('POST') && $form->handleRequest($request)->isValid()) {
             $parseFromJsonService = $this->get('service_geo_json');
@@ -30,9 +31,10 @@ class TrajetController extends Controller
 
         return $this->render('GYGAppBundle:_partials:form_polygone.html.twig', array(
             'form' => $form->createView(),
-            'formTitle' => 'AJOUTER UN POINT D\'APPORT TEXTILE',
+            'formTitle' => 'Ajouter un point d\'apport textile',
             'formAction' => $this->generateUrl('gyg_app_edit_trajet', array()),
-            'trajet' => $trajet
+            'trajet' => $trajet,
+            'user' => $user
         ));
     }
 
@@ -57,8 +59,8 @@ class TrajetController extends Controller
     {
         if($idTrajet == 0){
             return $this->addAction($request);
-        }else{
-
+        } else {
+            $user = $this->getUser();
             $em = $this->getDoctrine()->getManager();
             $trajet = $em->getRepository('GYGAppBundle:Trajet')->find($idTrajet);
 
@@ -81,7 +83,8 @@ class TrajetController extends Controller
                 'form' => $form->createView(),
                 'formTitle' => 'EDITER UN POINT D\'APPORT TEXTILE',
                 'formAction' => $this->generateUrl('gyg_app_edit_trajet', array( 'idTrajet' => $trajet->getId())),
-                'trajet' => $trajet
+                'trajet' => $trajet,
+                'user' => $user
             ));
         }
     }

@@ -127,10 +127,15 @@ body {
 /* Custom Rules */
 * {
     font-family: 'Raleway', sans-serif;
+    color: #5a6169;
 }
 
 h1, h2, h3, h4, h5, h6 {
     font-family: 'Montserrat', sans-serif;
+}
+
+.side-nav>li:first-child {
+    margin-top: 25px;
 }
 
 .side-nav li a {
@@ -149,6 +154,12 @@ h1, h2, h3, h4, h5, h6 {
 .side-nav .collapse.in, .side-nav .collapsing {
     box-shadow: inset 1px 1px 5px #1E2227;
     background-color: #232B38;
+    border-left: solid 3px #15A4FA;
+
+}
+
+.side-nav .collapse.in li a:hover {
+    background-color: #283242 !important;
 }
 
 .navbar {
@@ -174,12 +185,68 @@ h1, h2, h3, h4, h5, h6 {
     cursor: pointer;
 }
 
- .admin-form #map {
-    width: 100%;
-    height: 350px;
-}
-
 .col-centered{
     float: none;
     margin: 0 auto;
 }
+
+/* --------------- */
+
+.admin-form {
+    width: 90%;
+    margin: 40px auto;
+}
+
+.admin-form #map {
+    width: 100%;
+    height: 350px;
+}
+
+.admin-form h2 {
+    margin-bottom: 40px;
+}
+
+.admin-form .form > div > div {
+    margin: 50px auto;
+    padding: 20px;
+    border: dashed 3px rgb(175, 190, 213);
+    border-radius: 10px;
+}
+
+.admin-form .btn {
+    padding: 10px 30px;
+}
+
+.admin-form label {
+    font-weight: 300;
+    font-size: 20px;
+    background-color: #AFBED5;
+    width: 100%;
+    padding: 30px;
+    border-radius: 10px;
+    color: white;
+    margin-bottom: 20px;
+}
+
+.admin-form input[type="checkbox"] + label, .admin-form input[type="radio"] + label {
+    display: inline-block;
+    background-color: transparent;
+    font-size: 20px;
+    margin: 0;
+    padding: 0;
+    color: #5a6169;
+}
+
+/* --------------- */
+
+input[type=checkbox] { display:none; } /* to hide the checkbox itself */
+input[type=checkbox] + label:before {
+    font-family: FontAwesome;
+    display: inline-block;
+}
+
+input[type=checkbox] + label:before { content: "\f096"; color: #15A4FA; } /* unchecked icon */
+input[type=checkbox] + label:before { letter-spacing: 10px; } /* space between checkbox and label */
+
+input[type=checkbox]:checked + label:before { content: "\f046"; color: #15A4FA; } /* checked icon */
+input[type=checkbox]:checked + label:before { letter-spacing: 5px; } /* allow space for check mark */

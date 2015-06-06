@@ -14,6 +14,7 @@ class TextileController extends Controller
     {
         $textile = new Textile();
         $form = $this->createForm(new TextileType(), $textile);
+        $user = $this->getUser();
 
         if ($request->isMethod('POST') && $form->handleRequest($request)->isValid()) {
             $parseFromJsonService = $this->get('service_geo_json');
@@ -31,9 +32,10 @@ class TextileController extends Controller
 
         return $this->render('GYGAppBundle:_partials:form.html.twig', array(
             'form' => $form->createView(),
-            'formTitle' => 'AJOUTER UN POINT D\'APPORT TEXTILE',
+            'formTitle' => 'Ajouter un point d\'apport textile',
             'formAction' => $this->generateUrl('gyg_app_edit_point_apport', array()),
-            'textile' => $textile
+            'textile' => $textile,
+            'user' => $user
         ));
     }
 
@@ -58,8 +60,8 @@ class TextileController extends Controller
     {
         if($idTextile == 0){
             return $this->addAction($request);
-        }else{
-
+        } else {
+            $user = $this->getUser();
             $em = $this->getDoctrine()->getManager();
             $textile = $em->getRepository('GYGAppBundle:Textile')->find($idTextile);
 
@@ -80,7 +82,7 @@ class TextileController extends Controller
 
             return $this->render('GYGAppBundle:_partials:form.html.twig', array(
                 'form' => $form->createView(),
-                'formTitle' => 'EDITER UN POINT D\'APPORT TEXTILE',
+                'formTitle' => 'Editer un point d\'apport textile',
                 'formAction' => $this->generateUrl('gyg_app_edit_point_apport', array('idTextile' => $textile->getId())),
                 'textile' => $textile
             ));

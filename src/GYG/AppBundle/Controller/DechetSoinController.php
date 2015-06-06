@@ -14,6 +14,7 @@ class DechetSoinController extends Controller
     {
         $dechetSoin = new DechetSoin();
         $form = $this->createForm(new DechetSoinType(), $dechetSoin);
+        $user = $this->getUser();
 
         if ($request->isMethod('POST') && $form->handleRequest($request)->isValid()) {
 
@@ -32,9 +33,10 @@ class DechetSoinController extends Controller
 
         return $this->render('GYGAppBundle:_partials:form.html.twig', array(
             'form' => $form->createView(),
-            'formTitle' => 'AJOUTER UN POINT D\'APPORT DE DECHETS DE SOIN',
+            'formTitle' => 'Ajouter un point d\'apport de dechets de soins',
             'formAction' => $this->generateUrl('gyg_app_edit_dechet_soin', array()),
-            'dechet_soin' => $dechetSoin
+            'dechet_soin' => $dechetSoin,
+            'user' => $user
         ));
     }
 
@@ -59,8 +61,8 @@ class DechetSoinController extends Controller
     {
         if($idDechetSoin == 0){
             return $this->addAction($request);
-        }else{
-
+        } else {
+            $user = $this->getUser;
             $em = $this->getDoctrine()->getManager();
             $dechetSoin = $em->getRepository('GYGAppBundle:DechetSoin')->find($idDechetSoin);
 
@@ -71,7 +73,6 @@ class DechetSoinController extends Controller
             }
 
             $form = $this->createForm(new DechetSoinType(), $dechetSoin);
-            //$form->get('filePhoto')->setData($dechetSoin->getPhoto());
 
 
             if ($request->isMethod('POST') && $form->handleRequest($request)->isValid()) {
@@ -83,9 +84,10 @@ class DechetSoinController extends Controller
 
             return $this->render('GYGAppBundle:_partials:form.html.twig', array(
                 'form' => $form->createView(),
-                'formTitle' => 'EDITER UN POINT D\'APPORT DE DECHETS DE SOIN',
+                'formTitle' => 'Editer un point d\'apport de dechets de soins',
                 'formAction' => $this->generateUrl('gyg_app_edit_dechet_soin', array( 'idDechetSoin' => $dechetSoin->getId())),
-                'dechet_soin' => $dechetSoin
+                'dechet_soin' => $dechetSoin,
+                'user' => $user
             ));
         }
     }
