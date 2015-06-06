@@ -11,15 +11,17 @@
 
 {% block body %}
     {{ include('GYGAppBundle::_partials/menu_admin.html.twig') }}
-    <div class="admin-form">
+    <div id="admin-form">
+        {% if not form.vars.valid %}
+        <div class="alert alert-danger" role="alert">{{ form_errors(form) }}</div>
+        {% endif %}
+
         <h2>{{ formTitle }}</h2>
         {{ parent() }}
-        <div class="row">
-            <div class="col-md-10< col-centered">
-                <form class="form" action="{{ formAction }}" method="post"{{ form_enctype(form) }}>
-                    {{ form_widget(form) }}
-                </form>
-            </div>
+        <div class="col-md-10< col-centered">
+            <form class="form" action="{{ formAction }}" method="post"{{ form_enctype(form) }}>
+                {{ form_widget(form) }}
+            </form>
         </div>
     </div>
 {% endblock %}
@@ -41,8 +43,8 @@
 
             drawingOverlay = DrawOnMap.initialize(startOption, map);
 
-            $('#edit-textile form').on('submit', function(){
-                $('#gyg_appbundle_textile_geojson').val(DrawOnMap.getData(drawingOverlay));
+            $('#admin-form form').on('submit', function(){
+                $('#admin-form .geojson-value').val(DrawOnMap.getData(drawingOverlay));
             });
         })();
     </script>

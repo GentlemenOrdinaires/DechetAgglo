@@ -6,6 +6,8 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use GYG\AppBundle\Entity\Trajet;
 use GYG\AppBundle\Form\TrajetType;
+use Symfony\Component\Form\FormError;
+
 
 class TrajetController extends Controller
 {
@@ -16,17 +18,21 @@ class TrajetController extends Controller
         $user = $this->getUser();
 
         if ($request->isMethod('POST') && $form->handleRequest($request)->isValid()) {
-            $parseFromJsonService = $this->get('service_geo_json');
-            $localisations = $parseFromJsonService->parseToPoint($request->request->get('gyg_appbundle_trajet')['geojson']);
-            $trajet->setLocalisations($localisations);
+            $geojson = $request->request->get('gyg_appbundle_trajet')['geojson'];
+            if(!isset($geojson) || empty($geojson)) $form->addError(new FormError('Veuillez indiquez une position sur la carte'));
+            else {
+                $parseFromJsonService = $this->get('service_geo_json');
+                $localisations = $parseFromJsonService->parseToPoint($trajet);
+                $trajet->setLocalisations($localisations);
 
-            $em = $this->getDoctrine()->getManager();
-            $em->persist($trajet);
-            $em->flush();
+                $em = $this->getDoctrine()->getManager();
+                $em->persist($trajet);
+                $em->flush();
 
-            $request->getSession()->getFlashBag()->add('notice', 'Trajet bien enregistré.');
+                $request->getSession()->getFlashBag()->add('notice', 'Trajet bien enregistré.');
 
-            return $this->redirect($this->generateUrl('gyg_app_adminpage', array()));
+                return $this->redirect($this->generateUrl('gyg_app_adminpage', array()));
+            }
         }
 
         return $this->render('GYGAppBundle:_partials:form_polygone.html.twig', array(

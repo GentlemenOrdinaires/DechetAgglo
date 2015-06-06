@@ -4,6 +4,11 @@
     {% include 'GYGAppBundle::_partials/menu_admin.html.twig' %}
     {% for label, flashes in app.session.flashbag.all %}
         {% for flash in flashes %}
+            {%if label == 'error'%}
+                {% set label = 'danger' %}
+            {% else %}
+                {% set label = 'success' %}
+            {%endif%}
             <div class="alert alert-{{ label }}">
                 {{ flash }}
             </div>

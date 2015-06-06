@@ -192,32 +192,32 @@ h1, h2, h3, h4, h5, h6 {
 
 /* --------------- */
 
-.admin-form {
+#admin-form {
     width: 90%;
     margin: 40px auto;
 }
 
-.admin-form #map {
+#admin-form #map {
     width: 100%;
     height: 350px;
 }
 
-.admin-form h2 {
+#admin-form h2 {
     margin-bottom: 40px;
 }
 
-.admin-form .form > div > div {
+#admin-form .form > div > div {
     margin: 50px auto;
     padding: 20px;
     border: dashed 3px rgb(175, 190, 213);
     border-radius: 10px;
 }
 
-.admin-form .btn {
+#admin-form .btn {
     padding: 10px 30px;
 }
 
-.admin-form label {
+#admin-form label {
     font-weight: 300;
     font-size: 20px;
     background-color: #AFBED5;
@@ -228,7 +228,7 @@ h1, h2, h3, h4, h5, h6 {
     margin-bottom: 20px;
 }
 
-.admin-form input[type="checkbox"] + label, .admin-form input[type="radio"] + label {
+#admin-form input[type="checkbox"] + label, #admin-form input[type="radio"] + label {
     display: inline-block;
     background-color: transparent;
     font-size: 20px;

@@ -26,7 +26,10 @@ class TextileType extends AbstractType
                 'required' => false
             ])
             ->add('geojson', 'hidden', [
-                'mapped' => false
+                'mapped' => false,
+                'attr' => [
+                    'class' => 'geojson-value'
+                ]
             ])
             ->add('save','submit',[
                 'label' => 'Sauvegarder',

@@ -38,19 +38,22 @@ class PointApportType extends AbstractType
                 'required' => false
             ])
             ->add('dechets','choice',[
-                    'choices' => [
-                        'menager' => 'Déchets ménagers',
-                        'metallique' => 'Déchets métalliques',
-                        'papier-carton' => 'Papiers/Cartons',
-                        'plastique' => 'Plastiques',
-                        'verre' => 'Verre',
-                     ],
-                    'label' => 'Type de dechets',
-                    'multiple' => true,
-                    'expanded' => true
+                'choices' => [
+                    'menager' => 'Déchets ménagers',
+                    'metallique' => 'Déchets métalliques',
+                    'papier-carton' => 'Papiers/Cartons',
+                    'plastique' => 'Plastiques',
+                    'verre' => 'Verre',
+                 ],
+                'label' => 'Type de dechets',
+                'multiple' => true,
+                'expanded' => true
             ])
             ->add('geojson', 'hidden', [
-                'mapped' => false
+                'mapped' => false,
+                'attr' => [
+                    'class' => 'geojson-value'
+                ]
             ])
             ->add('save','submit',[
                 'label' => 'Sauvegarder',

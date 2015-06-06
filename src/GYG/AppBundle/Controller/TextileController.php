@@ -7,6 +7,8 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use GYG\AppBundle\Entity\Textile;
 use GYG\AppBundle\Form\TextileType;
 use GYG\AppBundle\Entity\Localisation;
+use Symfony\Component\Form\FormError;
+
 
 class TextileController extends Controller
 {
@@ -17,17 +19,21 @@ class TextileController extends Controller
         $user = $this->getUser();
 
         if ($request->isMethod('POST') && $form->handleRequest($request)->isValid()) {
-            $parseFromJsonService = $this->get('service_geo_json');
-            $point = $parseFromJsonService->parseToPoint($request->request->get('gyg_appbundle_textile')['geojson']);
-            $textile->setLocalisation(new Localisation($point));
+            $geojson = $request->request->get('gyg_appbundle_textile')['geojson'];
+            if(!isset($geojson) || empty($geojson)) $form->addError(new FormError('Veuillez indiquez une position sur la carte'));
+            else {
+                $parseFromJsonService = $this->get('service_geo_json');
+                $point = $parseFromJsonService->parseToPoint($geojson);
+                $textile->setLocalisation(new Localisation($point));
 
-            $em = $this->getDoctrine()->getManager();
-            $em->persist($textile);
-            $em->flush();
+                $em = $this->getDoctrine()->getManager();
+                $em->persist($textile);
+                $em->flush();
 
-            $request->getSession()->getFlashBag()->add('notice', 'Point d\'apport textile bien enregistré.');
+                $request->getSession()->getFlashBag()->add('notice', 'Point d\'apport textile bien enregistré.');
 
-            return $this->redirect($this->generateUrl('gyg_app_adminpage', array()));
+                return $this->redirect($this->generateUrl('gyg_app_adminpage', array()));
+            }
         }
 
         return $this->render('GYGAppBundle:_partials:form.html.twig', array(
@@ -84,7 +90,8 @@ class TextileController extends Controller
                 'form' => $form->createView(),
                 'formTitle' => 'Editer un point d\'apport textile',
                 'formAction' => $this->generateUrl('gyg_app_edit_point_apport', array('idTextile' => $textile->getId())),
-                'textile' => $textile
+                'textile' => $textile,
+                'user' => $user
             ));
         }
     }

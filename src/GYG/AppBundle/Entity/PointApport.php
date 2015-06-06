@@ -106,6 +106,14 @@ abstract class PointApport extends Mapable
         $this->photo = $photo;
     }
 
+    /**
+     * @return ArrayCollection
+     */
+    public function getDechets()
+    {
+        return $this->dechets;
+    }
+
 
     /**
      * @ORM\PostUpdate()
@@ -164,15 +172,6 @@ abstract class PointApport extends Mapable
     public function getWebPath()
     {
         return null === $this->photo ? null : $this->getUploadDir() . '/' . $this->photo;
-    }
-
-
-    /**
-     * @return ArrayCollection
-     */
-    public function getDechets()
-    {
-        return $this->dechets;
     }
 
     /**

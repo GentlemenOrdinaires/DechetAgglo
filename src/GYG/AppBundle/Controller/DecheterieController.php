@@ -7,6 +7,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use GYG\AppBundle\Entity\Decheterie;
 use GYG\AppBundle\Form\DecheterieType;
 use GYG\AppBundle\Entity\Localisation;
+use Symfony\Component\Form\FormError;
 
 class DecheterieController extends Controller
 {
@@ -17,18 +18,22 @@ class DecheterieController extends Controller
         $user = $this->getUser();
 
         if ($request->isMethod('POST') && $form->handleRequest($request)->isValid()) {
+            $geojson = $request->request->get('gyg_appbundle_decheterie')['geojson'];
+            if(!isset($geojson) || empty($geojson)) $form->addError(new FormError('Veuillez indiquez une position sur la carte'));
+            else {
+                $parseFromJsonService = $this->get('service_geo_json');
+                $point = $parseFromJsonService->parseToPoint($geojson);
+                $decheterie->setLocalisation(new Localisation($point));
 
-            $parseFromJsonService = $this->get('service_geo_json');
-            $point = $parseFromJsonService->parseToPoint($request->request->get('gyg_appbundle_decheterie')['geojson']);
-            $decheterie->setLocalisation(new Localisation($point));
+                $em = $this->getDoctrine()->getManager();
+                $em->persist($decheterie);
+                $em->flush();
 
-            $em = $this->getDoctrine()->getManager();
-            $em->persist($decheterie);
-            $em->flush();
+                $request->getSession()->getFlashBag()->add('notice', 'Décheterie bien enregistrée.');
 
-            $request->getSession()->getFlashBag()->add('notice', 'Décheterie bien enregistrée.');
+                return $this->redirect($this->generateUrl('gyg_app_adminpage', array()));
+            }
 
-            return $this->redirect($this->generateUrl('gyg_app_adminpage', array()));
         }
 
         return $this->render('GYGAppBundle:_partials:form.html.twig', array(
