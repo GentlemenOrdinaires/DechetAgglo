@@ -126,12 +126,13 @@ body {
 
 /* Custom Rules */
 * {
-    font-family: 'Raleway', sans-serif;
+    font-family: 'Titillium Web', sans-serif;
+    font-size: 15px;
     color: #5a6169;
 }
 
 h1, h2, h3, h4, h5, h6 {
-    font-family: 'Montserrat', sans-serif;
+    font-family: 'Amaranth', sans-serif;
 }
 
 .side-nav>li:first-child {
@@ -220,7 +221,7 @@ h1, h2, h3, h4, h5, h6 {
 #admin-form label {
     font-weight: 300;
     font-size: 20px;
-    background-color: #AFBED5;
+    background-color: #a0aec3;
     width: 100%;
     padding: 30px;
     border-radius: 10px;
