@@ -8,3 +8,8 @@ gyg_app:
 
 fos_user:
     resource: "@FOSUserBundle/Resources/config/routing/all.xml"
+    prefix:   /admin
+
+fos_user_login:
+    resource: "@FOSUserBundle/Resources/config/routing/security.xml"
+    prefix:   /
