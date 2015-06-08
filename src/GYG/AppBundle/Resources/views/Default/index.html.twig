@@ -2,6 +2,7 @@
 
 {% block body %}
     {{ parent() }}
+    <input type="text" id="address"/>
 {% endblock %}
 
 {% block javascripts %}
@@ -39,6 +40,13 @@
             });
 
             DrawOnMap.geolocation(drawingOverlay);
+
+            $('#address').on('keypress', function(e) {
+                //if key pressed = enter
+                if(e.which == 13) {
+                    DrawOnMap.getLocalisationFromAddress(drawingOverlay, $('#address').val());
+                }
+            });
 
         })();
     </script>
