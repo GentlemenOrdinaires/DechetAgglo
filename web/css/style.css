@@ -209,7 +209,7 @@ h1, h2, h3, h4, h5, h6 {
 #admin-form .form > div > div {
     margin: 50px auto;
     padding: 20px;
-    border: dashed 3px rgb(175, 190, 213);
+    border: dashed 3px #15A4FA;
     border-radius: 10px;
 }
 

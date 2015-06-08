@@ -19,7 +19,9 @@ class DecheterieController extends Controller
 
         if ($request->isMethod('POST') && $form->handleRequest($request)->isValid()) {
             $geojson = $request->request->get('gyg_appbundle_decheterie')['geojson'];
-            if(!isset($geojson) || empty($geojson)) $form->addError(new FormError('Veuillez indiquez une position sur la carte'));
+            $horaires = $request->request->get('gyg_appbundle_decheterie')['horaires'];
+            if(!isset($horaires) || empty($horaires)) $form->addError(new FormError('Veuillez indiquez des informations concernant les horaires'));
+            else if(!isset($geojson) || empty($geojson)) $form->addError(new FormError('Veuillez indiquez une position sur la carte'));
             else {
                 $parseFromJsonService = $this->get('service_geo_json');
                 $point = $parseFromJsonService->parseToPoint($geojson);
@@ -80,17 +82,25 @@ class DecheterieController extends Controller
             $form = $this->createForm(new DecheterieType(), $decheterie);
 
             if ($request->isMethod('POST') && $form->handleRequest($request)->isValid()) {
+                $horaires = $decheterie->getHoraires();
+                if(!isset($horaires) || empty($horaires)) $form->addError(new FormError('Veuillez indiquez des informations concernant les horaires'));
+                else {
+                    $geojson = $request->request->get('gyg_appbundle_decheterie')['geojson'];
+                    $parseFromJsonService = $this->get('service_geo_json');
+                    $point = $parseFromJsonService->parseToPoint($geojson);
+                    $decheterie->setLocalisation(new Localisation($point));
 
-                $em->flush();
-
-                return $this->redirect($this->generateUrl('gyg_app_adminpage'));
+                    $em->flush();
+                    return $this->redirect($this->generateUrl('gyg_app_adminpage'));
+                }
             }
 
             return $this->render('GYGAppBundle:_partials:form.html.twig', array(
                 'form' => $form->createView(),
                 'formTitle' => 'Editer une dechetterie',
                 'formAction' => $this->generateUrl('gyg_app_edit_decheterie', array('idDecheterie' => $decheterie->getId())),
-                'decheterie' => $decheterie,
+                'elementToEdit' => $decheterie,
+                'routeToApi' => 'gyg_app_api_dechetterie',
                 'user' => $user
             ));
         }

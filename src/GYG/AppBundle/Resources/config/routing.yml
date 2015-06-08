@@ -18,6 +18,18 @@ gyg_app_api_trajet:
     path:   /api/trajet
     defaults:  { _controller: GYGAppBundle:Api:getTrajet }
 
+gyg_app_api_dechetterie:
+    path:   /api/dechetterie
+    defaults:  { _controller: GYGAppBundle:Api:getDechetterie }
+
+gyg_app_api_dechet_soin:
+    path:   /api/dechet-soin
+    defaults:  { _controller: GYGAppBundle:Api:getDechetSoin }
+
+gyg_app_api_textile:
+    path:   /api/textile
+    defaults:  { _controller: GYGAppBundle:Api:getTextile }
+
 gyg_app_delete_point_apport:
     path: /admin/delete-point-apport/{idPointApport}
     defaults: { _controller: GYGAppBundle:PointApport:delete }

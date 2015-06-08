@@ -121,7 +121,12 @@ class PointApportController extends Controller
                 $query = "UPDATE point_apport SET discriminator = '".$request->request->get('gyg_appbundle_pointapport')['type']."' WHERE id = ".$pointApport->getId();
                 $em->getConnection()->exec( $query );
 
-                foreach ($request->request->get('gyg_appbundle_pointapport')['dechets'] as $key => $value) {
+                foreach($pointApport->getDechets() as $oneDechet) {
+                    $pointApport->removeDechet($oneDechet);
+                }
+
+                $dechetsSelected = isset($request->request->get('gyg_appbundle_pointapport')['dechets']) ? $request->request->get('gyg_appbundle_pointapport')['dechets'] : [];
+                foreach ($dechetsSelected as $key => $value) {
                     switch ($value) {
                         case 'menager':
                             $em->getRepository('GYG\AppBundle\Entity\Dechet\Menager')->findOneBy([]) ? $pointApport->addDechet($em->getRepository('GYG\AppBundle\Entity\Dechet\Menager')->findOneBy([])): $pointApport->addDechet(new Menager());
@@ -140,13 +145,17 @@ class PointApportController extends Controller
                             break;
                     }
                 }
-
-                if(empty($pointApport)) $form->addError(new FormError('Veuillez selectionnez au moins un type de dechet'));
+                if($pointApport->getDechets()->isEmpty()) $form->addError(new FormError('Veuillez selectionnez au moins un type de dechet'));
                 else {
                     $pointApport->setInfos($request->request->get('gyg_appbundle_pointapport')['infos']);
                     $pointApport->setFilePhoto($request->files->get('gyg_appbundle_pointapport')['filePhoto']);
 
-                    $em->persist($pointApport->getDechets());
+                    $geojson = $request->request->get('gyg_appbundle_pointapport')['geojson'];
+                    $parseFromJsonService = $this->get('service_geo_json');
+                    $point = $parseFromJsonService->parseToPoint($geojson);
+                    $pointApport->setLocalisation(new Localisation($point));
+
+                    $em->persist($pointApport);
                     $em->flush();
 
                     return $this->redirect($this->generateUrl('gyg_app_adminpage'));
@@ -155,9 +164,10 @@ class PointApportController extends Controller
 
             return $this->render('GYGAppBundle:_partials:form.html.twig', array(
                 'form' => $form->createView(),
-                'formTitle' => 'EDITER UN POINT D\'APPORT',
+                'formTitle' => 'Editer un point d\'apport',
                 'formAction' => $this->generateUrl('gyg_app_edit_point_apport', array('idPointApport' => $pointApport->getId())),
-                'pointApport' => $pointApport,
+                'elementToEdit' => $pointApport,
+                'routeToApi' => 'gyg_app_api_point_apport',
                 'user' => $user
             ));
         }
