@@ -1,9 +1,11 @@
 {% extends 'GYGAppBundle::_partials/map.html.twig' %}
 
 {% block body %}
+    {% include 'GYGAppBundle::_partials/menu.html.twig' %}
     {{ parent() }}
-{% endblock %}
 
+
+{% endblock %}
 {% block javascripts %}
     <script type="text/javascript">
         (function() {
