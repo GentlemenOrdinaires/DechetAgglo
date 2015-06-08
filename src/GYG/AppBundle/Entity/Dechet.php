@@ -40,13 +40,6 @@ abstract class Dechet
      */
     protected $libelle;
 
-
-    /**
-     * @TODO
-     * @var
-     */
-    protected $photo;
-
     /**
      * @return int
      */
@@ -70,39 +63,6 @@ abstract class Dechet
     {
         $this->libelle = $libelle;
     }
-
-    /**
-     * @return mixed
-     */
-    public function getPointApport()
-    {
-        return $this->pointApport;
-    }
-
-    /**
-     * @param mixed $pointApport
-     */
-    public function setPointApport($pointApport)
-    {
-        $this->pointApport = $pointApport;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getPhoto()
-    {
-        return $this->photo;
-    }
-
-    /**
-     * @param mixed $photo
-     */
-    public function setPhoto($photo)
-    {
-        $this->photo = $photo;
-    }
-
 
 
     /**

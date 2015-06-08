@@ -95,7 +95,7 @@ class ApiController extends Controller
      * @param Request $request
      * @return JsonResponse
      */
-    public function getDechetSoin(Request $request)
+    public function getDechetSoinAction(Request $request)
     {
         if ($request->query->get('id')) {
             $entity = $this->getDoctrine()->getManager()->getRepository('GYG\AppBundle\Entity\DechetSoin')->find($request->query->get('id'));
@@ -120,7 +120,7 @@ class ApiController extends Controller
      * @param Request $request
      * @return JsonResponse
      */
-    public function getDecheterie(Request $request)
+    public function getDechetterieAction(Request $request)
     {
         if ($request->query->get('id')) {
             $entity = $this->getDoctrine()->getManager()->getRepository('GYG\AppBundle\Entity\Decheterie')->find($request->query->get('id'));
@@ -144,7 +144,7 @@ class ApiController extends Controller
      * @param Request $request
      * @return JsonResponse
      */
-    public function getTextile(Request $request){
+    public function getTextileAction(Request $request){
         if ($request->query->get('id')) {
             $entity = $this->getDoctrine()->getManager()->getRepository('GYG\AppBundle\Entity\Textile')->find($request->query->get('id'));
             if ($entity instanceof Textile) {

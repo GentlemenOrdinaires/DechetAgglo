@@ -80,9 +80,12 @@ class TextileController extends Controller
             $form = $this->createForm(new TextileType(), $textile);
 
             if ($request->isMethod('POST') && $form->handleRequest($request)->isValid()) {
+                $geojson = $request->request->get('gyg_appbundle_textile')['geojson'];
+                $parseFromJsonService = $this->get('service_geo_json');
+                $point = $parseFromJsonService->parseToPoint($geojson);
+                $textile->setLocalisation(new Localisation($point));
 
                 $em->flush();
-
                 return $this->redirect($this->generateUrl('gyg_app_adminpage'));
             }
 
@@ -90,7 +93,8 @@ class TextileController extends Controller
                 'form' => $form->createView(),
                 'formTitle' => 'Editer un point d\'apport textile',
                 'formAction' => $this->generateUrl('gyg_app_edit_point_apport', array('idTextile' => $textile->getId())),
-                'textile' => $textile,
+                'elementToEdit' => $textile,
+                'routeToApi' => 'gyg_app_api_textile',
                 'user' => $user
             ));
         }

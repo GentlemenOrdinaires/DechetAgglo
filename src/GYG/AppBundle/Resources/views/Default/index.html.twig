@@ -1,7 +1,9 @@
 {% extends 'GYGAppBundle::_partials/map.html.twig' %}
 
 {% block body %}
+    {% include 'GYGAppBundle::_partials/menu.html.twig' %}
     {{ parent() }}
+    <input type="text" id="address"/>
 {% endblock %}
 
 {% block javascripts %}
@@ -39,6 +41,13 @@
             });
 
             DrawOnMap.geolocation(drawingOverlay);
+
+            $('#address').on('keypress', function(e) {
+                //if key pressed = enter
+                if(e.which == 13) {
+                    DrawOnMap.getLocalisationFromAddress(drawingOverlay, $('#address').val());
+                }
+            });
 
         })();
     </script>

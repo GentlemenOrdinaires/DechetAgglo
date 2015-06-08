@@ -107,15 +107,6 @@ abstract class PointApport extends Mapable
     }
 
     /**
-     * @return ArrayCollection
-     */
-    public function getDechets()
-    {
-        return $this->dechets;
-    }
-
-
-    /**
      * @ORM\PostUpdate()
      * @ORM\PostPersist()
      */
@@ -187,7 +178,7 @@ abstract class PointApport extends Mapable
      */
     public function removeDechet($dechet)
     {
-        $this->dechets->remove($dechet);
+        $this->dechets->removeElement($dechet);
     }
 
     /**
@@ -197,5 +188,14 @@ abstract class PointApport extends Mapable
     {
         $this->dechets = $dechets;
     }
+
+    /**
+     * @return ArrayCollection
+     */
+    public function getDechets()
+    {
+        return $this->dechets;
+    }
+
 
 } 

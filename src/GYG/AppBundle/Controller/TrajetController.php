@@ -19,10 +19,14 @@ class TrajetController extends Controller
 
         if ($request->isMethod('POST') && $form->handleRequest($request)->isValid()) {
             $geojson = $request->request->get('gyg_appbundle_trajet')['geojson'];
-            if(!isset($geojson) || empty($geojson)) $form->addError(new FormError('Veuillez indiquez une position sur la carte'));
+            $jourCollecte = $request->request->get('gyg_appbundle_trajet')['jourCollecte'];
+            $jourCollecteSelective = $request->request->get('gyg_appbundle_trajet')['jourCollecteSelective'];
+            if(!isset($jourCollecteSelective) || empty($jourCollecteSelective)) $form->addError(new FormError('Veuillez indiquez des informations concernant les jours de collecte selective'));
+            else if(!isset($jourCollecte) || empty($jourCollecte)) $form->addError(new FormError('Veuillez indiquez des informations concernant les jours de collecte'));
+            else if(!isset($geojson) || empty($geojson)) $form->addError(new FormError('Veuillez indiquez une position sur la carte'));
             else {
                 $parseFromJsonService = $this->get('service_geo_json');
-                $localisations = $parseFromJsonService->parseToPoint($trajet);
+                $localisations = $parseFromJsonService->parseToPoint($geojson);
                 $trajet->setLocalisations($localisations);
 
                 $em = $this->getDoctrine()->getManager();
@@ -37,7 +41,7 @@ class TrajetController extends Controller
 
         return $this->render('GYGAppBundle:_partials:form_polygone.html.twig', array(
             'form' => $form->createView(),
-            'formTitle' => 'Ajouter un point d\'apport textile',
+            'formTitle' => 'Ajouter un trajet',
             'formAction' => $this->generateUrl('gyg_app_edit_trajet', array()),
             'trajet' => $trajet,
             'user' => $user
@@ -79,17 +83,27 @@ class TrajetController extends Controller
             $form = $this->createForm(new TrajetType(), $trajet);
 
             if ($request->isMethod('POST') && $form->handleRequest($request)->isValid()) {
+                $jourCollecteSelective = $trajet->getJourCollecteSelective();
+                $jourCollecte = $trajet->getJourCollecte();
+                if(!isset($jourCollecteSelective) || empty($jourCollecteSelective)) $form->addError(new FormError('Veuillez indiquez des informations concernant les jours de collecte selective'));
+                else if(!isset($jourCollecte) || empty($jourCollecte)) $form->addError(new FormError('Veuillez indiquez des informations concernant les jours de collecte'));
+                else {
+                    $geojson = $request->request->get('gyg_appbundle_trajet')['geojson'];
+                    $parseFromJsonService = $this->get('service_geo_json');
+                    $localisations = $parseFromJsonService->parseToPoint($geojson);
+                    $trajet->setLocalisations($localisations);
 
-                $em->flush();
-
-                return $this->redirect($this->generateUrl('gyg_app_adminpage'));
+                    $em->flush();
+                    return $this->redirect($this->generateUrl('gyg_app_adminpage'));
+                }
             }
 
             return $this->render('GYGAppBundle:_partials:form_polygone.html.twig', array(
                 'form' => $form->createView(),
-                'formTitle' => 'EDITER UN POINT D\'APPORT TEXTILE',
+                'formTitle' => 'Editer un trajet',
                 'formAction' => $this->generateUrl('gyg_app_edit_trajet', array( 'idTrajet' => $trajet->getId())),
-                'trajet' => $trajet,
+                'elementToEdit' => $trajet,
+                'routeToApi' => 'gyg_app_api_trajet',
                 'user' => $user
             ));
         }

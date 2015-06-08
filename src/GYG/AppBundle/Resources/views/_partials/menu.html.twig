@@ -1,0 +1,108 @@
+<!-- Sidebar -->
+<nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+    <!-- Brand and toggle get grouped for better mobile display -->
+    <div class="navbar-header">
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="{{ path('gyg_app_homepage') }}">
+            <img src="{{ asset('img/logo-bba-2.png') }}">
+            <p>
+                Bourg-en-Bresse
+                </br>
+                Agglomération
+            </p>
+        </a>
+    </div>
+    <!-- Top Menu Items -->
+    <ul class="nav navbar-left top-nav">
+        <li><h2>Carte</h2></li>
+    </ul>
+    <!-- Sidebar Menu Items - These collapse to the responsive navigation menu on small screens -->
+    <div class="collapse navbar-collapse navbar-ex1-collapse">
+        <ul class="nav navbar-nav side-nav">
+            <h2>Filtres</h2>
+            <li>
+                <a href="javascript:;" data-toggle="collapse" data-target="#point_apport_menu">
+                    <i class="fa fa-trash-o"></i>
+                    Points d'apports
+                    <i class="fa fa-caret-down"></i>
+                </a>
+                <ul id="point_apport_menu" class="collapse">
+                    <li>
+                        <a href="">
+                            Entérré
+                        </a>
+                    </li>
+                    <li>
+                        <a href="javascript:;">
+                            Aerien
+                        </a>
+                    </li>
+                </ul>
+            </li>
+            <li>
+                <a href="javascript:;" data-toggle="collapse" data-target="#dechet_menu">
+                    <i class="fa fa-cubes"></i>
+                    Déchets
+                    <i class="fa fa-caret-down"></i>
+                </a>
+                <ul id="dechet_menu" class="collapse">
+                    <li>
+                        <a href="javascript:;">
+                            Menager
+                        </a>
+                    </li>
+                    <li>
+                        <a href="javascript:;">
+                            Metallique
+                        </a>
+                    </li>
+                    <li>
+                        <a href="javascript:;">
+                            Plastique
+                        </a>
+                    </li>
+                    <li>
+                        <a href="javascript:;">
+                            Papier, cartons
+                        </a>
+                    </li>
+                    <li>
+                        <a href="javascript:;">
+                            Verre
+                        </a>
+                    </li>
+                    <li>
+                        <a href="javascript:;">
+                            Textile
+                        </a>
+                    </li>
+                    <li>
+                        <a href="javascript:;">
+                            Soin
+                        </a>
+                    </li>
+                </ul>
+            </li>
+            <li>
+                <a href="javascript:" data-toggle="collapse" data-target="#dechetterie_menu" >
+                    <i class="fa fa-recycle"></i>
+                    Déchetteries
+                </a>
+            </li>
+            </li>
+            <li>
+                <a href="javascript:;" data-toggle="collapse" data-target="#trajet_menu">
+                    <i class="fa fa-truck"></i>
+                    Trajets
+                </a>
+            </li>
+        </ul>
+    </div>
+    <!-- /.navbar-collapse -->
+</nav>
+<!-- /#sidebar-wrapper -->

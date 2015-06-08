@@ -1,17 +1,32 @@
-<table>
-    <tr>
-        <th>Username</th>
-        <th>Email</th>
-        <th>Gestion</th>
-    </tr>
-{% for user in users %}
+{% extends '::base.html.twig' %}
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset('css/bootstrap.min.css') }}" />
+    <link rel="stylesheet" href="{{ asset('css/style.css') }}" />
+    <link rel="stylesheet" href="{{ asset('css/font-awesome.min.css') }}" />
+{% endblock %}
+
+    {% block javascripts_header %}
+        <script src="{{ asset('js/jquery-1.11.3.min.js') }}" type="text/javascript"></script>
+        <script src="{{ asset('js/bootstrap.min.js') }}" type="text/javascript"></script>
+    {% endblock %}
+
+    {% block body %}
+        {{ include('GYGAppBundle::_partials/menu_admin.html.twig') }}
+    <table class="table table-striped"s>
         <tr>
-            <td>{{ user.username }}</td>
-            <td>{{ user.email }}</td>
-            <td>
-                <a href="{{ path('gyg_user_delete', {'idUser': user.id}) }}">Delete</a>
-            </td>
+            <th>Nom d'utilisateur</th>
+            <th>Email</th>
+            <th>Gestion</th>
         </tr>
-{% endfor %}
-</table>
+    {% for user in users %}
+            <tr>
+                <td>{{ user.username }}</td>
+                <td>{{ user.email }}</td>
+                <td>
+                    <a href="{{ path('gyg_user_delete', {'idUser': user.id}) }}"><button type="button" class="btn btn-danger">Supprimer</button></a>
+                </td>
+            </tr>
+    {% endfor %}
+    </table>
+    {% endblock %}
 

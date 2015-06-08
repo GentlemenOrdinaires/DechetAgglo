@@ -126,12 +126,13 @@ body {
 
 /* Custom Rules */
 * {
-    font-family: 'Raleway', sans-serif;
+    font-family: 'Titillium Web', sans-serif;
+    font-size: 15px;
     color: #5a6169;
 }
 
 h1, h2, h3, h4, h5, h6 {
-    font-family: 'Montserrat', sans-serif;
+    font-family: 'Amaranth', sans-serif;
 }
 
 .side-nav>li:first-child {
@@ -179,6 +180,23 @@ h1, h2, h3, h4, h5, h6 {
     padding-top: 0;
 }
 
+.navbar .navbar-brand > img{
+    display: block;
+    width: 70px;
+    float: left;
+    margin-top: 5px;
+}
+
+.navbar .navbar-brand > p{
+    float: left;
+    font-size: 15px;
+    text-align: left;
+    line-height: 15px;
+    margin-top: 20px;
+    color: white;
+    margin-left: 10px;
+}
+
 .navbar .navbar-brand:hover {
     background-color: #15A4FA;
     color: #ffffff;
@@ -209,7 +227,7 @@ h1, h2, h3, h4, h5, h6 {
 #admin-form .form > div > div {
     margin: 50px auto;
     padding: 20px;
-    border: dashed 3px rgb(175, 190, 213);
+    border: dashed 3px #15A4FA;
     border-radius: 10px;
 }
 
@@ -220,7 +238,7 @@ h1, h2, h3, h4, h5, h6 {
 #admin-form label {
     font-weight: 300;
     font-size: 20px;
-    background-color: #AFBED5;
+    background-color: #a0aec3;
     width: 100%;
     padding: 30px;
     border-radius: 10px;

@@ -31,9 +31,11 @@ class UserController extends Controller{
 
     public function listAction(){
         $userManager = $this->get('fos_user.user_manager');
+        $user = $this->getUser();
         $this->users = $userManager->findUsers();
 
         return $this->render('GYGUserBundle:User:liste.html.twig',array(
+            'user' => $user,
             'users'     => $this->users,
         ));
     }
