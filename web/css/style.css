@@ -180,6 +180,23 @@ h1, h2, h3, h4, h5, h6 {
     padding-top: 0;
 }
 
+.navbar .navbar-brand > img{
+    display: block;
+    width: 70px;
+    float: left;
+    margin-top: 5px;
+}
+
+.navbar .navbar-brand > p{
+    float: left;
+    font-size: 15px;
+    text-align: left;
+    line-height: 15px;
+    margin-top: 20px;
+    color: white;
+    margin-left: 10px;
+}
+
 .navbar .navbar-brand:hover {
     background-color: #15A4FA;
     color: #ffffff;
