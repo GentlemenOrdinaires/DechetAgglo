@@ -81,17 +81,23 @@ class DechetSoinController extends Controller
 
 
             if ($request->isMethod('POST') && $form->handleRequest($request)->isValid()) {
+                $geojson = $request->request->get('gyg_appbundle_dechetsoin')['geojson'];
+                $parseFromJsonService = $this->get('service_geo_json');
+                $point = $parseFromJsonService->parseToPoint($geojson);
+                $dechetSoin->setLocalisation(new Localisation($point));
 
                 $em->flush();
-
                 return $this->redirect($this->generateUrl('gyg_app_adminpage'));
             }
+
 
             return $this->render('GYGAppBundle:_partials:form.html.twig', array(
                 'form' => $form->createView(),
                 'formTitle' => 'Editer un point d\'apport de dechets de soins',
                 'formAction' => $this->generateUrl('gyg_app_edit_dechet_soin', array( 'idDechetSoin' => $dechetSoin->getId())),
-                'dechet_soin' => $dechetSoin,
+                'elementToEdit' => $dechetSoin,
+                'routeToApi' => 'gyg_app_api_dechet_soin',
+
                 'user' => $user
             ));
         }

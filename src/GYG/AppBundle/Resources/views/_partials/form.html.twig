@@ -43,6 +43,16 @@
 
             drawingOverlay = DrawOnMap.initialize(startOption, map);
 
+            {% if routeToApi is defined %}
+            $.ajax({
+                url: "{{ path(routeToApi) }}?id={{ elementToEdit.id }}"
+            }).done(function(item) {
+                if(item.geoJson) {
+                    DrawOnMap.setData(drawingOverlay, item, '');
+                }
+            });
+            {% endif %}
+
             $('#admin-form form').on('submit', function(){
                 $('#admin-form .geojson-value').val(DrawOnMap.getData(drawingOverlay));
             });

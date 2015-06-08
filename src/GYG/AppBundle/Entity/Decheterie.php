@@ -36,16 +36,6 @@ class Decheterie extends Mapable{
     protected $photo;
 
     /**
-     * @var String  @ORM\Column(name="logo", type="string", length=255, nullable=true)
-     */
-    protected $logo;
-
-    /**
-     * @Assert\Image(maxSize="5M")
-     */
-    protected $fileLogo;
-
-    /**
      * @Assert\Image(maxSize="5M")
      */
     protected $filePhoto;
@@ -96,38 +86,6 @@ class Decheterie extends Mapable{
     public function setPhoto($photo)
     {
         $this->photo = $photo;
-    }
-
-    /**
-     * @return String
-     */
-    public function getLogo()
-    {
-        return $this->logo;
-    }
-
-    /**
-     * @param String $logo
-     */
-    public function setLogo($logo)
-    {
-        $this->logo = $logo;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getFileLogo()
-    {
-        return $this->fileLogo;
-    }
-
-    /**
-     * @param mixed $fileLogo
-     */
-    public function setFileLogo($fileLogo)
-    {
-        $this->fileLogo = $fileLogo;
     }
 
     /**
