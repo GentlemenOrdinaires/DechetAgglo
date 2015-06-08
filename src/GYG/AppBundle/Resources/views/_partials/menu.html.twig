@@ -24,72 +24,57 @@
     <!-- Sidebar Menu Items - These collapse to the responsive navigation menu on small screens -->
     <div class="collapse navbar-collapse navbar-ex1-collapse">
         <ul class="nav navbar-nav side-nav">
-            <h2>Filtres</h2>
-            <li>
-                <a href="javascript:;" data-toggle="collapse" data-target="#point_apport_menu">
-                    <i class="fa fa-trash-o"></i>
-                    Points d'apports
-                    <i class="fa fa-caret-down"></i>
-                </a>
-                <ul id="point_apport_menu" class="collapse">
-                    <li>
-                        <a href="">
-                            Entérré
-                        </a>
-                    </li>
-                    <li>
-                        <a href="javascript:;">
-                            Aerien
-                        </a>
-                    </li>
-                </ul>
-            </li>
+            <div class="text-center" style="color: #f6f6f6">
+                <h2>Filtres</h2>
+            </div>
             <li>
                 <a href="javascript:;" data-toggle="collapse" data-target="#dechet_menu">
                     <i class="fa fa-cubes"></i>
-                    Déchets
+                    Je souhaite jeter...
                     <i class="fa fa-caret-down"></i>
                 </a>
-                <ul id="dechet_menu" class="collapse">
-                    <li>
-                        <a href="javascript:;">
-                            Menager
-                        </a>
+                <ul id="dechet_menu" class="collapse in">
+                    <li style="padding: 10px;">
+                        <div class="">
+                        <input type="checkbox" id="filtre-dechet-menager"
+                               name="filtre-dechet" value="menager">
+                        <label for="filtre-dechet-menager">Déchets ménagers</label>
+                        </div>
                     </li>
-                    <li>
-                        <a href="javascript:;">
-                            Metallique
-                        </a>
+                    <li style="padding: 10px;">
+                        <input type="checkbox" id="filtre-dechet-metallique"
+                               name="filtre-dechet" value="metallique">
+                        <label for="filtre-dechet-metallique">Déchets métalliques</label>
                     </li>
-                    <li>
-                        <a href="javascript:;">
-                            Plastique
-                        </a>
+                    <li style="padding: 10px;">
+                        <input type="checkbox" id="filtre-dechet-papier-carton"
+                               name="filtre-dechet" value="papier-carton">
+                        <label for="filtre-dechet-papier-carton">Papier/Carton</label>
                     </li>
-                    <li>
-                        <a href="javascript:;">
-                            Papier, cartons
-                        </a>
+                    <li style="padding: 10px;">
+                        <input type="checkbox" id="filtre-dechet-verre"
+                               name="filtre-dechet" value="verre">
+                        <label for="filtre-dechet-verre">Verre</label>
                     </li>
-                    <li>
-                        <a href="javascript:;">
-                            Verre
-                        </a>
+                    <li style="padding: 10px;">
+                        <input type="checkbox" id="filtre-dechet-plastique"
+                               name="filtre-dechet" value="plastique">
+                        <label for="filtre-dechet-plastique">Plastique</label>
                     </li>
-                    <li>
-                        <a href="javascript:;">
-                            Textile
-                        </a>
+                    <li style="padding: 10px;">
+                        <input type="checkbox" id="filtre-dechet-textile"
+                               name="filtre-dechet" value="textile">
+                        <label for="filtre-dechet-textile">Textile</label>
                     </li>
-                    <li>
-                        <a href="javascript:;">
-                            Soin
-                        </a>
+                    <li style="padding: 10px;">
+                        <input type="checkbox" id="filtre-dechet-soin"
+                               name="filtre-dechet" value="soin">
+                        <label for="filtre-dechet-soin">Soin</label>
                     </li>
                 </ul>
             </li>
             <li>
-                <a href="javascript:" data-toggle="collapse" data-target="#dechetterie_menu" >
+                <a href="javascript:" data-toggle="collapse" data-target="#dechetterie_menu">
                     <i class="fa fa-recycle"></i>
                     Déchetteries
                 </a>
@@ -98,7 +83,7 @@
             <li>
                 <a href="javascript:;" data-toggle="collapse" data-target="#trajet_menu">
                     <i class="fa fa-truck"></i>
-                    Trajets
+                    Afficher les trajets
                 </a>
             </li>
         </ul>
