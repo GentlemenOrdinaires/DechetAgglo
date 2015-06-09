@@ -30,7 +30,8 @@ class DechetSoinHydrator {
     public function extract(DechetSoin $dechetSoin){
         $array = [
             'id' => $dechetSoin->getId(),
-            'infos' => $dechetSoin->getInfos() ? $dechetSoin->getInfos() : null,
+            'infos' => $dechetSoin->getInfos(),
+            'photo' => $dechetSoin->getPhoto()
         ];
         $array['geoJson'] = $dechetSoin->getLocalisation() instanceof Localisation ? $this->geoJsonService->parsePointToGeoJson($dechetSoin->getLocalisation()->getPoint()) : null;
 

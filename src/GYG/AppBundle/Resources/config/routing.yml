@@ -42,14 +42,14 @@ gyg_app_edit_point_apport:
     requirements:
         idPointApport:  \d+
 
-gyg_app_delete_decheterie:
-    path: /admin/delete-decheterie/{idDecheterie}
+gyg_app_delete_dechetterie:
+    path: /admin/delete-dechetterie/{idDecheterie}
     defaults: { _controller: GYGAppBundle:Decheterie:delete }
     requirements:
         idDecheterie:  \d+
 
-gyg_app_edit_decheterie:
-    path: /admin/edit-decheterie/{idDecheterie}
+gyg_app_edit_dechetterie:
+    path: /admin/edit-dechetterie/{idDecheterie}
     defaults: { _controller: GYGAppBundle:Decheterie:edit, idDecheterie: 0 }
     requirements:
         idDecheterie:  \d+

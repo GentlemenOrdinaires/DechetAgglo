@@ -67,7 +67,7 @@ class DechetSoinController extends Controller
         if($idDechetSoin == 0){
             return $this->addAction($request);
         } else {
-            $user = $this->getUser;
+            $user = $this->getUser();
             $em = $this->getDoctrine()->getManager();
             $dechetSoin = $em->getRepository('GYGAppBundle:DechetSoin')->find($idDechetSoin);
 

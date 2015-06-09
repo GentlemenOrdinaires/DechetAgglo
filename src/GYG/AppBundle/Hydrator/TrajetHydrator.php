@@ -30,10 +30,10 @@ class TrajetHydrator
     public function extract(Trajet $trajet)
     {
         $array = [
+            'id' => $trajet->getId(),
             'couleur' => $trajet->getCouleur() ? $trajet->getCouleur() : null,
-            'jourCollecte' => $trajet->getJourCollecte() ? $trajet->getJourCollecte() : null,
-            'jourCollecteSelective' => $trajet->getJourCollecteSelective() ? $trajet->getJourCollecteSelective() : null
-
+            'jourCollecte' => $trajet->getJourCollecte(),
+            'jourCollecteSelective' => $trajet->getJourCollecteSelective()
         ];
         $array['geoJson'] = $this->geoJsonService->parseArrayToGeoJson($trajet->getLocalisations());
 

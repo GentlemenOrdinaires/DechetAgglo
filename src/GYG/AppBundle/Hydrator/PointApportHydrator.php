@@ -33,7 +33,8 @@ class PointApportHydrator
     {
         $array = [
             'id' => $pointApport->getId(),
-            'infos' => $pointApport->getInfos() ? $pointApport->getInfos() : null,
+            'infos' => $pointApport->getInfos(),
+            'photo' => $pointApport->getPhoto()
         ];
         if ($pointApport instanceof PointApport\Aerien) {
             $array['type'] = PointApport\Aerien::DISCRIMINATOR;

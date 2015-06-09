@@ -32,10 +32,10 @@ class Trajet {
      * @var ArrayCollection
      * @ORM\ManyToMany(
      *      targetEntity="GYG\AppBundle\Entity\Localisation",
-     *      cascade={"all"})
+     *      cascade={"all"}, orphanRemoval=true)
      * @ORM\JoinTable(name="trajets_localisations",
-     *      joinColumns={@ORM\JoinColumn(name="trajet_id", referencedColumnName="id")},
-     *      inverseJoinColumns={@ORM\JoinColumn(name="localisation_id", referencedColumnName="id", unique=true)}
+     *      joinColumns={@ORM\JoinColumn(name="trajet_id", referencedColumnName="id", onDelete="CASCADE")},
+     *      inverseJoinColumns={@ORM\JoinColumn(name="localisation_id", referencedColumnName="id", unique=true, onDelete="CASCADE")}
      *      )
      */
     protected $localisations;

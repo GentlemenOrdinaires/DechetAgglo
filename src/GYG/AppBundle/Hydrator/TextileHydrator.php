@@ -36,7 +36,8 @@ class TextileHydrator
     {
         $array = [
             'id' => $textile->getId(),
-            'infos' => $textile->getInfos() ? $textile->getInfos() : null,
+            'infos' => $textile->getInfos(),
+            'photo' => $textile->getPhoto()
         ];
         $array['geoJson'] = $textile->getLocalisation() instanceof Localisation ? $this->geoJsonService->parsePointToGeoJson($textile->getLocalisation()->getPoint()) : null;
 

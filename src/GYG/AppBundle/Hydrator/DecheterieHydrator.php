@@ -36,8 +36,9 @@ class DecheterieHydrator
     {
         $array = [
             'id' => $decheterie->getId(),
-            'infos' => $decheterie->getInfos() ? $decheterie->getInfos() : null,
-            'horraires' => $decheterie->getHoraires() ? $decheterie->getHoraires() : null
+            'infos' => $decheterie->getInfos(),
+            'horaires' => $decheterie->getHoraires(),
+            'photo' => $decheterie->getPhoto()
         ];
         $array['geoJson'] = $decheterie->getLocalisation() instanceof Localisation ? $this->geoJsonService->parsePointToGeoJson($decheterie->getLocalisation()->getPoint()) : null;
 

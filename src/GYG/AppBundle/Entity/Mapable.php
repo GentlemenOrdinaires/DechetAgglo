@@ -27,7 +27,7 @@ abstract class Mapable {
     protected $id;
 
     /**
-     * @var Localisation @ORM\OneToOne(targetEntity="GYG\AppBundle\Entity\Localisation", cascade={"persist"})
+     * @var Localisation @ORM\OneToOne(targetEntity="GYG\AppBundle\Entity\Localisation", cascade={"all"})
      * @ORM\JoinColumn(name="localisation_id", referencedColumnName="id")
      */
     protected $localisation;
