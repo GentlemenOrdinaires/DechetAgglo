@@ -150,6 +150,7 @@ h1, h2, h3, h4, h5, h6 {
 .side-nav .fa {
     margin: 0 5px;
     text-shadow: 1px 1px 0 #2B2B2B;
+    color: #15A4FA;
 }
 
 .side-nav .collapse.in, .side-nav .collapsing {

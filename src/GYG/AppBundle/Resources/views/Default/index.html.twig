@@ -11,6 +11,58 @@
 {% block javascripts %}
     <script type="text/javascript">
         (function() {
+            var allDisplay = function() {
+                $.ajax({
+                    url: "{{ path('gyg_app_api_point_apport') }}"
+                }).done(function(data) {
+                    data.forEach(function(item, index, array) {
+                        if(item.geoJson) {
+                            DrawOnMap.setData(drawingOverlay, item, 'pointapport');
+                        }
+                    });
+                });
+
+                $.ajax({
+                    url: "{{ path('gyg_app_api_trajet') }}"
+                }).done(function(data) {
+                    data.forEach(function(item, index, array) {
+                        if(item.geoJson) {
+                            DrawOnMap.setData(drawingOverlay, item, 'trajet');
+                        }
+                    });
+                });
+
+                $.ajax({
+                    url: "{{ path('gyg_app_api_dechet_soin') }}"
+                }).done(function(data) {
+                    data.forEach(function(item, index, array) {
+                        if(item.geoJson) {
+                            DrawOnMap.setData(drawingOverlay, item, 'dechetsoin');
+                        }
+                    });
+                });
+
+                $.ajax({
+                    url: "{{ path('gyg_app_api_textile') }}"
+                }).done(function(data) {
+                    data.forEach(function(item, index, array) {
+                        if(item.geoJson) {
+                            DrawOnMap.setData(drawingOverlay, item, 'textile');
+                        }
+                    });
+                });
+
+                $.ajax({
+                    url: "{{ path('gyg_app_api_dechetterie') }}"
+                }).done(function(data) {
+                    data.forEach(function(item, index, array) {
+                        if(item.geoJson) {
+                            DrawOnMap.setData(drawingOverlay, item, 'dechetterie');
+                        }
+                    });
+                });
+            };
+
             var startOption = {
                 initLat: 581647.9745650819,
                 initLong: 5813280.860704543,
@@ -22,26 +74,6 @@
             var drawingOverlay;
 
             drawingOverlay = DrawOnMap.initialize(startOption, map);
-
-            $.ajax({
-                url: "{{ path('gyg_app_api_point_apport') }}"
-            }).done(function(data) {
-                data.forEach(function(item, index, array) {
-                    if(item.geoJson) {
-                        DrawOnMap.setData(drawingOverlay, item, 'pointapport');
-                    }
-                });
-            });
-
-            $.ajax({
-                url: "{{ path('gyg_app_api_trajet') }}"
-            }).done(function(data) {
-                data.forEach(function(item, index, array) {
-                    if(item.geoJson) {
-                        DrawOnMap.setData(drawingOverlay, item, 'trajet');
-                    }
-                });
-            });
 
             DrawOnMap.geolocation(drawingOverlay);
 
@@ -80,6 +112,68 @@
                     });
                 });
             })
+
+            $('#filter-dechet-soin').on('click', function(e) {
+                DrawOnMap.removeAllFeatures(drawingOverlay);
+                $.ajax({
+                    url: "{{ path('gyg_app_api_dechet_soin') }}"
+                }).done(function(data) {
+                    data.forEach(function(item, index, array) {
+                        if(item.geoJson) {
+                            DrawOnMap.setData(drawingOverlay, item, 'dechetsoin');
+                        }
+                    });
+                });
+            });
+
+            $('#filter-dechetterie').on('click', function(e) {
+                DrawOnMap.removeAllFeatures(drawingOverlay);
+                $.ajax({
+                    url: "{{ path('gyg_app_api_dechetterie') }}"
+                }).done(function(data) {
+                    data.forEach(function(item, index, array) {
+                        if(item.geoJson) {
+                            DrawOnMap.setData(drawingOverlay, item, 'dechetterie');
+                        }
+                    });
+                });
+
+            });
+
+            $('#filter-textile').on('click', function(e) {
+                DrawOnMap.removeAllFeatures(drawingOverlay);
+                $.ajax({
+                    url: "{{ path('gyg_app_api_textile') }}"
+                }).done(function(data) {
+                    data.forEach(function(item, index, array) {
+                        if(item.geoJson) {
+                            DrawOnMap.setData(drawingOverlay, item, 'textile');
+                        }
+                    });
+                });
+
+            });
+
+            $('#filter-trajet').on('click', function(e) {
+                DrawOnMap.removeAllFeatures(drawingOverlay);
+                $.ajax({
+                    url: "{{ path('gyg_app_api_trajet') }}"
+                }).done(function(data) {
+                    data.forEach(function(item, index, array) {
+                        if(item.geoJson) {
+                            DrawOnMap.setData(drawingOverlay, item, 'trajet');
+                        }
+                    });
+                });
+
+            });
+
+            $('#filter-reset').on('click', function(e) {
+                DrawOnMap.removeAllFeatures(drawingOverlay);
+                allDisplay();
+            });
+
+            allDisplay();
 
         })();
     </script>
