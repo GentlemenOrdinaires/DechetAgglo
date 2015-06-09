@@ -8,7 +8,6 @@
 namespace GYG\AppBundle\Hydrator;
 
 
-use Doctrine\ORM\Internal\Hydration\AbstractHydrator;
 use GYG\AppBundle\Entity\Dechet;
 use GYG\AppBundle\Entity\Localisation;
 use GYG\AppBundle\Entity\PointApport;

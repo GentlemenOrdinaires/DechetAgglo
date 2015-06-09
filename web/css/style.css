@@ -268,3 +268,21 @@ input[type=checkbox] + label:before { letter-spacing: 10px; } /* space between c
 
 input[type=checkbox]:checked + label:before { content: "\f046"; color: #15A4FA; } /* checked icon */
 input[type=checkbox]:checked + label:before { letter-spacing: 5px; } /* allow space for check mark */
+
+/* -------------- */
+
+.address-field input {
+    width: 90%;
+    display: inline-block;
+    height: 40px;
+    border-radius: 3px;
+    border: none;
+    border-bottom: solid 1px #BEBDBD;
+    padding: 10px;
+    background-color: #DFDFDF;
+}
+
+.address-field {
+    text-align: center;
+    margin-bottom: 0;
+}

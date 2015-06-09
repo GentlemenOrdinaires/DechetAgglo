@@ -9,7 +9,8 @@ namespace GYG\AppBundle\Hydrator;
 
 
 use GYG\AppBundle\Entity\DechetSoin;
-use Proxies\__CG__\GYG\AppBundle\Entity\Localisation;
+use GYG\AppBundle\Entity\Localisation;
+use GYG\AppBundle\Service\GeoJson;
 
 class DechetSoinHydrator {
 

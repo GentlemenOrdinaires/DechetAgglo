@@ -2,8 +2,10 @@
 
 {% block body %}
     {% include 'GYGAppBundle::_partials/menu.html.twig' %}
+    <div class="well address-field">
+        <input type="text" id="address" placeholder="123 Rue Dupont 01000 Bourg-en-Bresse"/>
+    </div>
     {{ parent() }}
-    <input type="text" id="address"/>
 {% endblock %}
 
 {% block javascripts %}
@@ -13,7 +15,8 @@
                 initLat: 581647.9745650819,
                 initLong: 5813280.860704543,
                 initZoom: 17,
-                editable: false
+                editable: false,
+                imageRootFolder: '{{ asset('') }}img/'
             };
             var map;
             var drawingOverlay;
@@ -48,6 +51,35 @@
                     DrawOnMap.getLocalisationFromAddress(drawingOverlay, $('#address').val());
                 }
             });
+
+            $('#dechet_menu input[type=checkbox]').on('change', function(e) {
+                DrawOnMap.removeAllFeatures(drawingOverlay);
+                var firstChecked = $('#dechet_menu input[type=checkbox]:checked')[0];
+                var checked = $('#dechet_menu input[type=checkbox]:checked');
+
+                var typeOfDechet = $(firstChecked).attr('value');
+                $.ajax({
+                    url: "{{ path('gyg_app_api_point_apport') }}?dechetType=" + typeOfDechet
+                }).done(function(data) {
+                    $.each(data, function(index, compatiblePointApport) {
+                        var dechetsForPointApport = [];
+                        var compatible = true;
+                        $.each(compatiblePointApport.dechets, function(index, dechetObj) {
+                            dechetsForPointApport.push(dechetObj.type);
+                        });
+
+                        $.each(checked, function(index, checkbox) {
+                            checkbox = $(checkbox);
+                            if(dechetsForPointApport.indexOf(checkbox.attr('value')) == -1) compatible = false;
+                        });
+
+
+                        if(compatible && compatiblePointApport.geoJson) {
+                            DrawOnMap.setData(drawingOverlay, compatiblePointApport, 'pointapport');
+                        }
+                    });
+                });
+            })
 
         })();
     </script>

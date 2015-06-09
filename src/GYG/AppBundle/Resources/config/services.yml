@@ -9,13 +9,13 @@ services:
     class:        GYG\AppBundle\Hydrator\TrajetHydrator
     arguments:    [@service_geo_json]
   hydrator_dechet_soin:
-      class:        GYG\AppBundle\Hydrator\DechetSoinHydrator
-      arguments:    [@service_geo_json]
+    class:        GYG\AppBundle\Hydrator\DechetSoinHydrator
+    arguments:    [@service_geo_json]
   hydrator_decheterie:
-      class:        GYG\AppBundle\Hydrator\DechetSoinHydrator
-      arguments:    [@service_geo_json]
+    class:        GYG\AppBundle\Hydrator\DecheterieHydrator
+    arguments:    [@service_geo_json]
   hydrator_textile:
-        class:        GYG\AppBundle\Hydrator\TextileHydrator
-        arguments:    [@service_geo_json]
+    class:        GYG\AppBundle\Hydrator\TextileHydrator
+    arguments:    [@service_geo_json]
   service_geo_json:
     class:        GYG\AppBundle\Service\GeoJson

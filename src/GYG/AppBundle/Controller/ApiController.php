@@ -12,9 +12,9 @@ use GYG\AppBundle\Entity\PointApport;
 use GYG\AppBundle\Entity\Textile;
 use GYG\AppBundle\Entity\Trajet;
 use GYG\AppBundle\ValueObject\Point;
-use Proxies\__CG__\GYG\AppBundle\Entity\Decheterie;
-use Proxies\__CG__\GYG\AppBundle\Entity\PointApport\Aerien;
-use Proxies\__CG__\GYG\AppBundle\Entity\PointApport\Enterre;
+use GYG\AppBundle\Entity\Decheterie;
+use GYG\AppBundle\Entity\PointApport\Aerien;
+use GYG\AppBundle\Entity\PointApport\Enterre;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -104,7 +104,6 @@ class ApiController extends Controller
             }
         } else {
             $entities = $this->getDoctrine()->getManager()->getRepository('GYG\AppBundle\Entity\DechetSoin')->findAll();
-
             $entitiesArray = [];
             foreach ($entities as $entity) {
                 if ($entity instanceof DechetSoin) {
@@ -148,14 +147,14 @@ class ApiController extends Controller
         if ($request->query->get('id')) {
             $entity = $this->getDoctrine()->getManager()->getRepository('GYG\AppBundle\Entity\Textile')->find($request->query->get('id'));
             if ($entity instanceof Textile) {
-                return new JsonResponse($this->get('hydrator_trajet')->extract($entity));
+                return new JsonResponse($this->get('hydrator_textile')->extract($entity));
             }
         } else {
             $entities = $this->getDoctrine()->getManager()->getRepository('GYG\AppBundle\Entity\Textile')->findAll();
             $entitiesArray = [];
             foreach ($entities as $entity) {
                 if ($entity instanceof Textile) {
-                    $entitiesArray[] = $this->get('hydrator_trajet')->extract($entity);
+                    $entitiesArray[] = $this->get('hydrator_textile')->extract($entity);
                 }
             }
             return new JsonResponse($entitiesArray);

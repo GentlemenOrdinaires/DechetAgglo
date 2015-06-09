@@ -11,6 +11,8 @@ namespace GYG\AppBundle\Form;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
+use GYG\AppBundle\Service\GeoJson;
+
 
 class DechetSoinType extends AbstractType{
 

@@ -8,7 +8,9 @@
 namespace GYG\AppBundle\Hydrator;
 
 
-use Proxies\__CG__\GYG\AppBundle\Entity\Textile;
+use GYG\AppBundle\Entity\Localisation;
+use GYG\AppBundle\Service\GeoJson;
+use GYG\AppBundle\Entity\Textile;
 
 class TextileHydrator
 {

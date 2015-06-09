@@ -39,7 +39,7 @@ class TextileController extends Controller
         return $this->render('GYGAppBundle:_partials:form.html.twig', array(
             'form' => $form->createView(),
             'formTitle' => 'Ajouter un point d\'apport textile',
-            'formAction' => $this->generateUrl('gyg_app_edit_point_apport', array()),
+            'formAction' => $this->generateUrl('gyg_app_edit_textile', array()),
             'textile' => $textile,
             'user' => $user
         ));
