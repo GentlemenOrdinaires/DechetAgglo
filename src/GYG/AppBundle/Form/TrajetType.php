@@ -44,6 +44,9 @@ class TrajetType extends AbstractType{
                     'class' => 'geojson-value'
                 ]
             ])
+            ->add('legende', 'text', [
+                'label' => 'Légende',
+            ])
             ->add('save','submit',[
                 'label' => 'Sauvegarder',
                 'attr' => [
