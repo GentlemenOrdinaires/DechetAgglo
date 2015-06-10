@@ -34,7 +34,7 @@ class UserController extends Controller{
         $user = $this->getUser();
         $this->users = $userManager->findUsers();
 
-        return $this->render('GYGUserBundle:User:liste.html.twig',array(
+        return $this->render('GYGUserBundle:User:list.html.twig',array(
             'user' => $user,
             'users'     => $this->users,
         ));
