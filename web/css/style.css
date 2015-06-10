@@ -115,9 +115,13 @@ body {
 
 .side-nav>li>ul>li>a {
     display: block;
-    padding: 10px 15px 10px 38px;
+    padding: 10px 15px 10px 40px;
     text-decoration: none;
     color: #999;
+}
+
+.side-nav .checkbox-collapse li {
+    padding: 10px 15px 10px 40px;
 }
 
 .side-nav>li>ul>li>a:hover {
@@ -159,10 +163,6 @@ h1, h2, h3, h4, h5, h6 {
     border-left: solid 3px #15A4FA;
     list-style: none;
 
-}
-
-.side-nav .collapse.in li, .side-nav .collapsing li {
-    padding: 10px;
 }
 
 .side-nav .collapse.in li a:hover {
