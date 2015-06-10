@@ -162,7 +162,7 @@ class Decheterie extends Mapable{
     }
 
     public function getUploadDir() {
-        return 'uploads/decheterie';
+        return 'uploads/dechetterie';
     }
 
     public function getAbsolutePath() {
