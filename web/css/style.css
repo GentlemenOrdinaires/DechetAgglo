@@ -157,7 +157,12 @@ h1, h2, h3, h4, h5, h6 {
     box-shadow: inset 1px 1px 5px #1E2227;
     background-color: #232B38;
     border-left: solid 3px #15A4FA;
+    list-style: none;
 
+}
+
+.side-nav .collapse.in li, .side-nav .collapsing li {
+    padding: 10px;
 }
 
 .side-nav .collapse.in li a:hover {
