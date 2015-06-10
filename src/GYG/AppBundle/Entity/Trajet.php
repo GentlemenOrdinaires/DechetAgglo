@@ -57,6 +57,11 @@ class Trajet {
      */
     protected  $jourCollecteSelective;
 
+    /**
+     * @var String @ORM\Column(name="legende", type="string", length=255, nullable=false)
+     */
+    protected $legende;
+
 
     public function __construct(){
         $this->localisations = new ArrayCollection();
@@ -148,5 +153,21 @@ class Trajet {
     public function setLocalisations(ArrayCollection $localisations)
     {
         $this->localisations = $localisations;
+    }
+
+    /**
+     * @return String
+     */
+    public function getLegende()
+    {
+        return $this->legende;
+    }
+
+    /**
+     * @param String $legende
+     */
+    public function setLegende($legende)
+    {
+        $this->legende = $legende;
     }
 } 

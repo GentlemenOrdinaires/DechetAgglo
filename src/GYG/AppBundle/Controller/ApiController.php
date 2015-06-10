@@ -123,7 +123,7 @@ class ApiController extends Controller
     {
         if ($request->query->get('id')) {
             $entity = $this->getDoctrine()->getManager()->getRepository('GYG\AppBundle\Entity\Decheterie')->find($request->query->get('id'));
-            if($entity instanceof Decheterie){
+            if ($entity instanceof Decheterie) {
                 return new JsonResponse($this->get('hydrator_decheterie')->extract($entity));
             }
         } else {
@@ -143,7 +143,8 @@ class ApiController extends Controller
      * @param Request $request
      * @return JsonResponse
      */
-    public function getTextileAction(Request $request){
+    public function getTextileAction(Request $request)
+    {
         if ($request->query->get('id')) {
             $entity = $this->getDoctrine()->getManager()->getRepository('GYG\AppBundle\Entity\Textile')->find($request->query->get('id'));
             if ($entity instanceof Textile) {
@@ -160,6 +161,28 @@ class ApiController extends Controller
             return new JsonResponse($entitiesArray);
         }
         return new JsonResponse([]);
+    }
+
+    /**
+     * @return JsonResponse
+     */
+    public function getLegendeAction()
+    {
+        $entity = $this->getDoctrine()->getManager()->getRepository('GYG\AppBundle\Entity\Trajet')->findAll();
+        $array = [];
+
+        foreach ($entity as $trajet) {
+            if ($trajet instanceof Trajet) {
+                if (!in_array($trajet->getLegende(), $array)) {
+                    $legendeArray = [
+                        'couleur' => $trajet->getCouleur(),
+                        'legende' => $trajet->getLegende()
+                    ];
+                    $array[] = $legendeArray;
+                }
+            }
+        }
+        return new JsonResponse($array);
     }
 
     /**
@@ -184,6 +207,16 @@ class ApiController extends Controller
             if ($result instanceof Trajet) {
                 return new JsonResponse($this->get('hydrator_trajet')->extract($result));
             }
+
+        } elseif ($request->query->get('legende')) {
+            $entities = $this->getDoctrine()->getManager()->getRepository('GYG\AppBundle\Entity\Trajet')->findByLegende($request->query->get('legende'));
+            $entitiesArray = [];
+            foreach ($entities as $entity) {
+                if ($entity instanceof Trajet) {
+                    $entitiesArray[] = $this->get('hydrator_trajet')->extract($entity);
+                }
+            }
+            return new JsonResponse($entitiesArray);
         } else {
             $entities = $this->getDoctrine()->getManager()->getRepository('GYG\AppBundle\Entity\Trajet')->findAll();
 

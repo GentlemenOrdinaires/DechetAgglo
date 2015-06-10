@@ -18,6 +18,10 @@ gyg_app_api_trajet:
     path:   /api/trajet
     defaults:  { _controller: GYGAppBundle:Api:getTrajet }
 
+gyg_app_api_legende:
+    path:   /api/legende
+    defaults:  { _controller: GYGAppBundle:Api:getLegende }
+
 gyg_app_api_dechetterie:
     path:   /api/dechetterie
     defaults:  { _controller: GYGAppBundle:Api:getDechetterie }
