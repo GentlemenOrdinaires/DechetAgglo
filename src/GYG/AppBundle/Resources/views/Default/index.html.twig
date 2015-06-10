@@ -155,15 +155,34 @@
             });
 
             $('#filter-trajet').on('click', function(e) {
-                DrawOnMap.removeAllFeatures(drawingOverlay);
                 $.ajax({
-                    url: "{{ path('gyg_app_api_trajet') }}"
+                    url: "{{ path('gyg_app_api_legende') }}"
                 }).done(function(data) {
+                    var html = '';
                     data.forEach(function(item, index, array) {
-                        if(item.geoJson) {
-                            DrawOnMap.setData(drawingOverlay, item, 'trajet');
-                        }
+                        html += '<li style="border-left:solid 4px #' + item.couleur + '">';
+                        html += '<input type="checkbox" class="filtre-trajet" name="filtre-trajet-value" id="filtre-trajet-' + item.couleur + '" value="' + item.legende + '">';
+                        html += '<label for="filtre-trajet-' + item.couleur + '">' + item.legende + '</label>';
+                        html += '</li>';
                     });
+                    $('#trajet_legende').html(html);
+
+                    $('.filtre-trajet').on('change', function(e) {
+                        DrawOnMap.removeAllFeatures(drawingOverlay);
+                        var checked = $('.filtre-trajet:checked').get();
+                        checked.forEach(function(itemChecked, index, array) {
+                            var value = $(itemChecked).val();
+                            $.ajax({
+                                url: "{{ path('gyg_app_api_trajet') }}?legende="+value
+                            }).done(function(data) {
+                                data.forEach(function(item, index, array) {
+                                    if(item.geoJson) {
+                                        DrawOnMap.setData(drawingOverlay, item, 'trajet');
+                                    }
+                                });
+                            });
+                        });
+                    })
                 });
 
             });

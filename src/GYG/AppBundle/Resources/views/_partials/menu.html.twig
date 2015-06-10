@@ -19,7 +19,7 @@
     </div>
     <!-- Top Menu Items -->
     <ul class="nav navbar-left top-nav">
-        <li><h2>Carte</h2></li>
+        <li><h2>Gestion de déchets</h2></li>
     </ul>
     <!-- Sidebar Menu Items - These collapse to the responsive navigation menu on small screens -->
     <div class="collapse navbar-collapse navbar-ex1-collapse">
@@ -34,29 +34,29 @@
                     <i class="fa fa-caret-down"></i>
                 </a>
                 <ul id="dechet_menu" class="collapse in">
-                    <li style="padding: 10px;">
+                    <li>
                         <div class="">
                         <input type="checkbox" id="filtre-dechet-menager"
                                name="filtre-dechet" value="menager">
                         <label for="filtre-dechet-menager">Déchets ménagers</label>
                         </div>
                     </li>
-                    <li style="padding: 10px;">
+                    <li>
                         <input type="checkbox" id="filtre-dechet-metallique"
                                name="filtre-dechet" value="metallique">
                         <label for="filtre-dechet-metallique">Déchets métalliques</label>
                     </li>
-                    <li style="padding: 10px;">
+                    <li>
                         <input type="checkbox" id="filtre-dechet-papier-carton"
                                name="filtre-dechet" value="papier-carton">
                         <label for="filtre-dechet-papier-carton">Papier/Carton</label>
                     </li>
-                    <li style="padding: 10px;">
+                    <li>
                         <input type="checkbox" id="filtre-dechet-verre"
                                name="filtre-dechet" value="verre">
                         <label for="filtre-dechet-verre">Verre</label>
                     </li>
-                    <li style="padding: 10px;">
+                    <li>
                         <input type="checkbox" id="filtre-dechet-plastique"
                                name="filtre-dechet" value="plastique">
                         <label for="filtre-dechet-plastique">Plastique</label>
@@ -83,10 +83,13 @@
             </li>
             </li>
             <li>
-                <a id="filter-trajet" href="javascript:;" data-toggle="collapse" data-target="#trajet_menu">
+                <a id="filter-trajet" href="javascript:;" data-toggle="collapse" data-target="#trajet_legende">
                     <i class="fa fa-truck"></i>
                     Afficher les trajets
+                    <i class="fa fa-caret-down"></i>
                 </a>
+                <ul style="border-left: none;" id="trajet_legende" class="collapse">
+                </ul>
             </li>
             <li>
                 <a id="filter-reset" href="javascript:;" data-toggle="collapse" data-target="#trajet_menu">
