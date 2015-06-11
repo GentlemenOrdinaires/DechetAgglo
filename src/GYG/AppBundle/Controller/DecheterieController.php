@@ -31,7 +31,7 @@ class DecheterieController extends Controller
                 $em->persist($decheterie);
                 $em->flush();
 
-                $request->getSession()->getFlashBag()->add('notice', 'Dechetterie bien enregistrée.');
+                $request->getSession()->getFlashBag()->add('notice', 'Déchetterie bien enregistrée.');
 
                 return $this->redirect($this->generateUrl('gyg_app_adminpage', array()));
             }
@@ -53,13 +53,13 @@ class DecheterieController extends Controller
         $decheterie = $em->getRepository('GYGAppBundle:Decheterie')->find($idDecheterie);
 
         if (!$decheterie) {
-            throw $this->createNotFoundException('Décheterie non trouvée');
+            throw $this->createNotFoundException('Déchetterie non trouvée');
         }
 
         $em->remove($decheterie);
         $em->flush();
 
-        $request->getSession()->getFlashBag()->add('notice', 'Dechetterie bien supprimée.');
+        $request->getSession()->getFlashBag()->add('notice', 'Déchetterie bien supprimée.');
 
         return $this->redirect($this->generateUrl('gyg_app_adminpage', array()));
     }
@@ -97,7 +97,7 @@ class DecheterieController extends Controller
 
             return $this->render('GYGAppBundle:_partials:form.html.twig', array(
                 'form' => $form->createView(),
-                'formTitle' => 'Editer une dechetterie',
+                'formTitle' => 'Editer une déchetterie',
                 'formAction' => $this->generateUrl('gyg_app_edit_dechetterie', array('idDecheterie' => $decheterie->getId())),
                 'elementToEdit' => $decheterie,
                 'routeToApi' => 'gyg_app_api_dechetterie',

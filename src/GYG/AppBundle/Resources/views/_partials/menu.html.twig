@@ -64,7 +64,7 @@
             <li>
                 <a id="filter-dechet-soin" href="javascript:">
                     <i class="fa fa-heartbeat"></i>
-                    Dechet Soin
+                    Déchets de soins
                 </a>
             </li>
             <li>
@@ -94,6 +94,38 @@
                     <i class="fa fa-times"></i>
                     Réinitialiser
                 </a>
+            </li>
+            <li>
+                <a href="javascript:;" data-toggle="collapse" data-target="#info_menu">
+                    <i class="fa fa-fw fa-dashboard"></i>
+                    + d'informations
+                    <i class="fa fa-caret-down"></i>
+                </a>
+                <ul id="info_menu" class="checkbox-collapse collapse">
+                    <li>
+                        <img id="location" src="{{ asset('img/location.png') }}"/>
+                        <label for="location">Votre position</label>
+                    </li>
+                    <li>
+                        <img id="point-aerien" src="{{ asset('img/pointAerien-jaune-vert-bleu.png') }}"/>
+                        <label for="point-aerien">Point d'apport aerien</label>
+                    </li>
+                    <li>
+                        <img id="point-enterre" src="{{ asset('img/pointEnterre-jaune-vert-gris.png') }}"/>
+                        <label for="point-enterre">Point d'apport enterré</label>
+                    </li>
+                    <li>
+                        <img id="sante" src="{{ asset('img/sante.png') }}"/>
+                        <label for="sante">Déchets de soins</label>
+                    </li>
+                    <li>
+                        <img id="textile" src="{{ asset('img/textile.png') }}"/>
+                        <label for="textile">Dépôt de textile</label>
+                    </li>
+                    <li>
+                        <img id="dechetterie" src="{{ asset('img/dechetterie.png') }}"/>
+                        <label for="dechetterie">Déchetterie</label>
+                    </li>
             </li>
         </ul>
     </div>
