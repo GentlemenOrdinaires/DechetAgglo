@@ -60,7 +60,7 @@
                 $('#admin-form .geojson-value').val(DrawOnMap.getData(drawingOverlay));
             });
 
-            $('#gyg_appbundle_pointapport_filePhoto').fileinput({'showUpload':false, 'previewFileType':'image', 'language':'fr'});
+            $('input[type="file"]').fileinput({'showUpload':false, 'previewFileType':'image', 'language':'fr'});
         })();
     </script>
 {% endblock %}
