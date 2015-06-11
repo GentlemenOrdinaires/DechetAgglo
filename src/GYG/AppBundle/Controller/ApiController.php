@@ -173,11 +173,11 @@ class ApiController extends Controller
 
         foreach ($entity as $trajet) {
             if ($trajet instanceof Trajet) {
-                if (!in_array($trajet->getLegende(), $array)) {
-                    $legendeArray = [
-                        'couleur' => $trajet->getCouleur(),
-                        'legende' => $trajet->getLegende()
-                    ];
+                $legendeArray = [
+                    'couleur' => $trajet->getCouleur(),
+                    'legende' => $trajet->getLegende()
+                ];
+                 if (!in_array($legendeArray, $array)) {
                     $array[] = $legendeArray;
                 }
             }
