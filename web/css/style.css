@@ -313,6 +313,10 @@ input[type=checkbox]:checked + label:before { letter-spacing: 5px; } /* allow sp
     border-radius: 0;
 }
 
+.modal-content img{
+    max-height: 250px;
+}
+
 /* ------------- */
 .btn-file i{
     color: white;
