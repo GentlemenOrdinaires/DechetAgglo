@@ -312,3 +312,8 @@ input[type=checkbox]:checked + label:before { letter-spacing: 5px; } /* allow sp
     border: none;
     border-radius: 0;
 }
+
+/* ------------- */
+.btn-file i{
+    color: white;
+}
